@@ -1,0 +1,74 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+
+const NUMBER_OF_LATEST = 3;
+const latestPosts = posts.slice(0, NUMBER_OF_LATEST);
+const morePosts = posts.length - NUMBER_OF_LATEST;
+---
+
+<BlogLayout title="Blog">
+  <h1>
+    <span data-pt>
+      {latestPosts.length === 1 ? "Ultima postagem" : `Ultimas ${latestPosts.length} postagens`}
+    </span>
+    <span data-en>
+      Latest {latestPosts.length} Post{latestPosts.length !== 1 ? "s" : ""}
+    </span>
+  </h1>
+
+  <ol
+    reversed
+    class="postlist"
+    style={`--postlist-index: ${posts.length + 1}`}
+  >
+    {
+      latestPosts.map((post) => {
+        const date = post.data.date ? new Date(post.data.date) : null;
+        const htmlDate = date ? date.toISOString().split("T")[0] : null;
+        const readableDate = date
+          ? date.toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+            })
+          : null;
+
+        return (
+          <li class="postlist-item">
+            <a href={`/blog/${post.slug}/`} class="postlist-link">
+              {post.data.title}
+            </a>
+            {htmlDate && (
+              <time class="postlist-date" datetime={htmlDate}>
+                {readableDate}
+              </time>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+
+  {
+    morePosts > 0 && (
+      <p>
+        <span data-pt>
+          Mais {morePosts} postagem{morePosts !== 1 ? "s" : ""} no{" "}
+          <a href="/blog/archive/">arquivo</a>.
+        </span>
+        <span data-en>
+          {morePosts} more post{morePosts !== 1 ? "s" : ""} in{" "}
+          <a href="/blog/archive/">the archive</a>.
+        </span>
+      </p>
+    )
+  }
+</BlogLayout>

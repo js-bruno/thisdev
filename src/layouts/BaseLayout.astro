@@ -1,0 +1,23 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = "Page" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/assets/css/index.css" />
+    <link rel="stylesheet" href="/assets/css/normalize.css" />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0e118f8942084533a0917ae4eb97949b"}'></script><!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

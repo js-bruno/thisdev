@@ -1,0 +1,128 @@
+:root {
+  --parallax-image:url("/assets/images/w.png");
+  --background-parallax:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    var(--parallax-image) center/cover no-repeat fixed;
+}
+
+* {
+  image-rendering: pixelated;
+  box-sizing:border-box;
+  font-family: 'CaskaydiaMonoNerd';
+  scrollbar-color: cadetblue darkslategrey;
+  overscroll-behavior: none;
+  margin:0;
+  padding:0;
+ }
+
+body {
+  font-size: 2rem;
+  color:white;
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  min-height:100vh;
+  font-family:sans-serif;
+  background: var(--background-parallax);
+}
+
+h2 {
+
+  font-size:5em;
+}
+
+
+header {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border-color: darkslategrey;
+  padding:1.5rem;
+}
+
+header > h3{
+  margin: 0 0 0.25rem;
+  font-size: 4rem;
+}
+
+header > p{
+  font-size:50%;
+  margin:0;
+}
+
+article {
+  padding:2% 6% 2% 6%;
+  font-size: 1.5rem;
+}
+
+article > pre{
+    display:flex;
+    justify-content: center;
+}
+
+a {
+	color: teal;
+	padding: 1px;
+}
+
+a:hover, a:focus {
+	background-color: teal;
+	color: white;
+}
+
+.container {
+  gap:1rem;
+  margin-top:1.5rem;
+}
+
+.ui-centralize-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:2% 5% 5% 5%;
+    max-width: 1500px;
+    margin: auto;
+    padding-inline: clamp(2rem, 4vw, 3rem);
+}
+
+.disclamer {
+  font-size:70%;
+  padding:1.25%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.disclamer > p{
+  margin:0.50% 10% 0.5% 10%;
+  line-height: 1.4;
+  max-width: 100%;
+  white-space: normal;
+}
+
+.border {
+  border-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAABNUlEQVRYR92ZMRbCMAxD05HDcVoOxwiTGQx6kp2k2GVtUr4VW07SYzT5HU04BwS93cfrH0E8H7+Z+oKakiiy3Sqj//9StDyoB0Q5ipT2420cCpy938/7KHoZUFVJn8Ms19WVkBUtD8oAo4qZ4n4eSj0bRxUtD+pzTc0l5rOq/clV3x6U5SRT1J4zZacVLQfKqlBVDqWQ2rnCVc+WSgVXBQgv/SpAFIjqJtBH1aRXldwGiiKdBcvaHu1MqOWtAp5e+rMVZb2/jKJpUFRMq1yA2dS0PZUF3WVTLOCwou1As8Ds0KhuzGlnYpsK5qfbQbPncdYqVQXlHG0HqrZQdPPB5p/eQsuARs/jUSX9+HCOsiua2apG74egWZ9k9hR9joq43/0o23lHlcmOv94dflaJ3fPafGd6A70m7DplxbGoAAAAAElFTkSuQmCC') 14 /  14px / 0 round;
+  border-width:  14px;
+  background-color: rgb(0, 20, 20, 77%);
+  border-style:  solid; 
+}
+
+@media (max-width: 868px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  /* .ui-centralize-wrapper { */
+  /*   padding-inline: 0; */
+  /* } */
+
+}
+
+@font-face {
+  font-family: "CaskaydiaMonoNerd";
+  src: url("/assets/fonts/CaskaydiaMonoNerdFontMono-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+

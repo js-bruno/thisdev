@@ -1,0 +1,46 @@
+---
+const bottomImages = [
+  { src: "/assets/images/bottoms/coils.webp", alt: "coils.net" },
+  { src: "/assets/images/bottoms/dimdens.webp", alt: "dimdens.net" },
+  { src: "/assets/images/bottoms/oii.webp", alt: "oii" },
+  { src: "/assets/images/bottoms/inkcaps.webp", alt: "inkcaps" },
+  { src: "/assets/images/bottoms/vms.webp", alt: "vms" },
+  { src: "/assets/images/bottoms/ribozone.webp", alt: "ribozone" },
+];
+
+const repeatedImages = [...bottomImages, ...bottomImages, ...bottomImages, ...bottomImages, ...bottomImages];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mural</title>
+    <link rel="stylesheet" href="/assets/css/links.css" />
+  </head>
+  <body>
+    <div class="container">
+      <article>
+        <h2>some funny websites bottoms</h2>
+        <div class="bottoms-container">
+          {
+            repeatedImages.map((img) => (
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            ))
+          }
+        </div>
+        <p>some personal-website that i think it's awesome and want to store</p>
+      </article>
+
+      <article>
+        <h2>some funny websites bottoms</h2>
+      </article>
+    </div>
+  </body>
+</html>

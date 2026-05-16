@@ -1,0 +1,144 @@
+---
+import BlogLayout from "./BlogLayout.astro";
+
+interface Props {
+  title: string;
+  date?: Date;
+  description?: string;
+  tags?: string | string[];
+  prevPost?: { url: string; title: string } | null;
+  nextPost?: { url: string; title: string } | null;
+}
+
+const { title, date, description, tags, prevPost, nextPost } = Astro.props;
+
+const formattedDate = date
+  ? new Date(date).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    })
+  : null;
+
+const htmlDate = date ? new Date(date).toISOString().split("T")[0] : null;
+
+const tagList = tags
+  ? Array.isArray(tags)
+    ? tags
+    : [tags]
+  : [];
+---
+
+<BlogLayout title={title} description={description}>
+  <!-- Prism syntax highlight CSS for code blocks -->
+  <style>
+    /* prism-okaidia theme inline since we can't bundle like eleventy */
+    code[class*="language-"],
+    pre[class*="language-"] {
+      color: #f8f8f2;
+      background: none;
+      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.5;
+      tab-size: 4;
+      hyphens: none;
+    }
+    pre[class*="language-"] {
+      padding: 1em;
+      margin: 0.5em 0;
+      overflow: auto;
+      border-radius: 0.3em;
+      background: #272822;
+    }
+    :not(pre) > code[class*="language-"] {
+      background: #272822;
+      padding: 0.1em;
+      border-radius: 0.3em;
+      white-space: normal;
+    }
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata { color: #8292a2; }
+    .token.punctuation { color: #f8f8f2; }
+    .token.namespace { opacity: 0.7; }
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted { color: #f92672; }
+    .token.boolean,
+    .token.number { color: #ae81ff; }
+    .token.selector,
+    .token.attr-name,
+    .token.string,
+    .token.char,
+    .token.builtin,
+    .token.inserted { color: #a6e22e; }
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string,
+    .token.variable { color: #f8f8f2; }
+    .token.atrule,
+    .token.attr-value,
+    .token.function,
+    .token.class-name { color: #e6db74; }
+    .token.keyword { color: #66d9ef; }
+    .token.regex,
+    .token.important { color: #fd971f; }
+    .token.important,
+    .token.bold { font-weight: bold; }
+    .token.italic { font-style: italic; }
+  </style>
+
+  <h1>{title}</h1>
+
+  <ul class="post-metadata">
+    {
+      formattedDate && htmlDate && (
+        <li>
+          <time datetime={htmlDate}>{formattedDate}</time>
+        </li>
+      )
+    }
+    {
+      tagList.map((tag) => (
+        <li>
+          <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`} class="post-tag">
+            {tag}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <slot />
+
+  {
+    (prevPost || nextPost) && (
+      <ul class="links-nextprev">
+        {prevPost && (
+          <li class="links-nextprev-prev">
+            <span data-pt>← Anterior</span><span data-en>← Previous</span>
+            <br />
+            <a href={prevPost.url}>{prevPost.title}</a>
+          </li>
+        )}
+        {nextPost && (
+          <li class="links-nextprev-next">
+            <span data-pt>Próximo →</span><span data-en>Next →</span>
+            <br />
+            <a href={nextPost.url}>{nextPost.title}</a>
+          </li>
+        )}
+      </ul>
+    )
+  }
+</BlogLayout>
