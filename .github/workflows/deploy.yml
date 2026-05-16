@@ -28,7 +28,7 @@ jobs:
           host: ${{secrets.VPS_HOST}}
           username: ${{secrets.VPS_USER}}
           key: ${{secrets.VPS_SSH_KEY}}
-          target: "/www/"
+          target: "/var/www/"
           source: "dist/" 
 
       - name: restart systemd service
