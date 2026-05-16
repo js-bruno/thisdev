@@ -19,7 +19,8 @@ jobs:
 
       - name: build app
         run: |
-          npm install & npm run build
+          npm install  
+          npm run build
 
       - name: copy build to vps
         uses: appleboy/scp-action@master
