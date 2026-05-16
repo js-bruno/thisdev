@@ -14,35 +14,35 @@
   --syntax-tab-size: 2;
 }
 
-/* dark (default) — base_blog palette */
+/* dark (default) — catppuccin mocha */
 :root,
 [data-theme="dark"] {
-  --color-gray-20: #e0e0e0;
-  --color-gray-50: #C0C0C0;
-  --color-gray-90: #dad8d8;
+  --color-gray-20: #bac2de; /* subtext1  */
+  --color-gray-50: #6c7086; /* overlay0  */
+  --color-gray-90: #cdd6f4; /* text      */
 
-  --background-color:      #15202b;
-  --text-color:            var(--color-gray-90);
-  --text-color-link:       #1493fb;
-  --text-color-link-active:#6969f7;
-  --text-color-link-visited:#a6a6f8;
-  --border-color:          #2a3a4a;
-  --header-border:         #2a3a4a;
+  --background-color:       #1e1e2e; /* base     */
+  --text-color:             #cdd6f4; /* text     */
+  --text-color-link:        #89b4fa; /* blue     */
+  --text-color-link-active: #cba6f7; /* mauve    */
+  --text-color-link-visited:#b4befe; /* lavender */
+  --border-color:           #45475a; /* surface1 */
+  --header-border:          #313244; /* surface0 */
 }
 
-/* light — this_dev index palette */
+/* light — catppuccin latte */
 [data-theme="light"] {
-  --color-gray-20: #ccc;
-  --color-gray-50: #888;
-  --color-gray-90: #111;
+  --color-gray-20: #5c5f77; /* subtext1  */
+  --color-gray-50: #9ca0b0; /* overlay0  */
+  --color-gray-90: #4c4f69; /* text      */
 
-  --background-color:      #f2f0ef;
-  --text-color:            #111;
-  --text-color-link:       #000;
-  --text-color-link-active:#333;
-  --text-color-link-visited:#222;
-  --border-color:          #ccc;
-  --header-border:         #ccc;
+  --background-color:       #eff1f5; /* base     */
+  --text-color:             #4c4f69; /* text     */
+  --text-color-link:        #1e66f5; /* blue     */
+  --text-color-link-active: #8839ef; /* mauve    */
+  --text-color-link-visited:#7287fd; /* lavender */
+  --border-color:           #bcc0cc; /* surface1 */
+  --header-border:          #ccd0da; /* surface0 */
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
@@ -58,7 +58,7 @@ html, body {
   background-color: var(--background-color);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-html { overflow-y: scroll; }
+html { overflow-y: scroll; font-size: 24px; }
 body { max-width: 40em; }
 
 /* init: hide flash before JS runs (body hidden for 1 frame via inline script) */
@@ -81,8 +81,8 @@ video, iframe { width: 100%; height: auto; }
 iframe { aspect-ratio: 16/9; }
 
 p:last-child { margin-bottom: 0; }
-p  { line-height: 1.6; }
-li { line-height: 1.6; }
+p  { line-height: 1.82; }
+li { line-height: 1.82; }
 
 a[href]         { color: var(--text-color-link); }
 a[href]:visited { color: var(--text-color-link-visited); }
@@ -90,6 +90,11 @@ a[href]:hover,
 a[href]:active  { color: var(--text-color-link-active); }
 
 [data-theme="light"] a[href] {
+  text-decoration: none;
+  text-decoration-thickness: 0.12rem;
+}
+
+[data-theme="dark"] a[href] {
   text-decoration: none;
   text-decoration-thickness: 0.12rem;
 }
@@ -135,11 +140,16 @@ header {
 
 [data-theme="light"] .nav-item a[href] {
   font-size: 1em;
-  /* text-decoration: underline; */
   text-decoration-thickness: 0.15rem;
   color: #000;
 }
 [data-theme="light"] .nav-item a[href]:hover { color: #444; }
+
+[data-theme="dark"] .nav-item a[href] {
+  font-size: 1em;
+  text-decoration-thickness: 0.15rem;
+}
+[data-theme="dark"] .nav-item a[href]:hover { color: #fab387; } /* peach */
 
 /* ── Skip link ────────────────────────────────────────────────────────── */
 #skip-link {
@@ -236,7 +246,7 @@ table td, table th { padding-right: 1em; }
 pre, code { font-family: var(--font-family-monospace); }
 pre:not([class*="language-"]) {
   margin: .5em 0;
-  line-height: 1.375;
+  line-height: 1.65;
   tab-size: var(--syntax-tab-size);
   hyphens: none;
   direction: ltr;

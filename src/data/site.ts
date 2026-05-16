@@ -1,8 +1,8 @@
 const site = {
-  name: "Notepad +±",
-  url: "https://example.com",
+  name: "~/this_dev",
+  url: "https://thisdev.space/",
   language: "pt-br",
-  description: "Louco psicopata e triste",
+  description: "eu",
   author: "Z",
 };
 

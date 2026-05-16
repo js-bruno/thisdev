@@ -148,55 +148,6 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"fourthpost.md": {
-	id: "fourthpost.md";
-  slug: "fourthpost";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"nix-flakes-lockfiles.md": {
-	id: "nix-flakes-lockfiles.md";
-  slug: "nix-flakes-lockfiles";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"nixos-trust-issues.md": {
-	id: "nixos-trust-issues.md";
-  slug: "nixos-trust-issues";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"secondpost.md": {
-	id: "secondpost.md";
-  slug: "secondpost";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"thirdpost.md": {
-	id: "thirdpost.md";
-  slug: "thirdpost";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"vps-setup-without-crying.md": {
-	id: "vps-setup-without-crying.md";
-  slug: "vps-setup-without-crying";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"vps_deploy.md": {
-	id: "vps_deploy.md";
-  slug: "vps_deploy";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
 };
 
 	};
