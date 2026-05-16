@@ -28,8 +28,8 @@ jobs:
           host: ${{secrets.VPS_HOST}}
           username: ${{secrets.VPS_USER}}
           key: ${{secrets.VPS_SSH_KEY}}
-          target: "/var/www/"
-          source: "dist/" 
+          source: "blog/**" 
+          target: "/var/www/blog"
 
       - name: restart systemd service
         uses: appleboy/ssh-action@master
