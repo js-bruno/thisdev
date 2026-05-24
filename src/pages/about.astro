@@ -1,96 +1,203 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+
+// Add or remove albums here — cover art is fetched from iTunes at build time
+const albumList = [
+  { artist: "Aphex Twin",         album: "Selected Ambient Works 85-92",    year: "1992" },
+  { artist: "Boards of Canada",   album: "Music Has the Right to Children", year: "1998" },
+  { artist: "My Bloody Valentine",album: "Loveless",                        year: "1991" },
+  { artist: "Talk Talk",          album: "Spirit of Eden",                  year: "1988" },
+  { artist: "Tim Hecker",         album: "Ravedeath 1972",                  year: "2011" },
+  { artist: "The Caretaker",      album: "Everywhere at the End of Time",   year: "2016" },
+  { artist: "Swans",              album: "Soundtracks for the Blind",       year: "1996" },
+  { artist: "Scott Walker",       album: "Tilt",                            year: "1995" },
+];
+
+const albums = await Promise.all(
+  albumList.map(async (a) => {
+    try {
+      const q = encodeURIComponent(`${a.artist} ${a.album}`);
+      const res = await fetch(`https://itunes.apple.com/search?term=${q}&entity=album&limit=1`);
+      const data = await res.json();
+      const art = data.results?.[0]?.artworkUrl100?.replace("100x100bb", "600x600bb") ?? "";
+      return { ...a, cover: art };
+    } catch {
+      return { ...a, cover: "" };
+    }
+  })
+);
 ---
 
-<BlogLayout title="Sobre / About">
+<BlogLayout title="About">
+  <style>
+    .mu-about h1 {
+      font-size: 1.1em;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.3em;
+      margin-top: 0;
+      margin-bottom: 0.6em;
+    }
 
-  <!-- PT-BR -->
-  <div data-pt>
-    <h1>Sobre</h1>
+    .mu-about h2 {
+      font-size: 0.72em;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-top: 1.8em;
+      margin-bottom: 0.6em;
+      padding-bottom: 0.25em;
+      border-bottom: 1px dashed var(--border-color);
+    }
 
-    <p>
-    Ola. Eu sou uma pessoa que existe na internet faz um tempo, faco de tudo um pouco e agora veio uma idea de ter um blog.
-    </p>
+    .mu-about p,
+    .mu-about li {
+      font-size: 0.82em;
+      line-height: 1.75;
+    }
 
-    <p>
-    Esse blog e mais pra descrever e deixar escrito o que eu gosto de fazer por ai e ecrever algumas coisas tectnicas para nao esquecer
-    </p>
+    .mu-about ul {
+      padding-left: 1.2em;
+      margin: 0.4em 0 0.8em;
+    }
 
-    <h2>Este site</h2>
-    <p>
-      Feito com <a href="https://astro.build">Astro</a>.
-      Sem rastreamento, sem analytics, sem cookies, sem pop-ups...por enquanto
-    </p>
+    .mu-about ul li::marker {
+      content: "› ";
+      opacity: 0.45;
+    }
 
-    <p style="margin-top: 2em; opacity: 0.5; font-size: 0.85em;">
-      <em>
-        Esta pagina foi atualizada pela ultima vez quando me lembrei que ela existia.
-        As informacoes aqui podem ser imprecisas, desatualizadas ou aspiracionais.
-      </em>
-    </p>
-  </div>
+    .mu-albums-section {
+      margin-top: 2em;
+    }
 
-  <!-- EN -->
-  <div data-en>
+    .mu-albums-label {
+      font-size: 0.62em;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin-bottom: 0.75em;
+      display: block;
+    }
+
+    .mu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .mu-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .mu-album {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--header-border);
+    }
+
+    .mu-album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.85) contrast(1.05);
+      transition: filter 0.15s ease, transform 0.15s ease;
+    }
+
+    .mu-album:hover img {
+      filter: saturate(1.1) contrast(1.1);
+      transform: scale(1.04);
+    }
+
+    .mu-album-tooltip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.82);
+      color: #fff;
+      padding: 0.3em 0.4em;
+      font-size: 0.48em;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    .mu-album:hover .mu-album-tooltip { opacity: 1; }
+
+    .mu-album-artist {
+      display: block;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mu-album-title {
+      display: block;
+      opacity: 0.75;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mu-album-year {
+      display: inline-block;
+      margin-top: 0.15em;
+      opacity: 0.5;
+      font-size: 0.9em;
+    }
+
+    .mu-footnote {
+      margin-top: 2.5em;
+      padding-top: 0.75em;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.7em;
+      opacity: 0.4;
+      font-style: italic;
+    }
+  </style>
+
+  <div class="mu-about">
     <h1>About</h1>
 
-    <p>
-      Hello. I am a person who exists on the internet, which already puts me in a very specific demographic.
-    </p>
-
-    <p>
-      I write about things I find interesting, mostly because I have nowhere else to put these thoughts
-      and my friends have started muting my messages. The topics vary, but the common thread is that
-      I got very into something, spent too long in documentation pages, and now feel the compulsive need
-      to share what I learned.
-    </p>
-
-    <p>
-      Professionally, I do things with computers. Specifically the kind that make non-technical people
-      nod slowly and change the subject at parties.
-    </p>
-
-    <h2>Things I am Currently Obsessed With</h2>
-    <ul>
-      <li>Nix. All of Nix. Nix forever.</li>
-      <li>Making my terminal look good in screenshots nobody asked to see</li>
-      <li>The philosophical implications of declarative systems (see: Nix)</li>
-      <li>Finding the perfect monospace font (current winner: DaddyTimeMono, obviously)</li>
-      <li>Blaming systemd for things that are probably my fault</li>
-    </ul>
-
-    <h2>Things I Have Strong Opinions About</h2>
-    <ul>
-      <li>SSH keys over passwords. Always. No exceptions. I will die on this hill.</li>
-      <li>Tabs vs. spaces: the correct answer is whatever your project already uses. Stop.</li>
-      <li>The best backup strategy is the one you actually have vs. the one you planned to set up "this weekend"</li>
-      <li>Light mode is for people who enjoy suffering and PDFs</li>
-      <li>Dark mode is for people who enjoy suffering and eye strain after age 35</li>
-    </ul>
+    <p>Your text here.</p>
 
     <h2>This Site</h2>
     <p>
       Built with <a href="https://astro.build">Astro</a>.
-      No tracking, no analytics, no cookies, no pop-ups asking about cookies.
-      Just HTML and a monospace font making everything look like I know what I am doing.
+      No tracking, no analytics, no cookies.
     </p>
 
-    <p>
-      If something is broken, that is a known issue under active non-investigation.
-    </p>
+    <section class="mu-albums-section">
+      <span class="mu-albums-label">records ↓</span>
+      <div class="mu-grid">
+        {albums.map((a) => (
+          <div class="mu-album">
+            {a.cover && (
+              <img
+                src={a.cover}
+                alt={`${a.artist} — ${a.album}`}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div class="mu-album-tooltip">
+              <span class="mu-album-artist">{a.artist}</span>
+              <span class="mu-album-title">{a.album}</span>
+              <span class="mu-album-year">{a.year}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
 
-    <h2>Contact</h2>
-    <p>
-      I have an email address. If you know me, you know it.
-      If you do not, you can find it eventually and I will respond within a timeframe best described as "geological".
-    </p>
-
-    <p style="margin-top: 2em; opacity: 0.5; font-size: 0.85em;">
-      <em>
-        This page was last updated whenever I remembered it existed.
-        The information here may be inaccurate, outdated, or aspirational.
-      </em>
-    </p>
+    <p class="mu-footnote">Your footer note here.</p>
   </div>
-
 </BlogLayout>
