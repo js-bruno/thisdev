@@ -1,0 +1,280 @@
+---
+interface Gif {
+  src: string;
+  title: string;
+  category: string;
+}
+
+const gifs: Gif[] = [
+  { src: "https://pixelsafari.neocities.org/buttons/1brave.gif",  title: "coração pulsando", category: "amor" },
+  { src: "https://media.giphy.com/media/26BROrSHlmysvuLpO/giphy.gif",  title: "estrela brilhando", category: "brilhos" },
+  { src: "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",  title: "dança da vitória", category: "reações" },
+  { src: "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",      title: "gatinho fofo",    category: "animais" },
+  { src: "https://media.giphy.com/media/3o7TKz2eMXx7dn95FS/giphy.gif", title: "fogo intenso",    category: "efeitos" },
+  { src: "https://media.giphy.com/media/sULKEgDMX8LcI/giphy.gif",      title: "matrix rain",     category: "tech" },
+  { src: "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif",  title: "arco-íris",       category: "brilhos" },
+  { src: "https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif",     title: "bebê dançando",   category: "reações" },
+];
+
+const categories = ["todos", ...new Set(gifs.map((g) => g.category))];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gif catalogue</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #ffffff;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 11px;
+      color: #000;
+      padding: 14px 16px 40px;
+    }
+
+    /* ── TOPO ── */
+    .top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+    }
+
+    .top h1 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000;
+      letter-spacing: 0.5px;
+    }
+
+    .top .count {
+      color: #666;
+      font-size: 10px;
+    }
+
+    /* ── FILTROS ── */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+
+    .filters input {
+      border: 1px solid #999;
+      padding: 3px 7px;
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      color: #000;
+      outline: none;
+      margin-right: 6px;
+      width: 160px;
+    }
+
+    .filters input:focus { border-color: #333; }
+
+    .tab {
+      background: #efefef;
+      border: 1px solid #999;
+      border-bottom-color: #fff;
+      color: #000;
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      padding: 3px 9px;
+      cursor: pointer;
+      position: relative;
+      top: 1px;
+    }
+
+    .tab:hover { background: #e0e0e0; }
+
+    .tab.active {
+      background: #fff;
+      border-bottom-color: #fff;
+      font-weight: bold;
+    }
+
+    /* ── GALERIA ── */
+    .gallery {
+      /* inline-block natural flow — cada gif ocupa seu tamanho real */
+      line-height: 0;
+      /* pequeno gap entre itens */
+      word-spacing: 4px;
+      padding:10px;
+    }
+
+    .gif-item {
+      display: inline-block;
+      margin: 3px;
+      vertical-align: top;
+      position: relative;
+      line-height: 0;
+      cursor: pointer;
+    }
+
+    .gif-item img {
+      display: block;
+      max-height: 120px;   /* limita altura máx para não virar um monstrão */
+      width: auto;
+      image-rendering: pixelated;
+    }
+
+    /* tooltip simples ao hover */
+    .gif-item::after {
+      content: attr(data-title);
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      font-family: Verdana, sans-serif;
+      font-size: 9px;
+      padding: 2px 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s;
+      z-index: 10;
+    }
+
+    .gif-item:hover::after { opacity: 1; }
+
+    /* flash de selecionado */
+    .gif-item.copied img {
+      outline: 2px solid #000;
+    }
+
+    /* ── VAZIO ── */
+    .empty {
+      display: none;
+      padding: 30px 0;
+      color: #999;
+      font-size: 10px;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(50px);
+      background: #333;
+      color: #fff;
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      padding: 6px 14px;
+      transition: transform 0.18s;
+      z-index: 50;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <h1>gif vault</h1>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="buscar..." autocomplete="off" />
+    {categories.map((cat, i) => (
+      <button class={`tab ${i === 0 ? "active" : ""}`} data-cat={cat}>{cat}</button>
+    ))}
+  </div>
+
+  <div class="gallery" id="gallery">
+    {gifs.map((gif) => (
+      <span
+        class="gif-item"
+        data-cat={gif.category}
+        data-title={gif.title}
+        data-src={gif.src}
+        title={gif.title}
+      >
+        <img src={gif.src} alt={gif.title} loading="lazy" decoding="async" />
+      </span>
+    ))}
+    <p class="empty" id="empty">nenhum gif encontrado.</p>
+  </div>
+
+  <div id="toast">url copiada!</div>
+
+  <script>
+    const items   = Array.from(document.querySelectorAll<HTMLElement>(".gif-item"));
+    const search  = document.getElementById("search") as HTMLInputElement;
+    const tabs    = document.querySelectorAll<HTMLButtonElement>(".tab");
+    const count   = document.getElementById("count")!;
+    const empty   = document.getElementById("empty")!;
+    const toast   = document.getElementById("toast")!;
+    let activeCat = "todos";
+    let term      = "";
+
+    function filter() {
+      let n = 0;
+      items.forEach(el => {
+        const cat   = el.dataset.cat ?? "";
+        const title = el.dataset.title ?? "";
+        const show  =
+          (activeCat === "todos" || cat === activeCat) &&
+          (!term || title.includes(term) || cat.includes(term));
+        el.style.display = show ? "inline-block" : "none";
+        if (show) n++;
+      });
+      count.textContent = `${n} gif${n !== 1 ? "s" : ""}`;
+      empty.style.display = n === 0 ? "block" : "none";
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCat = btn.dataset.cat ?? "todos";
+        filter();
+      });
+    });
+
+    search.addEventListener("input", () => {
+      term = search.value.trim().toLowerCase();
+      filter();
+    });
+
+    // copiar URL ao clicar
+    let toastTimer: ReturnType<typeof setTimeout>;
+
+    items.forEach(el => {
+      el.addEventListener("click", async () => {
+        const src = el.dataset.src ?? "";
+        try { await navigator.clipboard.writeText(src); }
+        catch {
+          const ta = Object.assign(document.createElement("textarea"), {
+            value: src, style: "position:fixed;opacity:0"
+          });
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+        el.classList.add("copied");
+        setTimeout(() => el.classList.remove("copied"), 800);
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1600);
+      });
+    });
+
+    filter();
+  </script>
+</body>
+</html>

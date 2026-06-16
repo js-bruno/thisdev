@@ -8,11 +8,12 @@ const KONAMI = [
 
 export default function KonamiLang() {
   const [visible, setVisible] = useState(false);
-  const [lang, setLang] = useState("pt-br");
+  const [lang, setLang] = useState("en");
   const seq = useRef([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("lang") || "pt-br";
+    const saved = localStorage.getItem("lang") || "en";
+    // saved = "en"
     setLang(saved);
     document.documentElement.setAttribute("data-lang", saved);
     if (saved === "en") setVisible(true);
