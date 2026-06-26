@@ -1,7 +1,6 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
 
-// Add or remove albums here — cover art is fetched from iTunes at build time
 const albumList = [
   { artist: "Aphex Twin",         album: "Selected Ambient Works 85-92",    year: "1992" },
   { artist: "Boards of Canada",   album: "Music Has the Right to Children", year: "1998" },
@@ -22,9 +21,7 @@ const albums = await Promise.all(
       const art = data.results?.[0]?.artworkUrl100?.replace("100x100bb", "600x600bb") ?? "";
       return { ...a, cover: art };
     } catch {
-      return { ...a, cover: "" };
-    }
-  })
+      return { ...a, cover: "" }; } })
 );
 ---
 
@@ -167,13 +164,12 @@ const albums = await Promise.all(
   <div class="mu-about">
     <h1>About</h1>
 
-    <p>Your text here.</p>
+    <p>ainda nao sei oque colocar aqui</p>
 
-    <h2>This Site</h2>
-    <p>
-      Built with <a href="https://astro.build">Astro</a>.
-      No tracking, no analytics, no cookies.
-    </p>
+    <!-- <h2>This Site</h2> -->
+    <!-- <p> -->
+    <!--   Built with <a href="https://astro.build">Astro</a>. -->
+    <!-- </p> -->
 
     <section class="mu-albums-section">
       <span class="mu-albums-label">records ↓</span>
@@ -198,6 +194,6 @@ const albums = await Promise.all(
       </div>
     </section>
 
-    <p class="mu-footnote">Your footer note here.</p>
+    <p class="mu-footnote">laranja🍊</p>
   </div>
 </BlogLayout>
