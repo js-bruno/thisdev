@@ -1,32 +1,76 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
 
-const albumList = [
-  { artist: "Aphex Twin",         album: "Selected Ambient Works 85-92",    year: "1992" },
-  { artist: "Boards of Canada",   album: "Music Has the Right to Children", year: "1998" },
-  { artist: "My Bloody Valentine",album: "Loveless",                        year: "1991" },
-  { artist: "Talk Talk",          album: "Spirit of Eden",                  year: "1988" },
-  { artist: "Tim Hecker",         album: "Ravedeath 1972",                  year: "2011" },
-  { artist: "The Caretaker",      album: "Everywhere at the End of Time",   year: "2016" },
-  { artist: "Swans",              album: "Soundtracks for the Blind",       year: "1996" },
-  { artist: "Scott Walker",       album: "Tilt",                            year: "1995" },
-];
 
-const albums = await Promise.all(
-  albumList.map(async (a) => {
-    try {
-      const q = encodeURIComponent(`${a.artist} ${a.album}`);
-      const res = await fetch(`https://itunes.apple.com/search?term=${q}&entity=album&limit=1`);
-      const data = await res.json();
-      const art = data.results?.[0]?.artworkUrl100?.replace("100x100bb", "600x600bb") ?? "";
-      return { ...a, cover: art };
-    } catch {
-      return { ...a, cover: "" }; } })
-);
 ---
 
 <BlogLayout title="About">
   <style>
+    @keyframes shimmer-run {
+      to { background-position: 200% 50%; }
+    }
+
+    .nix-shimmer {
+      display: inline-block;
+      background-image: linear-gradient(
+        100deg,
+        #5277C3 0%,   /* azul base do NixOS */
+        #5277C3 35%,
+        #A6E0FF 48%,  /* brilho claro */
+        #FFFFFF 50%,  /* pico do brilho */
+        #A6E0FF 52%,
+        #5277C3 65%,
+        #5277C3 100%
+          );
+          background-size: 250% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: shimmer-run 2.8s linear infinite;
+    }
+
+    @keyframes fire-run-vertical {
+      to { background-position: 50% 400%; }
+    }
+
+    .fire-text {
+      display: inline-block;
+      background-image: linear-gradient(
+        180deg,
+        #8B1A00,
+        #C7350C,
+        #E85A0C,
+        #FF8A1E,
+        #FFB627,
+        #FFD93D,
+        #FFF3B0, /* pico de brilho, quase branco */
+        #FFD93D,
+        #FFB627,
+        #FF8A1E,
+        #E85A0C,
+        #C7350C,
+        #8B1A00
+          );
+          background-size: 100% 500%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: fire-run-vertical 9.2s linear infinite;
+    }
+
+    .some-me {
+      display:flex;
+    }
+    .some-me ul li span{
+      color:#B2F2E5;
+    }
+    .some-me img{
+      color:#B2F2E5;
+      width:100%;
+      border-radius: 400%;
+    }
     .mu-about h1 {
       font-size: 1.1em;
       letter-spacing: 0.05em;
@@ -162,38 +206,39 @@ const albums = await Promise.all(
   </style>
 
   <div class="mu-about">
-    <h1>About</h1>
+    <h1>Some of me</h1>
 
-    <p>ainda nao sei oque colocar aqui</p>
+    <section class="some-me">
+      <ul>
+        <li><span>name:</span>Jos'e</li>
+        <li><span>age:</span>25</li>
+        <li><span>pronum: </span>he_him</li>
+        <li><span>language: </span>pt-br, eng</li>
+        <li>5 Years working as <span class="fire-text">dev</span></li>
+        <li>2 Years Using <span class="nix-shimmer">NixOS</span> </li>
 
-    <!-- <h2>This Site</h2> -->
-    <!-- <p> -->
-    <!--   Built with <a href="https://astro.build">Astro</a>. -->
-    <!-- </p> -->
+        <aside>
+          Nao sei extamente o que estou fazendo mas estou fazendo algo
+        </aside>
+      </ul>
 
-    <section class="mu-albums-section">
-      <span class="mu-albums-label">records ↓</span>
-      <div class="mu-grid">
-        {albums.map((a) => (
-          <div class="mu-album">
-            {a.cover && (
-              <img
-                src={a.cover}
-                alt={`${a.artist} — ${a.album}`}
-                loading="lazy"
-                decoding="async"
+      <div>
+        <div class="border">
+          <img
+              class="imgborder"
+              src="/assets/images/me1.png"
+              alt="oi"
+              loading="lazy"
+              decoding="async"
               />
-            )}
-            <div class="mu-album-tooltip">
-              <span class="mu-album-artist">{a.artist}</span>
-              <span class="mu-album-title">{a.album}</span>
-              <span class="mu-album-year">{a.year}</span>
-            </div>
-          </div>
-        ))}
+        </div>
       </div>
     </section>
 
-    <p class="mu-footnote">laranja🍊</p>
+    <section class="mu-albums-section">
+      <span class="mu-albums-label">
+      </div>
+    </section>
+    <p class="mu-footnote">All Rights reserved to all of us!</p>
   </div>
 </BlogLayout>
