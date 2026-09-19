@@ -16,10 +16,7 @@ const morePosts = posts.length - NUMBER_OF_LATEST;
 
 <BlogLayout title="Blog">
   <h1>
-    <span data-pt>
-      {latestPosts.length === 1 ? "Ultima postagem" : `Ultimas ${latestPosts.length} postagens`}
-    </span>
-    <span data-en>
+    <span>
       Latest {latestPosts.length} Post{latestPosts.length !== 1 ? "s" : ""}
     </span>
   </h1>
@@ -60,11 +57,7 @@ const morePosts = posts.length - NUMBER_OF_LATEST;
   {
     morePosts > 0 && (
       <p>
-        <span data-pt>
-          Mais {morePosts} postagem{morePosts !== 1 ? "s" : ""} no{" "}
-          <a href="/blog/archive/">arquivo</a>.
-        </span>
-        <span data-en>
+        <span>
           {morePosts} more post{morePosts !== 1 ? "s" : ""} in{" "}
           <a href="/blog/archive/">the archive</a>.
         </span>
