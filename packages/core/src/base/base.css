@@ -1,0 +1,65 @@
+@layer aui.base {
+  .aui-root {
+    min-height: 100%;
+    font-family: var(--aui-font);
+    font-size: var(--aui-fs);
+    line-height: var(--aui-lh);
+    color: var(--aui-ink);
+    background-color: var(--aui-bg);
+    background-image:
+      radial-gradient(
+        120% 90% at 12% -10%,
+        color-mix(in srgb, var(--aui-accent) 18%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        110% 85% at 100% 110%,
+        color-mix(in srgb, var(--aui-accent-2) 16%, transparent),
+        transparent 55%
+      );
+    background-attachment: fixed;
+  }
+
+  .aui-root :where(h1, h2, h3, h4) {
+    font-weight: 650;
+    line-height: var(--aui-lh-tight);
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5em;
+  }
+  .aui-root h1 {
+    font-size: var(--aui-fs-3xl);
+  }
+  .aui-root h2 {
+    font-size: var(--aui-fs-2xl);
+  }
+  .aui-root h3 {
+    font-size: var(--aui-fs-xl);
+  }
+
+  .aui-root :where(p, ul, ol) {
+    margin: 0 0 1em;
+  }
+
+  .aui-root :where(code, kbd, samp) {
+    font-family: var(--aui-font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--aui-line);
+    border-radius: var(--aui-radius-sm);
+    background-color: var(--aui-surface-2);
+  }
+
+  .aui-root ::selection {
+    background-color: color-mix(in srgb, var(--aui-accent) 35%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aui-root *,
+    .aui-root *::before,
+    .aui-root *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}

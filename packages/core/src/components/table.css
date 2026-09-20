@@ -1,0 +1,48 @@
+@layer aui.components {
+  .aui-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--aui-radius-lg);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-surface);
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-shadow);
+  }
+  .aui-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--aui-fs-sm);
+  }
+  .aui-table caption {
+    caption-side: bottom;
+    padding: 0.7rem 1rem;
+    color: var(--aui-muted);
+    font-size: var(--aui-fs-xs);
+    text-align: left;
+  }
+  .aui-table th,
+  .aui-table td {
+    padding: 0.7em 1em;
+    text-align: left;
+    border-bottom: 1px solid var(--aui-line);
+  }
+  .aui-table thead th {
+    font-size: var(--aui-fs-xs);
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--aui-muted);
+    background-color: color-mix(in srgb, var(--aui-ink) 5%, transparent);
+  }
+  .aui-table tbody tr {
+    transition: background-color var(--aui-dur-1) var(--aui-ease-out);
+  }
+  .aui-table tbody tr:hover {
+    background-color: color-mix(in srgb, var(--aui-accent) 8%, transparent);
+  }
+  .aui-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .aui-table--striped tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--aui-ink) 3%, transparent);
+  }
+}

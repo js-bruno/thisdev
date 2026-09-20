@@ -1,0 +1,27 @@
+{
+  "name": "@thisdev/ui",
+  "version": "0.0.0",
+  "description": "Ametrine-inspired acrylic CSS design system (tokens + component styles).",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.css",
+    "./styles.css": "./src/index.css",
+    "./src/*": "./src/*",
+    "./dist/*": "./dist/*"
+  },
+  "scripts": {
+    "build": "lightningcss --bundle --minify --targets '>= 2021' --output-file dist/index.css src/index.css"
+  },
+  "devDependencies": {
+    "lightningcss-cli": "^1.33.0"
+  }
+}

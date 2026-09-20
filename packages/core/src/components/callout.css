@@ -1,0 +1,51 @@
+@layer aui.components {
+  .aui-callout {
+    --_c: var(--aui-info);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--aui-radius);
+    border: 1px solid color-mix(in srgb, var(--_c) 42%, var(--aui-border));
+    background-color: color-mix(in srgb, var(--_c) 12%, var(--aui-surface));
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-shadow-sm);
+  }
+  .aui-callout--ok {
+    --_c: var(--aui-ok);
+  }
+  .aui-callout--warn {
+    --_c: var(--aui-warn);
+  }
+  .aui-callout--danger {
+    --_c: var(--aui-danger);
+  }
+  .aui-callout--accent {
+    --_c: var(--aui-accent);
+  }
+
+  .aui-callout__icon {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--aui-radius-sm);
+    background-color: color-mix(in srgb, var(--_c) 25%, transparent);
+    color: color-mix(in srgb, var(--_c) 75%, var(--aui-ink));
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .aui-callout__title {
+    margin: 0 0 0.15em;
+    font-weight: 650;
+    font-size: var(--aui-fs);
+  }
+  .aui-callout__body {
+    margin: 0;
+    font-size: var(--aui-fs-sm);
+    color: var(--aui-ink);
+  }
+  .aui-callout__body :where(p):last-child {
+    margin-bottom: 0;
+  }
+}

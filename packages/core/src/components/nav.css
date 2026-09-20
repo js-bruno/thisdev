@@ -1,0 +1,178 @@
+@layer aui.components {
+  .aui-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-space-4);
+  }
+  .aui-tabs__list {
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 0.3rem;
+    border-radius: var(--aui-radius);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-surface-2);
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-edge);
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .aui-tab {
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--aui-muted);
+    font: inherit;
+    font-size: var(--aui-fs-sm);
+    font-weight: 600;
+    padding: 0.5em 0.95em;
+    border-radius: var(--aui-radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      color var(--aui-dur-2) var(--aui-ease-out),
+      background-color var(--aui-dur-2) var(--aui-ease-out),
+      transform var(--aui-dur-1) var(--aui-ease-bounce);
+  }
+  .aui-tab:hover {
+    color: var(--aui-ink);
+    background-color: color-mix(in srgb, var(--aui-ink) 6%, transparent);
+  }
+  .aui-tab[aria-selected="true"] {
+    color: var(--aui-ink);
+    background-color: var(--aui-surface-solid);
+    border-color: var(--aui-border);
+    box-shadow: var(--aui-shadow-sm);
+  }
+  .aui-tab:focus-visible {
+    outline: none;
+    box-shadow: var(--aui-focus-ring);
+  }
+  .aui-tabs__panel {
+    animation: aui-fade var(--aui-dur-2) var(--aui-ease-out);
+  }
+  @keyframes aui-fade {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .aui-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--aui-fs-sm);
+    color: var(--aui-muted);
+  }
+  .aui-breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .aui-breadcrumb li + li::before {
+    content: "/";
+    color: var(--aui-border);
+  }
+  .aui-breadcrumb a {
+    color: var(--aui-muted);
+    text-decoration: none;
+  }
+  .aui-breadcrumb a:hover {
+    color: var(--aui-accent);
+    text-decoration: underline;
+  }
+  .aui-breadcrumb [aria-current="page"] {
+    color: var(--aui-ink);
+    font-weight: 600;
+  }
+
+  .aui-pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .aui-pagination button,
+  .aui-pagination a {
+    appearance: none;
+    min-width: 2.1rem;
+    height: 2.1rem;
+    display: inline-grid;
+    place-items: center;
+    padding: 0 0.5rem;
+    border: 1px solid var(--aui-border);
+    border-radius: var(--aui-radius-sm);
+    background-color: var(--aui-surface-2);
+    color: var(--aui-ink);
+    font: inherit;
+    font-size: var(--aui-fs-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform var(--aui-dur-1) var(--aui-ease-bounce),
+      background-color var(--aui-dur-2) var(--aui-ease-out);
+  }
+  .aui-pagination button:hover,
+  .aui-pagination a:hover {
+    transform: translateY(-2px);
+  }
+  .aui-pagination [aria-current="page"] {
+    background-color: var(--aui-accent);
+    color: var(--aui-on-accent);
+    border-color: color-mix(in srgb, var(--aui-accent) 72%, black);
+  }
+
+  .aui-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-space-4);
+    padding: 0.7rem 1rem;
+    border-radius: var(--aui-radius-lg);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-surface);
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-shadow);
+  }
+  .aui-navbar__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-weight: 650;
+    font-size: var(--aui-fs-lg);
+  }
+  .aui-navbar__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .aui-navbar__link {
+    padding: 0.45em 0.8em;
+    border-radius: var(--aui-radius-sm);
+    color: var(--aui-muted);
+    font-weight: 600;
+    font-size: var(--aui-fs-sm);
+    text-decoration: none;
+    transition: background-color var(--aui-dur-2) var(--aui-ease-out);
+  }
+  .aui-navbar__link:hover {
+    color: var(--aui-ink);
+    background-color: color-mix(in srgb, var(--aui-ink) 7%, transparent);
+  }
+  .aui-navbar__link[aria-current="page"] {
+    color: var(--aui-accent);
+    background-color: color-mix(in srgb, var(--aui-accent) 14%, transparent);
+  }
+}

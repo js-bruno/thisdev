@@ -210,7 +210,6 @@ async function processPhotos() {
 
 async function ensureDefaultBackground() {
   const target = join(OUT_DIR, "bg.png");
-  if (existsSync(target)) return;
   const candidates = [
     join(ROOT, "public/assets/images/rises_the_moon.jpeg"),
     join(ROOT, "public/assets/images/w.png"),
@@ -222,8 +221,8 @@ async function ensureDefaultBackground() {
     return;
   }
   await ditherFile(src, target, {
-    width: 512,
-    palette: PALETTE_MONO,
+    width: 640,
+    palette: PALETTE_TEAL,
     method: "bayer",
   });
 }

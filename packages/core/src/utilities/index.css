@@ -1,0 +1,33 @@
+@layer aui.utilities {
+  .aui-visually-hidden:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+  .aui-text-muted {
+    color: var(--aui-muted);
+  }
+  .aui-text-accent {
+    color: var(--aui-accent);
+  }
+  .aui-text-sm {
+    font-size: var(--aui-fs-sm);
+  }
+  .aui-text-xs {
+    font-size: var(--aui-fs-xs);
+  }
+  .aui-mono {
+    font-family: var(--aui-font-mono);
+  }
+  .aui-surface {
+    border: 1px solid var(--aui-border);
+    border-radius: var(--aui-radius-lg);
+    background-color: var(--aui-surface);
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-shadow);
+  }
+}

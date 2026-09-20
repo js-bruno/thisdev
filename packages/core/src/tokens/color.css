@@ -1,0 +1,76 @@
+/* Ametrine-inspired palette: amethyst (purple) + citrine (yellow-orange).
+   `--aui-hue` is the tunable accent engine; everything derives from it. */
+@layer aui.tokens {
+  :root {
+    color-scheme: light dark;
+
+    --aui-hue: 295;
+    --aui-hue-2: 82;
+
+    --aui-accent: light-dark(
+      oklch(0.58 0.18 var(--aui-hue)),
+      oklch(0.74 0.15 var(--aui-hue))
+    );
+    --aui-accent-2: light-dark(
+      oklch(0.78 0.15 var(--aui-hue-2)),
+      oklch(0.85 0.14 var(--aui-hue-2))
+    );
+    --aui-on-accent: oklch(0.99 0.01 var(--aui-hue));
+
+    --aui-bg: light-dark(
+      oklch(0.972 0.012 var(--aui-hue)),
+      oklch(0.23 0.028 var(--aui-hue))
+    );
+    --aui-bg-deep: light-dark(
+      oklch(0.935 0.024 var(--aui-hue)),
+      oklch(0.175 0.03 var(--aui-hue))
+    );
+    --aui-ink: light-dark(
+      oklch(0.27 0.035 var(--aui-hue)),
+      oklch(0.94 0.015 var(--aui-hue))
+    );
+    --aui-muted: light-dark(
+      oklch(0.52 0.03 var(--aui-hue)),
+      oklch(0.72 0.025 var(--aui-hue))
+    );
+
+    --aui-highlight: light-dark(rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.28));
+    --aui-shade: light-dark(rgb(30 20 45 / 0.22), rgb(0 0 0 / 0.5));
+
+    --aui-ok: light-dark(oklch(0.62 0.15 152), oklch(0.78 0.15 152));
+    --aui-warn: light-dark(
+      oklch(0.74 0.15 var(--aui-hue-2)),
+      oklch(0.85 0.14 var(--aui-hue-2))
+    );
+    --aui-danger: light-dark(oklch(0.58 0.2 25), oklch(0.74 0.18 25));
+    --aui-info: light-dark(oklch(0.6 0.13 240), oklch(0.78 0.12 240));
+
+    --aui-border: color-mix(in oklab, var(--aui-ink) 18%, transparent);
+    --aui-line: color-mix(in oklab, var(--aui-ink) 10%, transparent);
+    --aui-fill: color-mix(in oklab, var(--aui-ink) 6%, transparent);
+
+    --aui-surface: color-mix(in srgb, var(--aui-bg) 68%, transparent);
+    --aui-surface-2: color-mix(in srgb, var(--aui-bg-deep) 62%, transparent);
+    --aui-surface-solid: var(--aui-bg-deep);
+
+    --aui-blur: 16px;
+    --aui-saturate: 1.5;
+    --aui-acrylic: blur(var(--aui-blur)) saturate(var(--aui-saturate));
+
+    --aui-edge: inset 0 1px 0 var(--aui-highlight),
+      inset 0 0 0 1px color-mix(in srgb, var(--aui-highlight) 38%, transparent);
+    --aui-shadow-sm: 0 1px 2px var(--aui-shade), var(--aui-edge);
+    --aui-shadow: 0 8px 22px -10px var(--aui-shade),
+      0 2px 6px -2px var(--aui-shade), var(--aui-edge);
+    --aui-shadow-lg: 0 28px 60px -24px var(--aui-shade),
+      0 10px 24px -14px var(--aui-shade), var(--aui-edge);
+    --aui-focus-ring: 0 0 0 3px color-mix(in srgb, var(--aui-accent) 45%, transparent);
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+}

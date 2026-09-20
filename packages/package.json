@@ -1,0 +1,19 @@
+{
+  "name": "thisdev-ui-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "core",
+    "react",
+    "docs"
+  ],
+  "scripts": {
+    "storybook": "npm run storybook --workspace @thisdev/ui-docs",
+    "build-storybook": "npm run build-storybook --workspace @thisdev/ui-docs",
+    "typecheck": "npm run typecheck --workspace @thisdev/ui-react",
+    "build:css": "npm run build --workspace @thisdev/ui",
+    "build:react": "npm run build --workspace @thisdev/ui-react",
+    "build": "npm run build:css && npm run build:react"
+  }
+}

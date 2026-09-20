@@ -1,0 +1,67 @@
+@layer aui.components {
+  .aui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: var(--aui-fs-xs);
+    font-weight: 650;
+    line-height: 1.4;
+    padding: 0.22em 0.62em;
+    border-radius: var(--aui-radius-pill);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-surface-2);
+    color: var(--aui-ink);
+    box-shadow: var(--aui-edge);
+  }
+  .aui-badge--accent {
+    background-color: color-mix(in srgb, var(--aui-accent) 22%, var(--aui-surface-2));
+    border-color: color-mix(in srgb, var(--aui-accent) 45%, var(--aui-border));
+    color: color-mix(in srgb, var(--aui-accent) 70%, var(--aui-ink));
+  }
+  .aui-badge--accent2 {
+    background-color: color-mix(in srgb, var(--aui-accent-2) 28%, var(--aui-surface-2));
+    border-color: color-mix(in srgb, var(--aui-accent-2) 50%, var(--aui-border));
+    color: color-mix(in srgb, var(--aui-accent-2) 55%, var(--aui-ink));
+  }
+  .aui-badge--ok {
+    background-color: color-mix(in srgb, var(--aui-ok) 20%, var(--aui-surface-2));
+    border-color: color-mix(in srgb, var(--aui-ok) 45%, var(--aui-border));
+    color: color-mix(in srgb, var(--aui-ok) 65%, var(--aui-ink));
+  }
+  .aui-badge--warn {
+    background-color: color-mix(in srgb, var(--aui-warn) 22%, var(--aui-surface-2));
+    border-color: color-mix(in srgb, var(--aui-warn) 48%, var(--aui-border));
+    color: color-mix(in srgb, var(--aui-warn) 55%, var(--aui-ink));
+  }
+  .aui-badge--danger {
+    background-color: color-mix(in srgb, var(--aui-danger) 20%, var(--aui-surface-2));
+    border-color: color-mix(in srgb, var(--aui-danger) 45%, var(--aui-border));
+    color: color-mix(in srgb, var(--aui-danger) 70%, var(--aui-ink));
+  }
+
+  .aui-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: var(--aui-fs-xs);
+    font-weight: 600;
+    padding: 0.2em 0.55em;
+    border-radius: var(--aui-radius-sm);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-surface);
+    color: var(--aui-muted);
+    backdrop-filter: var(--aui-acrylic);
+  }
+
+  .aui-kbd {
+    font-family: var(--aui-font-mono);
+    font-size: var(--aui-fs-xs);
+    font-weight: 600;
+    padding: 0.15em 0.45em;
+    border-radius: var(--aui-radius-sm);
+    border: 1px solid var(--aui-border);
+    border-bottom-width: 2px;
+    background-color: var(--aui-surface-2);
+    box-shadow: var(--aui-edge);
+  }
+}

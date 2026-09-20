@@ -1,0 +1,23 @@
+@layer aui.base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .aui-root {
+    margin: 0;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .aui-root :where(img, svg, video, canvas) {
+    display: block;
+    max-width: 100%;
+  }
+
+  .aui-root :where(button, input, textarea, select) {
+    font: inherit;
+    color: inherit;
+  }
+}

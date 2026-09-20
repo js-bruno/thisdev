@@ -10,19 +10,9 @@ interface Props {
   background?: boolean;
 }
 
-const { title, description, background = false } = Astro.props;
+const { title, description } = Astro.props;
 const pageTitle = title ? `${title} | ${site.name}` : site.name;
 const pageDesc = description || site.description;
-
-const navItems = [
-  { href: "/",          label: "home"   },
-  { href: "/blog/",     label: "blog"   },
-  { href: "/photos/",   label: "photos" },
-  { href: "/links/",    label: "links"  },
-  { href: "/about/",    label: "about"  },
-];
-
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -42,41 +32,19 @@ const currentPath = Astro.url.pathname;
       })();
     </script>
   </head>
-  <body class={background ? "dithered-bg" : ""}>
+  <body>
     <a href="#main" id="skip-link" class="visually-hidden">
       <span>Skip to main content</span>
     </a>
-
-    <header class="site-header">
-      <a href="/" class="home-link">{site.name}</a>
-      <nav>
-        <h2 class="visually-hidden"><span>Top level navigation menu</span></h2>
-        <ul class="site-nav">
-          {
-            navItems.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  aria-current={currentPath === item.href ? "page" : undefined}
-                >
-                  <span>{item.label}</span>
-                </a>
-              </li>
-            ))
-          }
-          <li><ThemeToggle client:load /></li>
-        </ul>
-      </nav>
-    </header>
 
     <main id="main">
       <slot />
     </main>
 
     <footer class="site-footer">
-      <p>
-        <em>{site.author} — {new Date().getFullYear()}</em>
-      </p>
+      <span><a href="/">{site.name}</a></span>
+      <ThemeToggle client:load />
+      <span>{site.author} — {new Date().getFullYear()}</span>
     </footer>
 
     <KonamiLang client:load />

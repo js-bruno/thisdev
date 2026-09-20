@@ -1,0 +1,119 @@
+@layer aui.components {
+  .aui-spinner {
+    --_size: 1.25rem;
+    display: inline-block;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0turn,
+      var(--aui-accent) 0.75turn,
+      transparent 1turn
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 3px),
+      #000 calc(100% - 3px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 3px),
+      #000 calc(100% - 3px)
+    );
+    animation: aui-spin 0.7s linear infinite;
+  }
+  .aui-spinner--sm {
+    --_size: 0.9rem;
+  }
+  .aui-spinner--lg {
+    --_size: 2rem;
+  }
+  @keyframes aui-spin {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  .aui-progress {
+    position: relative;
+    width: 100%;
+    height: 0.65rem;
+    border-radius: var(--aui-radius-pill);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-bg-deep);
+    box-shadow: inset 0 1px 3px var(--aui-shade);
+    overflow: hidden;
+  }
+  .aui-progress__bar {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      var(--aui-accent),
+      var(--aui-accent-2)
+    );
+    background-size: 200% 100%;
+    transition: width var(--aui-dur-3) var(--aui-ease-out);
+  }
+  .aui-progress--indeterminate .aui-progress__bar {
+    width: 40%;
+    animation: aui-progress-slide 1.4s var(--aui-ease-out) infinite;
+  }
+  @keyframes aui-progress-slide {
+    0% {
+      transform: translateX(-110%);
+    }
+    100% {
+      transform: translateX(360%);
+    }
+  }
+
+  .aui-skeleton {
+    display: block;
+    border-radius: var(--aui-radius);
+    background: linear-gradient(
+        100deg,
+        transparent 20%,
+        color-mix(in srgb, var(--aui-highlight) 55%, transparent) 50%,
+        transparent 80%
+      )
+      var(--aui-surface-2);
+    background-size: 220% 100%;
+    animation: aui-shimmer 1.6s var(--aui-ease-out) infinite;
+  }
+  @keyframes aui-shimmer {
+    0% {
+      background-position: 180% 0;
+    }
+    100% {
+      background-position: -180% 0;
+    }
+  }
+
+  .aui-divider {
+    border: none;
+    height: 1px;
+    margin: var(--aui-space-4) 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--aui-border) 15%,
+      var(--aui-border) 85%,
+      transparent
+    );
+  }
+  .aui-divider--vertical {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin: 0 var(--aui-space-3);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--aui-border) 15%,
+      var(--aui-border) 85%,
+      transparent
+    );
+  }
+}

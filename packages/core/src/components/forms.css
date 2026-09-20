@@ -1,0 +1,185 @@
+@layer aui.components {
+  .aui-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .aui-field__label {
+    font-size: var(--aui-fs-sm);
+    font-weight: 650;
+    color: var(--aui-ink);
+  }
+  .aui-field__required {
+    color: var(--aui-danger);
+    margin-left: 0.15em;
+  }
+  .aui-field__help {
+    font-size: var(--aui-fs-xs);
+    color: var(--aui-muted);
+  }
+  .aui-field__error {
+    font-size: var(--aui-fs-xs);
+    color: var(--aui-danger);
+    font-weight: 600;
+  }
+  .aui-field--invalid .aui-input,
+  .aui-field--invalid .aui-textarea,
+  .aui-field--invalid .aui-select {
+    border-color: var(--aui-danger);
+  }
+
+  .aui-input,
+  .aui-textarea,
+  .aui-select {
+    width: 100%;
+    font: inherit;
+    font-size: var(--aui-fs);
+    color: var(--aui-ink);
+    padding: 0.6em 0.8em;
+    border: 1px solid var(--aui-border);
+    border-radius: var(--aui-radius);
+    background-color: var(--aui-surface-2);
+    backdrop-filter: var(--aui-acrylic);
+    box-shadow: var(--aui-edge), inset 0 2px 6px -4px var(--aui-shade);
+    transition:
+      border-color var(--aui-dur-2) var(--aui-ease-out),
+      box-shadow var(--aui-dur-2) var(--aui-ease-out);
+  }
+  .aui-input::placeholder,
+  .aui-textarea::placeholder {
+    color: var(--aui-muted);
+  }
+  .aui-input:focus-visible,
+  .aui-textarea:focus-visible,
+  .aui-select:focus-visible {
+    outline: none;
+    border-color: var(--aui-accent);
+    box-shadow: var(--aui-focus-ring), var(--aui-edge);
+  }
+  .aui-input:disabled,
+  .aui-textarea:disabled,
+  .aui-select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .aui-textarea {
+    min-height: 6.5em;
+    resize: vertical;
+    line-height: var(--aui-lh);
+  }
+
+  .aui-select {
+    appearance: none;
+    padding-right: 2.2em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23887' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85em center;
+    cursor: pointer;
+  }
+
+  .aui-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    cursor: pointer;
+    user-select: none;
+  }
+  .aui-check input {
+    appearance: none;
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    display: grid;
+    place-content: center;
+    border: 1px solid var(--aui-border);
+    border-radius: var(--aui-radius-sm);
+    background-color: var(--aui-surface-2);
+    box-shadow: var(--aui-edge);
+    cursor: pointer;
+    transition:
+      background-color var(--aui-dur-2) var(--aui-ease-out),
+      border-color var(--aui-dur-2) var(--aui-ease-out);
+  }
+  .aui-check input[type="radio"] {
+    border-radius: 50%;
+  }
+  .aui-check input::before {
+    content: "";
+    width: 0.62em;
+    height: 0.62em;
+    transform: scale(0);
+    transition: transform var(--aui-dur-2) var(--aui-ease-bounce);
+    background-color: var(--aui-on-accent);
+    clip-path: polygon(
+      14% 44%,
+      0 65%,
+      40% 100%,
+      100% 16%,
+      84% 0,
+      38% 68%
+    );
+  }
+  .aui-check input[type="radio"]::before {
+    border-radius: 50%;
+    clip-path: none;
+    width: 0.55em;
+    height: 0.55em;
+  }
+  .aui-check input:checked {
+    background-color: var(--aui-accent);
+    border-color: var(--aui-accent);
+  }
+  .aui-check input:checked::before {
+    transform: scale(1);
+  }
+  .aui-check input:focus-visible {
+    outline: none;
+    box-shadow: var(--aui-focus-ring);
+  }
+
+  .aui-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    cursor: pointer;
+    user-select: none;
+  }
+  .aui-switch input {
+    appearance: none;
+    position: relative;
+    flex: none;
+    width: 2.6em;
+    height: 1.5em;
+    border-radius: var(--aui-radius-pill);
+    border: 1px solid var(--aui-border);
+    background-color: var(--aui-bg-deep);
+    box-shadow: var(--aui-edge), inset 0 1px 3px var(--aui-shade);
+    cursor: pointer;
+    transition: background-color var(--aui-dur-2) var(--aui-ease-out);
+  }
+  .aui-switch input::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0.18em;
+    translate: 0 -50%;
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 50%;
+    background-color: var(--aui-surface-solid);
+    box-shadow: var(--aui-shadow-sm);
+    transition: left var(--aui-dur-2) var(--aui-ease-bounce);
+  }
+  .aui-switch input:checked {
+    background-color: var(--aui-accent);
+    border-color: color-mix(in srgb, var(--aui-accent) 72%, black);
+  }
+  .aui-switch input:checked::after {
+    left: calc(100% - 1.28em);
+  }
+  .aui-switch input:focus-visible {
+    outline: none;
+    box-shadow: var(--aui-focus-ring);
+  }
+}

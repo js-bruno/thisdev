@@ -1,0 +1,42 @@
+@layer aui.components {
+  .aui-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--aui-space-4);
+  }
+  .aui-container--sm {
+    max-width: 40rem;
+  }
+  .aui-container--md {
+    max-width: 56rem;
+  }
+  .aui-container--lg {
+    max-width: 72rem;
+  }
+  .aui-container--full {
+    max-width: none;
+  }
+
+  .aui-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-stack-gap, var(--aui-space-4));
+  }
+  .aui-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aui-stack-gap, var(--aui-space-3));
+  }
+  .aui-grid {
+    display: grid;
+    gap: var(--aui-stack-gap, var(--aui-space-4));
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(var(--aui-grid-min, 16rem), 1fr)
+    );
+  }
+  .aui-spacer {
+    flex: 1 1 auto;
+  }
+}

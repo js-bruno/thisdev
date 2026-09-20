@@ -1,0 +1,41 @@
+@layer aui.tokens {
+  :root {
+    --aui-radius-sm: 6px;
+    --aui-radius: 10px;
+    --aui-radius-lg: 16px;
+    --aui-radius-xl: 24px;
+    --aui-radius-pill: 999px;
+
+    --aui-space-1: 0.25rem;
+    --aui-space-2: 0.5rem;
+    --aui-space-3: 0.75rem;
+    --aui-space-4: 1rem;
+    --aui-space-5: 1.5rem;
+    --aui-space-6: 2rem;
+    --aui-space-7: 3rem;
+    --aui-space-8: 4rem;
+
+    --aui-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      "Helvetica Neue", sans-serif;
+    --aui-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+      Consolas, monospace;
+
+    --aui-fs-xs: 0.75rem;
+    --aui-fs-sm: 0.8125rem;
+    --aui-fs: 0.9375rem;
+    --aui-fs-lg: 1.0625rem;
+    --aui-fs-xl: 1.3125rem;
+    --aui-fs-2xl: 1.75rem;
+    --aui-fs-3xl: 2.25rem;
+
+    --aui-lh: 1.55;
+    --aui-lh-tight: 1.2;
+
+    --aui-dur-1: 120ms;
+    --aui-dur-2: 220ms;
+    --aui-dur-3: 420ms;
+    --aui-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --aui-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --aui-ease-spring: cubic-bezier(0.5, 1.6, 0.4, 1);
+  }
+}
