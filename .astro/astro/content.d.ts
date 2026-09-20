@@ -255,6 +255,118 @@ declare module 'astro:content' {
   collection: "photos";
   data: InferEntrySchema<"photos">
 } & { render(): Render[".md"] };
+"teste-01.md": {
+	id: "teste-01.md";
+  slug: "teste-01";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-02.md": {
+	id: "teste-02.md";
+  slug: "teste-02";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-03.md": {
+	id: "teste-03.md";
+  slug: "teste-03";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-04.md": {
+	id: "teste-04.md";
+  slug: "teste-04";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-05.md": {
+	id: "teste-05.md";
+  slug: "teste-05";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-06.md": {
+	id: "teste-06.md";
+  slug: "teste-06";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-07.md": {
+	id: "teste-07.md";
+  slug: "teste-07";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-08.md": {
+	id: "teste-08.md";
+  slug: "teste-08";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-09.md": {
+	id: "teste-09.md";
+  slug: "teste-09";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-10.md": {
+	id: "teste-10.md";
+  slug: "teste-10";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-11.md": {
+	id: "teste-11.md";
+  slug: "teste-11";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-12.md": {
+	id: "teste-12.md";
+  slug: "teste-12";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-13.md": {
+	id: "teste-13.md";
+  slug: "teste-13";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-14.md": {
+	id: "teste-14.md";
+  slug: "teste-14";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-15.md": {
+	id: "teste-15.md";
+  slug: "teste-15";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"teste-16.md": {
+	id: "teste-16.md";
+  slug: "teste-16";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
 "thisgirl.md": {
 	id: "thisgirl.md";
   slug: "thisgirl";

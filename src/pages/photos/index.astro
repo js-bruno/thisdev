@@ -41,11 +41,15 @@ const rolls = [...byRoll.entries()];
             <span class="roll-count">
               {list.length} foto{list.length !== 1 ? "s" : ""}
             </span>
+            <span class="roll-hint" aria-hidden="true">
+              ↔ roda do mouse rola
+            </span>
           </div>
           <div
             class="roll-track"
             tabindex="0"
             role="region"
+            data-roll={roll}
             aria-label={`${roll}, ${list.length} fotos`}
           >
             {list.map((photo) => (
@@ -67,19 +71,45 @@ const rolls = [...byRoll.entries()];
 
 <script>
   function enableWheelScroll(track: HTMLElement) {
+    const roll = track.closest(".roll");
+    let active = false;
+
+    const activate = () => {
+      active = true;
+      roll?.classList.add("is-active");
+    };
+    const deactivate = () => {
+      active = false;
+      roll?.classList.remove("is-active");
+    };
+
+    track.addEventListener("mouseenter", activate);
+    track.addEventListener("mouseleave", deactivate);
+    track.addEventListener("focusin", activate);
+    track.addEventListener("focusout", deactivate);
+
     track.addEventListener(
       "wheel",
       (event) => {
+        if (!active && !track.contains(document.activeElement)) return;
         if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
         const max = track.scrollWidth - track.clientWidth;
         if (max <= 0) return;
 
-        const atStart = track.scrollLeft <= 0 && event.deltaY < 0;
-        const atEnd = track.scrollLeft >= max - 1 && event.deltaY > 0;
+        const delta =
+          event.deltaMode === 1
+            ? event.deltaY * 18
+            : event.deltaMode === 2
+              ? event.deltaY * track.clientWidth
+              : event.deltaY;
+
+        const atStart = track.scrollLeft <= 0 && delta < 0;
+        const atEnd = track.scrollLeft >= max - 1 && delta > 0;
         if (atStart || atEnd) return;
 
         event.preventDefault();
-        track.scrollLeft += event.deltaY;
+        track.scrollLeft += delta;
       },
       { passive: false },
     );

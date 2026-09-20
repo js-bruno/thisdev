@@ -437,12 +437,28 @@ details > summary:hover { background: var(--surface); }
   gap: 1rem;
   overflow-x: auto;
   padding: 0.25rem 0.25rem 1rem;
-  scroll-snap-type: x mandatory;
   scrollbar-color: var(--accent) var(--bg-deep);
   cursor: grab;
   overscroll-behavior-x: contain;
+  transition: outline-color 0.2s ease;
 }
 .roll-track:active { cursor: grabbing; }
+.roll.is-active .roll-track {
+  outline: 1px dashed var(--accent);
+  outline-offset: 6px;
+}
+.roll.is-active .roll-head h2 { color: var(--accent-2); }
+.roll-hint {
+  margin-left: auto;
+  font-family: var(--display);
+  font-size: 0.6em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.roll.is-active .roll-hint { opacity: 1; color: var(--accent); }
 .roll-track:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
