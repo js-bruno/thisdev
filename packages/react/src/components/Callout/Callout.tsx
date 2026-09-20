@@ -3,7 +3,8 @@ import { cx } from "../../utils/cx";
 
 export type CalloutTone = "info" | "ok" | "warn" | "danger" | "accent";
 
-export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CalloutProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   tone?: CalloutTone;
   title?: React.ReactNode;
   icon?: React.ReactNode;

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { cx } from "../../utils/cx";
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   media?: string;

@@ -19,9 +19,10 @@
     "./dist/*": "./dist/*"
   },
   "scripts": {
-    "build": "lightningcss --bundle --minify --targets '>= 2021' --output-file dist/index.css src/index.css"
+    "build": "esbuild src/index.css --bundle --minify --outfile=dist/index.css",
+    "watch": "esbuild src/index.css --bundle --outfile=dist/index.css --watch"
   },
   "devDependencies": {
-    "lightningcss-cli": "^1.33.0"
+    "esbuild": "^0.28.2"
   }
 }
