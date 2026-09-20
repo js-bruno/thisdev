@@ -36,15 +36,16 @@ const tagList = tags
 <BlogLayout title={title} description={description}>
   <style>
     pre[class*="language-"] {
-      padding: 0.75rem 0.9rem;
-      margin: 0.8em 0;
+      padding: 1rem;
+      margin: 1.25rem 0;
       overflow: auto;
-      background: var(--surface);
+      background: var(--surface-2);
       border: 1px solid var(--border);
+      border-radius: var(--radius);
     }
     code[class*="language-"],
     pre[class*="language-"] {
-      font-family: var(--font);
+      font-family: var(--mono);
       text-align: left;
       white-space: pre;
       word-spacing: normal;

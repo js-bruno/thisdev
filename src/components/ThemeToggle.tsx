@@ -21,21 +21,19 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle theme"
-      title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      title={theme === "dark" ? "Mudar para claro" : "Mudar para escuro"}
       style={{
         background: "none",
-        border: "1px solid currentColor",
-        color: "inherit",
+        border: "none",
+        color: "var(--muted)",
         cursor: "pointer",
         fontFamily: "inherit",
-        fontSize: "0.85em",
-        padding: "2px 8px",
-        borderRadius: "2px",
+        fontSize: "0.95em",
+        padding: "0.2rem 0",
         lineHeight: 1.4,
-        opacity: 0.75,
       }}
     >
-      {theme === "dark" ? "☀ light" : "☾ dark"}
+      {theme === "dark" ? "claro" : "escuro"}
     </button>
   );
 }

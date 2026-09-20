@@ -16,29 +16,27 @@ const bottoms = [
     .bottoms {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      padding: 0.75rem;
-      margin: 1.5rem 0;
+      gap: 0.4rem;
     }
     .bottoms img {
       width: 88px;
       height: 31px;
       object-fit: cover;
       border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .bottoms a:hover img,
     .bottoms a:focus img {
-      filter: drop-shadow(1px 1px 0 var(--accent))
-        drop-shadow(-1px 1px 0 var(--accent))
-        drop-shadow(1px -1px 0 var(--accent))
-        drop-shadow(-1px -1px 0 var(--accent));
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
     }
   </style>
 
   <h1>links</h1>
   <p>sites de pessoas que eu acho massa e quero guardar por perto.</p>
 
-  <div class="rope">
+  <div class="card" style="margin: 2rem 0;">
     <div class="bottoms">
       {
         bottoms.map((b) => (
@@ -51,8 +49,8 @@ const bottoms = [
   </div>
 
   <h2>link me</h2>
-  <div class="rope">
-    <p>se quiser apontar pra cá, fica à vontade.</p>
+  <div class="card">
+    <p style="margin-top: 0;">se quiser apontar pra cá, fica à vontade.</p>
     <pre><code>{`<a href="https://thisdev.space"><img src="SEU_BOTAO_AQUI" alt="this dev"></a>`}</code></pre>
   </div>
 </BlogLayout>
