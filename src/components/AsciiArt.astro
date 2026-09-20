@@ -7,12 +7,11 @@ const { art } = Astro.props;
 
 <style>
   .ascii-wrapper {
-    /* Usa a fonte monoespaçada que configuramos no seu CSS */
     font-family: var(--font-family-monospace);
     font-size: 0.85rem; 
     line-height: 1.2;
-    overflow-x: auto; /* Permite rolagem no celular sem quebrar o layout */
-    background: var(--color-gray-20); /* Fundo sutil do Catppuccin (opcional) */
+    overflow-x: auto; 
+    background: var(--color-gray-20);
     padding: 1rem;import AsciiArt from '../components/AsciiArt.astro';
     border-radius: 8px;import AsciiArt from '../components/AsciiArt.astro';
     text-align: left;

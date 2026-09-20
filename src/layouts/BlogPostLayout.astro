@@ -31,109 +31,108 @@ const tagList = tags
 ---
 
 <BlogLayout title={title} description={description}>
-  <!-- Prism syntax highlight CSS for code blocks -->
   <style>
-    /* prism-okaidia theme inline since we can't bundle like eleventy */
+    pre[class*="language-"] {
+      padding: 0.75rem 0.9rem;
+      margin: 0.8em 0;
+      overflow: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
     code[class*="language-"],
     pre[class*="language-"] {
-      color: #f8f8f2;
-      background: none;
-      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+      font-family: var(--font);
       text-align: left;
       white-space: pre;
       word-spacing: normal;
       word-break: normal;
-      word-wrap: normal;
       line-height: 1.5;
-      tab-size: 4;
+      tab-size: 2;
       hyphens: none;
     }
-    pre[class*="language-"] {
-      padding: 1em;
-      margin: 0.5em 0;
-      overflow: auto;
-      border-radius: 0.3em;
-      background: #272822;
-    }
     :not(pre) > code[class*="language-"] {
-      background: #272822;
+      background: var(--surface);
       padding: 0.1em;
-      border-radius: 0.3em;
+      border: 1px solid var(--border);
       white-space: normal;
     }
     .token.comment,
     .token.prolog,
     .token.doctype,
-    .token.cdata { color: #8292a2; }
-    .token.punctuation { color: #f8f8f2; }
-    .token.namespace { opacity: 0.7; }
+    .token.cdata { color: var(--muted); }
+    .token.punctuation { color: var(--ink); }
     .token.property,
     .token.tag,
     .token.constant,
     .token.symbol,
-    .token.deleted { color: #f92672; }
+    .token.deleted { color: #e06c75; }
     .token.boolean,
-    .token.number { color: #ae81ff; }
+    .token.number { color: #c678dd; }
     .token.selector,
     .token.attr-name,
     .token.string,
     .token.char,
     .token.builtin,
-    .token.inserted { color: #a6e22e; }
+    .token.inserted { color: #98c379; }
     .token.operator,
     .token.entity,
     .token.url,
     .language-css .token.string,
     .style .token.string,
-    .token.variable { color: #f8f8f2; }
+    .token.variable { color: var(--ink); }
     .token.atrule,
     .token.attr-value,
     .token.function,
-    .token.class-name { color: #e6db74; }
-    .token.keyword { color: #66d9ef; }
+    .token.class-name { color: #e5c07b; }
+    .token.keyword { color: #61afef; }
     .token.regex,
-    .token.important { color: #fd971f; }
+    .token.important { color: #d19a66; }
     .token.important,
     .token.bold { font-weight: bold; }
     .token.italic { font-style: italic; }
   </style>
 
-  <h1>{title}</h1>
+  <article>
+    <h1>{title}</h1>
 
-  <ul class="post-metadata">
-    {
-      formattedDate && htmlDate && (
-        <li>
-          <time datetime={htmlDate}>{formattedDate}</time>
-        </li>
-      )
-    }
-    {
-      tagList.map((tag) => (
-        <li>
-          <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`} class="post-tag">
-            {tag}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+    <ul class="post-metadata">
+      {
+        formattedDate && htmlDate && (
+          <li>
+            <time datetime={htmlDate}>{formattedDate}</time>
+          </li>
+        )
+      }
+      {
+        tagList.map((tag) => (
+          <li>
+            <a
+              href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
+              class="post-tag"
+            >
+              #{tag}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
 
-  <slot />
+    <slot />
+  </article>
 
   {
     (prevPost || nextPost) && (
       <ul class="links-nextprev">
         {prevPost && (
           <li class="links-nextprev-prev">
-            <span data-pt>← Anterior</span><span data-en>← Previous</span>
+            <span>← anterior</span>
             <br />
             <a href={prevPost.url}>{prevPost.title}</a>
           </li>
         )}
         {nextPost && (
           <li class="links-nextprev-next">
-            <span data-pt>Próximo →</span><span data-en>Next →</span>
+            <span>próximo →</span>
             <br />
             <a href={nextPost.url}>{nextPost.title}</a>
           </li>

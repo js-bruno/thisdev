@@ -1,0 +1,56 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import PhotoCard from "../../components/PhotoCard.astro";
+import { getCollection } from "astro:content";
+
+const photos = await getCollection("photos", ({ data }) => !data.draft);
+
+const byRoll = new Map<string, typeof photos>();
+for (const photo of photos) {
+  const roll = photo.data.roll ?? "sem rolo";
+  if (!byRoll.has(roll)) byRoll.set(roll, []);
+  byRoll.get(roll)!.push(photo);
+}
+
+for (const list of byRoll.values()) {
+  list.sort((a, b) => {
+    const da = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const db = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return db - da;
+  });
+}
+
+const rolls = [...byRoll.entries()];
+---
+
+<BlogLayout title="Photos" background>
+  <h1>photos</h1>
+  <p>
+    um lugar pras minhas fotos de Canon. tudo passa pelo dithering pra ficar
+    leve e combinar com o resto do site.
+  </p>
+
+  {
+    rolls.length === 0 ? (
+      <p class="empty">nenhuma foto por aqui ainda.</p>
+    ) : (
+      rolls.map(([roll, list]) => (
+        <section>
+          <h2>{roll}</h2>
+          <div class="photopile">
+            {list.map((photo) => (
+              <PhotoCard
+                src={photo.data.src}
+                alt={photo.data.alt}
+                title={photo.data.title}
+                camera={photo.data.camera}
+                lens={photo.data.lens}
+                location={photo.data.location}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    )
+  }
+</BlogLayout>

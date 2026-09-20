@@ -11,4 +11,30 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const micro = defineCollection({
+  type: 'content',
+  schema: z.object({
+    date: z.date(),
+    tags: z.union([z.string(), z.array(z.string())]).optional(),
+    image: z.string().optional(),
+    mood: z.string().optional(),
+    draft: z.boolean().optional(),
+  }),
+});
+
+const photos = defineCollection({
+  type: 'content',
+  schema: z.object({
+    src: z.string(),
+    alt: z.string(),
+    title: z.string().optional(),
+    date: z.date().optional(),
+    camera: z.string().optional(),
+    lens: z.string().optional(),
+    location: z.string().optional(),
+    roll: z.string().optional(),
+    draft: z.boolean().optional(),
+  }),
+});
+
+export const collections = { blog, micro, photos };

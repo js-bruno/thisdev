@@ -1,47 +1,58 @@
 ---
-const bottomImages = [
-  { src: "/assets/images/bottoms/coils.webp", alt: "coils.net" },
-  { src: "/assets/images/bottoms/dimdens.webp", alt: "dimdens.net" },
-  { src: "/assets/images/bottoms/oii.webp", alt: "oii" },
-  { src: "/assets/images/bottoms/inkcaps.webp", alt: "inkcaps" },
-  { src: "/assets/images/bottoms/vms.webp", alt: "vms" },
-  { src: "/assets/images/bottoms/ribozone.webp", alt: "ribozone" },
-];
+import BlogLayout from "../layouts/BlogLayout.astro";
 
-// Repeat to fill the grid like the original
-const repeatedImages = [...bottomImages, ...bottomImages, ...bottomImages, ...bottomImages, ...bottomImages];
+const bottoms = [
+  { src: "/assets/images/bottoms/coils.webp", alt: "coils.net", href: "https://coils.net" },
+  { src: "/assets/images/bottoms/dimdens.webp", alt: "dimdens.net", href: "https://dimdens.net" },
+  { src: "/assets/images/bottoms/oii.webp", alt: "oii", href: "https://oii.io" },
+  { src: "/assets/images/bottoms/inkcaps.webp", alt: "inkcaps", href: "https://inkcaps.net" },
+  { src: "/assets/images/bottoms/vms.webp", alt: "vms", href: "https://vms.net" },
+  { src: "/assets/images/bottoms/ribozone.webp", alt: "ribozone", href: "https://ribo.zone" },
+];
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Links</title>
-    <link rel="stylesheet" href="/assets/css/links.css" />
-  </head>
-  <body>
-    <div class="container">
-      <article>
-        <h2>some funny websites bottoms</h2>
-        <div class="bottoms-container">
-          {
-            repeatedImages.map((img) => (
-              <img
-                src={img.src}
-                alt={img.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            ))
-          }
-        </div>
-        <p>some personal-website that i think it's awesome and want to store</p>
-      </article>
+<BlogLayout title="Links" background>
+  <style>
+    .bottoms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .bottoms img {
+      width: 88px;
+      height: 31px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+    .bottoms a:hover img,
+    .bottoms a:focus img {
+      filter: drop-shadow(1px 1px 0 var(--accent))
+        drop-shadow(-1px 1px 0 var(--accent))
+        drop-shadow(1px -1px 0 var(--accent))
+        drop-shadow(-1px -1px 0 var(--accent));
+    }
+  </style>
 
-      <article>
-        <h2>some funny websites bottoms</h2>
-      </article>
+  <h1>links</h1>
+  <p>sites de pessoas que eu acho massa e quero guardar por perto.</p>
+
+  <div class="rope">
+    <div class="bottoms">
+      {
+        bottoms.map((b) => (
+          <a href={b.href} title={b.alt}>
+            <img src={b.src} alt={b.alt} loading="lazy" decoding="async" />
+          </a>
+        ))
+      }
     </div>
-  </body>
-</html>
+  </div>
+
+  <h2>link me</h2>
+  <div class="rope">
+    <p>se quiser apontar pra cá, fica à vontade.</p>
+    <pre><code>{`<a href="https://thisdev.space"><img src="SEU_BOTAO_AQUI" alt="this dev"></a>`}</code></pre>
+  </div>
+</BlogLayout>

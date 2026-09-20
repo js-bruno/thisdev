@@ -1,0 +1,2 @@
+- [] adicionar uma forma de rastreio de view
+- [] ajustar site para o modo mobile

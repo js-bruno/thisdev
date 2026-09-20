@@ -1,0 +1,24 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  title?: string;
+  camera?: string;
+  lens?: string;
+  location?: string;
+}
+
+const { src, alt, title, camera, lens, location } = Astro.props;
+const meta = [camera, lens, location].filter(Boolean).join(" · ");
+---
+
+<a href={src} target="_blank" rel="noopener">
+  <figure>
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    <figcaption>
+      {title && <strong>{title}</strong>}
+      {title && meta && " — "}
+      {meta}
+    </figcaption>
+  </figure>
+</a>

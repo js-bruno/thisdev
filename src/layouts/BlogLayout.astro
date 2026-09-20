@@ -2,76 +2,70 @@
 import site from "../data/site.ts";
 import ThemeToggle from "../components/ThemeToggle.tsx";
 import KonamiLang from "../components/KonamiLang.tsx";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
+  background?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, background = false } = Astro.props;
 const pageTitle = title ? `${title} | ${site.name}` : site.name;
 const pageDesc = description || site.description;
 
 const navItems = [
-  { href: "/",              pt: "Inicio",  en: "Home"    },
-  { href: "/blog/",         pt: "Blog",    en: "Blog"    },
-  { href: "/blog/archive/", pt: "Arquivo", en: "Archive" },
-  { href: "/about/",        pt: "Sobre",   en: "About"   },
+  { href: "/",          label: "home"   },
+  { href: "/micro/",    label: "micro"  },
+  { href: "/blog/",     label: "blog"   },
+  { href: "/photos/",   label: "photos" },
+  { href: "/links/",    label: "links"  },
+  { href: "/about/",    label: "about"  },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="pt-br" data-lang="pt-br" data-theme="light">
+<html lang="pt-br" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
-    <link rel="stylesheet" href="/assets/css/blog.css" />
     <link rel="stylesheet" href="/assets/css/prism-diff.css" />
-    <!-- prevent flash of wrong theme/lang -->
     <script is:inline>
       (function () {
         var t = localStorage.getItem("theme") || "dark";
         var l = localStorage.getItem("lang") || "pt-br";
         document.documentElement.setAttribute("data-theme", t);
-        document.documentElement.setAttribute("data-lang", l);
         document.documentElement.lang = l;
       })();
     </script>
   </head>
-  <body>
+  <body class={background ? "dithered-bg" : ""}>
     <a href="#main" id="skip-link" class="visually-hidden">
-      <span data-pt>Ir para o conteudo</span>
-      <span data-en>Skip to main content</span>
+      <span>Skip to main content</span>
     </a>
 
-    <header>
+    <header class="site-header">
       <a href="/" class="home-link">{site.name}</a>
       <nav>
-        <h2 class="visually-hidden">
-          <span data-pt>Menu de navegacao</span>
-          <span data-en>Top level navigation menu</span>
-        </h2>
-        <ul class="nav">
+        <h2 class="visually-hidden"><span>Top level navigation menu</span></h2>
+        <ul class="site-nav">
           {
             navItems.map((item) => (
-              <li class="nav-item">
+              <li>
                 <a
                   href={item.href}
                   aria-current={currentPath === item.href ? "page" : undefined}
                 >
-                  <span data-pt>{item.pt}</span>
-                  <span data-en>{item.en}</span>
+                  <span>{item.label}</span>
                 </a>
               </li>
             ))
           }
-          <li class="nav-item">
-            <ThemeToggle client:load />
-          </li>
+          <li><ThemeToggle client:load /></li>
         </ul>
       </nav>
     </header>
@@ -80,7 +74,7 @@ const currentPath = Astro.url.pathname;
       <slot />
     </main>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         <em>{site.author} — {new Date().getFullYear()}</em>
       </p>

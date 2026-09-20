@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="pt-br" data-theme="light"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nixos minecraft server | ~/this_dev</title><meta name="description" content="criando um servidor de minecraft declarativo com nixos ❄️"><link rel="stylesheet" href="/assets/css/prism-diff.css"><script>
+      (function () {
+        var t = localStorage.getItem("theme") || "dark";
+        var l = localStorage.getItem("lang") || "pt-br";
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.lang = l;
+      })();
+    </script><style>pre[data-astro-cid-2q5oecfc][class*=language-]{padding:.75rem .9rem;margin:.8em 0;overflow:auto;background:var(--surface);border:1px solid var(--border)}code[data-astro-cid-2q5oecfc][class*=language-],pre[data-astro-cid-2q5oecfc][class*=language-]{font-family:var(--font);text-align:left;white-space:pre;word-spacing:normal;word-break:normal;line-height:1.5;tab-size:2;hyphens:none}[data-astro-cid-2q5oecfc]:not(pre)>code[data-astro-cid-2q5oecfc][class*=language-]{background:var(--surface);padding:.1em;border:1px solid var(--border);white-space:normal}.token[data-astro-cid-2q5oecfc].comment,.token[data-astro-cid-2q5oecfc].prolog,.token[data-astro-cid-2q5oecfc].doctype,.token[data-astro-cid-2q5oecfc].cdata{color:var(--muted)}.token[data-astro-cid-2q5oecfc].punctuation{color:var(--ink)}.token[data-astro-cid-2q5oecfc].property,.token[data-astro-cid-2q5oecfc].tag,.token[data-astro-cid-2q5oecfc].constant,.token[data-astro-cid-2q5oecfc].symbol,.token[data-astro-cid-2q5oecfc].deleted{color:#e06c75}.token[data-astro-cid-2q5oecfc].boolean,.token[data-astro-cid-2q5oecfc].number{color:#c678dd}.token[data-astro-cid-2q5oecfc].selector,.token[data-astro-cid-2q5oecfc].attr-name,.token[data-astro-cid-2q5oecfc].string,.token[data-astro-cid-2q5oecfc].char,.token[data-astro-cid-2q5oecfc].builtin,.token[data-astro-cid-2q5oecfc].inserted{color:#98c379}.token[data-astro-cid-2q5oecfc].operator,.token[data-astro-cid-2q5oecfc].entity,.token[data-astro-cid-2q5oecfc].url,.language-css[data-astro-cid-2q5oecfc] .token[data-astro-cid-2q5oecfc].string,.style[data-astro-cid-2q5oecfc] .token[data-astro-cid-2q5oecfc].string,.token[data-astro-cid-2q5oecfc].variable{color:var(--ink)}.token[data-astro-cid-2q5oecfc].atrule,.token[data-astro-cid-2q5oecfc].attr-value,.token[data-astro-cid-2q5oecfc].function,.token[data-astro-cid-2q5oecfc].class-name{color:#e5c07b}.token[data-astro-cid-2q5oecfc].keyword{color:#61afef}.token[data-astro-cid-2q5oecfc].regex,.token[data-astro-cid-2q5oecfc].important{color:#d19a66}.token[data-astro-cid-2q5oecfc].important,.token[data-astro-cid-2q5oecfc].bold{font-weight:700}.token[data-astro-cid-2q5oecfc].italic{font-style:italic}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.eOsTFm4_.css"></head> <body class=""> <a href="#main" id="skip-link" class="visually-hidden"> <span>Skip to main content</span> </a> <header class="site-header"> <a href="/" class="home-link">~/this_dev</a> <nav> <h2 class="visually-hidden"><span>Top level navigation menu</span></h2> <ul class="site-nav"> <li> <a href="/"> <span>home</span> </a> </li><li> <a href="/micro/"> <span>micro</span> </a> </li><li> <a href="/blog/"> <span>blog</span> </a> </li><li> <a href="/photos/"> <span>photos</span> </a> </li><li> <a href="/links/"> <span>links</span> </a> </li><li> <a href="/about/"> <span>about</span> </a> </li> <li><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="Z26Bf1d" prefix="r0" component-url="/_astro/ThemeToggle.BR3RgDSm.js" component-export="default" renderer-url="/_astro/client.DrE9CFQR.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;ThemeToggle&quot;,&quot;value&quot;:true}" await-children=""><button aria-label="Toggle theme" title="Switch to light mode" style="background:none;border:1px solid currentColor;color:inherit;cursor:pointer;font-family:inherit;font-size:0.85em;padding:2px 8px;border-radius:2px;line-height:1.4;opacity:0.75">☀ light</button><!--astro:end--></astro-island></li> </ul> </nav> </header> <main id="main">   <article data-astro-cid-2q5oecfc> <h1 data-astro-cid-2q5oecfc>Nixos minecraft server</h1> <ul class="post-metadata" data-astro-cid-2q5oecfc> <li data-astro-cid-2q5oecfc> <time datetime="2026-06-20" data-astro-cid-2q5oecfc>20 de junho de 2026</time> </li> <li data-astro-cid-2q5oecfc> <a href="/tags/my/" class="post-tag" data-astro-cid-2q5oecfc>
+#my </a> </li> </ul>  <h2 id="um-dia-normar">um dia normar</h2>
+<p>nesse final de semanal eu comecei a tentar escrever um servidor de minecraft declarativo para  meu grupo de amigos meu
+como a declartivade  do nixos e muito conveniente para configurar servicos eu optei criar todo ambiente infraestura nessa lingaugem.</p>
+<h2 id="objetivo-e-problematica">Objetivo e Problematica</h2>
+<p>Lendo a <a href="https://wiki.nixos.org/wiki/Minecraft_Server"> documentacao do nixos </a> da pra perceber que ele tem uma otima integracao built-in com o
+minecraft-server, o unico problema, meu problema na verdade e que ainda eu nao sei o usar flake e meu conhecimento com a lingaugem nix e bem limitado
+vou usar esse projeto pra aprender mais da linguagem e o objetivo dele e <em>ter um servidor declarativo de minecraft com mods, que eu possa subir quando quiser em qualquer maquina sem problemas.</em></p>
+<h2 id="servidor-configurado-em-localhost">Servidor configurado em localhost</h2>
+<p>Logo de cara da pra configurar um servidor de minecrat vanilla bem facilmente so com a documentacao, pra comecar com ajuda de um video do <a href="https://www.youtube.com/watch?v=Fph7SMldxpI&#x26;t=1s">vimjoyer</a>(sim eu aprendo melhor assistindo tutorias)
+eu criar um modulo nix apenas para o servidor de minecraft e importar no meu configuration.nix.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>{pkgs, lib, ...}:</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>  services.minecraft-server = {</span></span>
+<span class="line"><span>    package = pkgs.papermc;</span></span>
+<span class="line"><span>    enable = true;</span></span>
+<span class="line"><span>    eula = true;</span></span>
+<span class="line"><span>    declarative = true;</span></span>
+<span class="line"><span>    openFirewall = true;</span></span>
+<span class="line"><span>    jvmOpts = "-Xms2048M -Xmx2048M"; </span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    serverProperties = {</span></span>
+<span class="line"><span>      online-mode = false;</span></span>
+<span class="line"><span>      server-port = 43000;</span></span>
+<span class="line"><span>      difficulty = 3;</span></span>
+<span class="line"><span>      gamemode = 0;</span></span>
+<span class="line"><span>      max-players = 5;</span></span>
+<span class="line"><span>      motd = "NixOS Minecraft server!";</span></span>
+<span class="line"><span>      white-list = false;</span></span>
+<span class="line"><span>      enable-rcon = true;</span></span>
+<span class="line"><span>      "rcon.password" = "hunter2";</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span>    # whitelist = {</span></span>
+<span class="line"><span>    #   username1 = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";</span></span>
+<span class="line"><span>    #   username2 = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy";</span></span>
+<span class="line"><span>    # };</span></span>
+<span class="line"><span>  };</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>muito interessante reconher alguns parametros que sao repassados desse arquivo declarativo para o servidor do minecrat na compilacao.
+como eu ainda nao sei flake esse arquivo esta importado na minha configuration.nix e esta inicializando com a minha maquina me custando 2G de memoria com 0 players no servidor T___T.</p>
+<h2 id="mods-no-meu-client">MOds no meu client</h2>
+<p>Meu amigo(matteuszinho) me mandou uma lista de mods essesiais para o client do minecraft e
+mais alguns outros para o servidor, mas vou entrar nesse assunto posteriormente.
+vou tentar instalar todos, separei aqui por categorias e descrevendo o que faz cada mod.</p>
+<h3 id="️-apis-e-bibliotecas-base">🛠️ APIs e Bibliotecas Base</h3>
+<p><em>Mods técnicos que rodam nos bastidores e são necessários para que outros mods funcionem corretamente.</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api">Architectury API</a></strong>: Biblioteca técnica necessária para o funcionamento de vários outros mods.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/balm">Balm</a></strong>: Biblioteca técnica necessária para os mods do desenvolvedor BlayTheNinth.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/bclib">BCLib Neoforge</a></strong>: Biblioteca base necessária para a geração dos mods BetterEnd e BetterNether.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config">Cloth Config API</a></strong>: Tela de configuração técnica usada internamente por dezenas de outros mods.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/collective">Collective</a></strong>: Biblioteca de código compartilhada para todos os mods do criador Serilum.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/creativecore">CreativeCore</a></strong>: Biblioteca técnica essencial para mods de física, som e interface.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/cristellib">Cristel Lib</a></strong>: Biblioteca de código exigida por mods focados em estruturas, como o Towns and Towers.</li>
+<li><strong><a href="https://modrinth.com/mod/forge-config-api-port">Forge Config API Port</a></strong>: Ferramenta que garante compatibilidade para os arquivos de configuração entre diferentes plataformas de mods.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/glitchcore">GlitchCore</a></strong>: Biblioteca base técnica exigida por mods do desenvolvedor Glitchfiend (como o Serene Seasons).</li>
+<li><strong><a href="https://modrinth.com/mod/jamlib">JamLib</a></strong>: Biblioteca de código de suporte para mods específicos.</li>
+<li><strong><a href="https://modrinth.com/mod/lithostitched">Lithostitched</a></strong>: API para personalização avançada na geração de terrenos e mundos do jogo.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/playeranimator">Player Animator</a></strong>: Biblioteca que permite animações personalizadas, fluídas e complexas para o modelo do jogador.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/puzzles-lib">Puzzles Lib</a></strong>: Biblioteca de código unificada usada por dezenas de pequenos mods do autor Fuzs.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/sophisticatedcore">Sophisticated Core</a></strong>: Base de código essencial para o funcionamento correto do mod de mochilas.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/terrablender">TerraBlender</a></strong>: Ajuda a integrar novos biomas criados por mods suavemente no gerador de mundo do Minecraft.</li>
+<li><strong><a href="https://modrinth.com/mod/worldweaver">WorldWeaver Neoforge</a></strong>: Biblioteca para integração customizada de estruturas e geração de mundos em mods.</li>
+<li><strong><a href="https://modrinth.com/mod/wunderlib">WunderLib Neoforge</a></strong>: Biblioteca base de código auxiliar usada em conjunto com outros mods utilitários.</li>
+<li><strong><a href="https://modrinth.com/mod/yacl">YetAnotherConfigLib</a></strong>: Biblioteca focada na criação de menus de configuração limpos e bem projetados para os mods do seu pacote.</li>
+</ul>
+<hr>
+<h3 id="-otimização-e-desempenho">⚡ Otimização e Desempenho</h3>
+<p><em>Mods focados em aumentar o FPS, renderização e eliminar lag.</em></p>
+<ul>
+<li><strong><a href="https://modrinth.com/mod/distant-horizons">Distant Horizons</a></strong>: Adiciona um sistema de Nível de Detalhe (LOD) que permite ver distâncias gigantescas (centenas de chunks) sem causar lag.</li>
+<li><strong><a href="https://modrinth.com/mod/immediatelyfast">ImmediatelyFast</a></strong>: Otimiza fortemente o código do jogo, focado em acelerar a renderização da interface, mobs e partículas.</li>
+<li><strong><a href="https://modrinth.com/mod/sodium">Sodium</a></strong>: Motor de renderização alternativo que aumenta absurdamente o seu FPS e remove travamentos (stutters).</li>
+</ul>
+<hr>
+<h3 id="-geração-de-mundo-e-estruturas">🌍 Geração de Mundo e Estruturas</h3>
+<p><em>Mods que alteram as dimensões, adicionam novos biomas, ruínas e construções pelo mapa.</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/betterend">BetterEnd Neoforge</a></strong>: Reformula completamente a dimensão do The End com dezenas de novos biomas, blocos e criaturas.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/betternether">BetterNether Neoforge</a></strong>: Expande massivamente o Nether com novos biomas, plantas, materiais e estruturas.</li>
+<li><strong><a href="https://modrinth.com/mod/dungeons-and-taverns">Dungeons and Taverns</a></strong>: Adiciona diversas novas estruturas e masmorras geradas proceduralmente pelo mundo para explorar.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/hopo-better-underwater-ruins">Hopo Better Underwater Ruins</a></strong>: Revitaliza as ruínas subaquáticas do oceano com construções maiores, novos detalhes e saques melhores.</li>
+<li><strong><a href="https://modrinth.com/mod/structory">Structory</a></strong>: Adiciona novas construções e ruínas misteriosas abandonadas na natureza, muito bem encaixadas com o visual clássico do jogo.</li>
+<li><strong><a href="https://modrinth.com/mod/terralith">Terralith</a></strong>: Melhora incrivelmente a geração de montanhas, cavernas e vales no Overworld, usando apenas blocos originais do jogo.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/towns-and-towers">Towns and Towers</a></strong>: Introduz novos postos avançados de Pillagers e aldeias épicas focadas na estética de cada bioma.</li>
+</ul>
+<hr>
+<h3 id="-inventário-e-armazenamento">🎒 Inventário e Armazenamento</h3>
+<p><em>Facilidades para carregar itens e organizar seus pertences.</em></p>
+<ul>
+<li><strong><a href="https://modrinth.com/mod/geros-backpacks">Gero’s Backpacks!</a></strong>: Adiciona mochilas práticas e equilibradas para expandir a capacidade do seu inventário.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/search?class=mc-mods&#x26;search=Nemo%27s">Nemo’s Inventory Transit</a></strong>: Mod focado em otimizar e gerenciar a movimentação/transição de itens no inventário.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/sophisticated-backpacks">Sophisticated Backpacks</a></strong>: Mochilas extremamente avançadas que podem ser coloridas, colocadas no chão e receber módulos (upgrades de fornalha, ímã, etc).</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/trashslot">TrashSlot</a></strong>: Adiciona uma lixeira no canto do seu inventário onde você pode jogar fora ou deletar itens sem precisar jogá-los no chão.</li>
+</ul>
+<hr>
+<h3 id="-visual-áudio-e-câmera">✨ Visual, Áudio e Câmera</h3>
+<p><em>Melhorias imersivas para gráficos, sons, física e perspectiva.</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/ambientsounds">AmbientSounds 6</a></strong>: Adiciona sons ambientes imersivos e dinâmicos de acordo com o bioma e a área.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/search?class=mc-mods&#x26;search=Armor+Stand+Arms">Armor Stand Arms</a></strong>: Faz com que os suportes de armadura venham com braços visíveis por padrão.</li>
+<li><strong><a href="https://modrinth.com/mod/entity-model-features">[EMF] Entity Model Features</a></strong>: Permite que pacotes de textura alterem os modelos (formatos 3D) das entidades, uma função clássica do OptiFine.</li>
+<li><strong><a href="https://modrinth.com/mod/entitytexturefeatures">[ETF] Entity Texture Features</a></strong>: Habilita texturas aleatórias e brilho (emissividade) nos mobs e entidades.</li>
+<li><strong><a href="https://modrinth.com/mod/iris">Iris Shaders</a></strong>: Suporte moderno e de alto desempenho para o uso de pacotes de Shaders (sombras e iluminação realista).</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/itemphysic">ItemPhysic Full</a></strong>: Dá peso e física realista aos itens jogados no chão (eles rolam, deitam e flutuam em líquidos diferentes).</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/shoulder-surfing-reloaded">Shoulder Surfing Reloaded</a></strong>: Substitui a câmera de terceira pessoa padrão por uma visão sobre o ombro fluida (estilo jogos de RPG de ação).</li>
+<li><strong><a href="https://modrinth.com/mod/sound-physics-remastered">Sound Physics Remastered</a></strong>: Aplica física real aos sons, gerando ecos profundos em cavernas e abafando ruídos que vêm de trás de paredes grossas.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/ydms-weapon-master">YDM’s Weapon Master</a></strong>: Exibe visualmente as suas armas e ferramentas equipadas penduradas nas costas ou presas ao seu cinto.</li>
+</ul>
+<hr>
+<h3 id="️-interface-e-hud">🖥️ Interface e HUD</h3>
+<p><em>Tudo que muda os menus do jogo ou o que você vê na tela (Mini-mapas, vida, menus).</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/better-modlist">Better Modlist</a></strong>: Melhora o visual e a organização da tela de mods (Mod Menu) nativa do jogo.</li>
+<li><strong><a href="https://modrinth.com/mod/betterf3">BetterF3</a></strong>: Substitui a tela de debug (F3) por uma versão organizada, colorida, personalizável e mais fácil de ler.</li>
+<li><strong><a href="https://modrinth.com/mod/blur-plus">Blur+</a></strong>: Adiciona um efeito de desfoque elegante no fundo da tela sempre que você abre o inventário ou um baú.</li>
+<li><strong><a href="https://modrinth.com/mod/dynamiccrosshair">Dynamic Crosshair</a></strong>: Altera a mira do jogo dinamicamente de acordo com o que você está olhando (por exemplo: um ícone diferente se olhar para um inimigo ou para um baú).</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/search?class=mc-mods&#x26;search=Health+Bars">Health Bars</a></strong>: Exibe uma barra de vida flutuante acima dos inimigos e animais que tomam dano.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/inventory-hud-forge">Inventory HUD+</a></strong>: Mostra informações em tempo real na tela, como seu inventário, durabilidade da armadura e efeitos de poções ativos.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/journeymap">JourneyMap</a></strong>: Mapeia o mundo enquanto você explora, oferecendo um minimapa na tela e um mapa completo expansível.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/jei">Just Enough Items (JEI)</a></strong>: Mod utilitário que lista todos os itens e blocos do jogo e mostra a “receita” de como criar cada um deles.</li>
+</ul>
+<hr>
+<h3 id="️-qualidade-de-vida-qol-e-jogabilidade">⚙️ Qualidade de Vida (QoL) e Jogabilidade</h3>
+<p><em>Pequenos e grandes ajustes que tornam a jogabilidade menos monótona e mais fluída.</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/better-days">Better Days</a></strong>: Permite ajustar a duração do dia e da noite, ou fazer o tempo acelerar visualmente em vez de pular direto.</li>
+<li><strong><a href="https://modrinth.com/mod/bridging-mod">Bridging Mod</a></strong>: Facilita a construção de pontes, permitindo colocar blocos à frente guiando-se pela borda, similar ao sistema da Bedrock Edition.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/double-doors">Double Doors</a></strong>: Faz com que portas duplas abram e fechem simultaneamente com um único clique.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/enchanting-infuser">Enchanting Infuser</a></strong>: Adiciona uma mesa de encantamento avançada onde você escolhe diretamente os encantamentos, eliminando o fator sorte (RNG).</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/falling-tree">FallingTree</a></strong>: Derruba a árvore inteira de uma só vez quando você quebra apenas o bloco da base.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/ore-harvester">Ore Harvester</a></strong>: Permite minerar uma veia ou aglomerado inteiro de minérios quebrando apenas um bloco da cadeia.</li>
+<li><strong><a href="https://modrinth.com/mod/rightclickharvest">RightClickHarvest</a></strong>: Facilita a agricultura: colhe e replanta a semente imediatamente usando apenas o clique do botão direito do mouse.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/serene-seasons">Serene Seasons</a></strong>: Adiciona estações do ano dinâmicas que alteram o clima, nevascas e até as cores da grama e folhas.</li>
+<li><strong><a href="https://modrinth.com/mod/skinrestorer">Skin Restorer</a></strong>: Restaura e permite mudar skins de jogadores ativamente (geralmente usado em servidores offline/não-autenticados).</li>
+</ul>
+<hr>
+<h3 id="-construção-e-decoração">🪚 Construção e Decoração</h3>
+<p><em>Novos blocos e opções arquitetônicas.</em></p>
+<ul>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/macaws-bridges">Macaw’s Bridges</a></strong>: Adiciona diversos estilos e modelos de pontes de madeira e pedra prontos para construção.</li>
+<li><strong><a href="https://www.curseforge.com/minecraft/mc-mods/macaws-roofs">Macaw’s Roofs</a></strong>: Inclui blocos reais focados em construção de telhados, calhas e toldos diagonais.</li>
+</ul>  </article> <ul class="links-nextprev" data-astro-cid-2q5oecfc> <li class="links-nextprev-prev" data-astro-cid-2q5oecfc> <span data-astro-cid-2q5oecfc>← anterior</span> <br data-astro-cid-2q5oecfc> <a href="/blog/tedio/" data-astro-cid-2q5oecfc>Tedio</a> </li>  </ul> </main> <footer class="site-footer"> <p> <em>Z — 2026</em> </p> </footer> <astro-island uid="172kMr" prefix="r1" component-url="/_astro/KonamiLang.B-U7VKra.js" component-export="default" renderer-url="/_astro/client.DrE9CFQR.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;KonamiLang&quot;,&quot;value&quot;:true}"></astro-island> </body></html>

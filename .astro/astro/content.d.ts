@@ -170,6 +170,45 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
+"micro": {
+"foto-no-mato.md": {
+	id: "foto-no-mato.md";
+  slug: "foto-no-mato";
+  body: string;
+  collection: "micro";
+  data: InferEntrySchema<"micro">
+} & { render(): Render[".md"] };
+"nota-de-madrugada.md": {
+	id: "nota-de-madrugada.md";
+  slug: "nota-de-madrugada";
+  body: string;
+  collection: "micro";
+  data: InferEntrySchema<"micro">
+} & { render(): Render[".md"] };
+"testando-o-feed.md": {
+	id: "testando-o-feed.md";
+  slug: "testando-o-feed";
+  body: string;
+  collection: "micro";
+  data: InferEntrySchema<"micro">
+} & { render(): Render[".md"] };
+};
+"photos": {
+"rises-the-moon.md": {
+	id: "rises-the-moon.md";
+  slug: "rises-the-moon";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"thisgirl.md": {
+	id: "thisgirl.md";
+  slug: "thisgirl";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+};
 
 	};
 

@@ -1,244 +1,83 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-
-
 ---
 
-<BlogLayout title="About">
+<BlogLayout title="About" background>
   <style>
     @keyframes shimmer-run {
       to { background-position: 200% 50%; }
     }
-
     .nix-shimmer {
       display: inline-block;
       background-image: linear-gradient(
         100deg,
-        #5277C3 0%,   /* azul base do NixOS */
-        #5277C3 35%,
-        #A6E0FF 48%,  /* brilho claro */
-        #FFFFFF 50%,  /* pico do brilho */
-        #A6E0FF 52%,
-        #5277C3 65%,
-        #5277C3 100%
-          );
-          background-size: 250% 100%;
-          background-clip: text;
-          -webkit-background-clip: text;
-          color: transparent;
-          -webkit-text-fill-color: transparent;
-          animation: shimmer-run 2.8s linear infinite;
+        #5277c3 0%, #5277c3 35%, #a6e0ff 48%, #ffffff 50%,
+        #a6e0ff 52%, #5277c3 65%, #5277c3 100%
+      );
+      background-size: 250% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer-run 2.8s linear infinite;
     }
-
     @keyframes fire-run-vertical {
       to { background-position: 50% 400%; }
     }
-
     .fire-text {
       display: inline-block;
       background-image: linear-gradient(
         180deg,
-        #8B1A00,
-        #C7350C,
-        #E85A0C,
-        #FF8A1E,
-        #FFB627,
-        #FFD93D,
-        #FFF3B0, /* pico de brilho, quase branco */
-        #FFD93D,
-        #FFB627,
-        #FF8A1E,
-        #E85A0C,
-        #C7350C,
-        #8B1A00
-          );
-          background-size: 100% 500%;
-          background-clip: text;
-          -webkit-background-clip: text;
-          color: transparent;
-          -webkit-text-fill-color: transparent;
-          animation: fire-run-vertical 9.2s linear infinite;
+        #8b1a00, #c7350c, #e85a0c, #ff8a1e, #ffb627, #ffd93d,
+        #fff3b0, #ffd93d, #ffb627, #ff8a1e, #e85a0c, #c7350c, #8b1a00
+      );
+      background-size: 100% 500%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: fire-run-vertical 9.2s linear infinite;
     }
-
     .some-me {
-      display:flex;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-start;
     }
-    .some-me ul li span{
-      color:#B2F2E5;
-    }
-    .some-me img{
-      color:#B2F2E5;
-      width:100%;
-      border-radius: 400%;
-    }
-    .mu-about h1 {
-      font-size: 1.1em;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.3em;
-      margin-top: 0;
-      margin-bottom: 0.6em;
-    }
-
-    .mu-about h2 {
-      font-size: 0.72em;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.55;
-      margin-top: 1.8em;
-      margin-bottom: 0.6em;
-      padding-bottom: 0.25em;
-      border-bottom: 1px dashed var(--border-color);
-    }
-
-    .mu-about p,
-    .mu-about li {
-      font-size: 0.82em;
-      line-height: 1.75;
-    }
-
-    .mu-about ul {
-      padding-left: 1.2em;
-      margin: 0.4em 0 0.8em;
-    }
-
-    .mu-about ul li::marker {
-      content: "› ";
-      opacity: 0.45;
-    }
-
-    .mu-albums-section {
-      margin-top: 2em;
-    }
-
-    .mu-albums-label {
-      font-size: 0.62em;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      opacity: 0.45;
-      margin-bottom: 0.75em;
+    .some-me ul { flex: 1 1 16rem; margin: 0; }
+    .some-me ul li span { color: var(--accent-2); }
+    .some-me figure { flex: 0 1 14rem; margin: 0; }
+    .some-me img {
       display: block;
-    }
-
-    .mu-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 3px;
-    }
-
-    @media (max-width: 480px) {
-      .mu-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    .mu-album {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      background: var(--header-border);
-    }
-
-    .mu-album img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(0.85) contrast(1.05);
-      transition: filter 0.15s ease, transform 0.15s ease;
+      border: 1px solid var(--border);
     }
-
-    .mu-album:hover img {
-      filter: saturate(1.1) contrast(1.1);
-      transform: scale(1.04);
-    }
-
-    .mu-album-tooltip {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.82);
-      color: #fff;
-      padding: 0.3em 0.4em;
-      font-size: 0.48em;
-      letter-spacing: 0.04em;
-      line-height: 1.35;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
-    }
-
-    .mu-album:hover .mu-album-tooltip { opacity: 1; }
-
-    .mu-album-artist {
-      display: block;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .mu-album-title {
-      display: block;
-      opacity: 0.75;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .mu-album-year {
-      display: inline-block;
-      margin-top: 0.15em;
-      opacity: 0.5;
-      font-size: 0.9em;
-    }
-
-    .mu-footnote {
-      margin-top: 2.5em;
-      padding-top: 0.75em;
-      border-top: 1px dashed var(--border-color);
-      font-size: 0.7em;
-      opacity: 0.4;
+    .some-me aside {
+      margin-top: 1rem;
+      padding-left: 0.8rem;
+      border-left: 2px dotted var(--border);
+      color: var(--muted);
       font-style: italic;
     }
   </style>
 
-  <div class="mu-about">
-    <h1>Some of me</h1>
+  <h1>some of me</h1>
 
-    <section class="some-me">
-      <ul>
-        <li><span>name:</span>Jos'e</li>
-        <li><span>age:</span>25</li>
-        <li><span>pronum: </span>he_him</li>
-        <li><span>language: </span>pt-br, eng</li>
-        <li>5 Years working as <span class="fire-text">dev</span></li>
-        <li>2 Years Using <span class="nix-shimmer">NixOS</span> </li>
+  <section class="rope some-me">
+    <ul>
+      <li><span>name:</span> jos'e</li>
+      <li><span>age:</span> 25</li>
+      <li><span>pronouns:</span> he/him</li>
+      <li><span>language:</span> pt-br, eng</li>
+      <li>5 anos trampando como <span class="fire-text">dev</span></li>
+      <li>2 anos usando <span class="nix-shimmer">NixOS</span></li>
+      <aside>não sei exatamente o que estou fazendo, mas estou fazendo algo.</aside>
+    </ul>
 
-        <aside>
-          Nao sei extamente o que estou fazendo mas estou fazendo algo
-        </aside>
-      </ul>
+    <figure>
+      <img src="/assets/images/me1.png" alt="eu" loading="lazy" decoding="async" />
+    </figure>
+  </section>
 
-      <div>
-        <div class="border">
-          <img
-              class="imgborder"
-              src="/assets/images/me1.png"
-              alt="oi"
-              loading="lazy"
-              decoding="async"
-              />
-        </div>
-      </div>
-    </section>
-
-    <section class="mu-albums-section">
-      <span class="mu-albums-label">
-      </div>
-    </section>
-    <p class="mu-footnote">All Rights reserved to all of us!</p>
-  </div>
+  <p class="empty">all rights reserved to all of us.</p>
 </BlogLayout>
