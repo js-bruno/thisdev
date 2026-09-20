@@ -1,30 +1,149 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+
+interface Item {
+  name: string;
+  href: string;
+  desc: string;
+}
+
+const groups: { title: string; items: Item[] }[] = [
+  {
+    title: "desenvolvimento",
+    items: [
+      { name: "astro", href: "https://docs.astro.build", desc: "o framework deste site" },
+      { name: "zola", href: "https://www.getzola.org", desc: "gerador estático em rust, um binário só" },
+      { name: "mdn web docs", href: "https://developer.mozilla.org", desc: "referência de html, css e js" },
+      { name: "caniuse", href: "https://caniuse.com", desc: "suporte de features nos navegadores" },
+      { name: "nixos manual", href: "https://nixos.org/manual/nixos/stable/", desc: "configuração declarativa do sistema" },
+      { name: "awesome-selfhosted", href: "https://awesome-selfhosted.net", desc: "lista de serviços pra hospedar em casa" },
+      { name: "regex101", href: "https://regex101.com", desc: "testar e entender expressões regulares" },
+      { name: "exercism", href: "https://exercism.org", desc: "exercícios de programação com mentoria" },
+    ],
+  },
+  {
+    title: "web antiga",
+    items: [
+      { name: "neocities", href: "https://neocities.org/browse", desc: "sites pessoais feitos à mão" },
+      { name: "melonland", href: "https://melonland.net", desc: "comunidade de webcraft" },
+      { name: "32-bit cafe", href: "https://32bit.cafe", desc: "fórum e recursos pra sites pessoais" },
+      { name: "indieweb", href: "https://indieweb.org", desc: "ter a sua própria casa na web" },
+      { name: "wiby", href: "https://wiby.me", desc: "buscador da web clássica" },
+      { name: "marginalia", href: "https://search.marginalia.nu", desc: "busca páginas não-comerciais" },
+      { name: "the forest", href: "https://theforest.link", desc: "portal de páginas aleatórias" },
+      { name: "melonking", href: "https://melonking.net", desc: "textos sobre a web pessoal" },
+    ],
+  },
+  {
+    title: "imagens e design",
+    items: [
+      { name: "dithermark", href: "https://dithermark.com", desc: "dithering no navegador" },
+      { name: "photopea", href: "https://www.photopea.com", desc: "editor de imagem no navegador" },
+      { name: "broider", href: "https://maxbittker.github.io/broider/", desc: "editor de bordas 9-patch" },
+      { name: "departure mono", href: "https://departuremono.com", desc: "fonte pixel mono do site" },
+      { name: "oldschool pc fonts", href: "https://int10h.org/oldschool-pc-fonts/", desc: "fontes de pc antigo" },
+      { name: "coolors", href: "https://coolors.co", desc: "gerar e testar paletas de cor" },
+      { name: "transparent textures", href: "https://www.transparenttextures.com", desc: "texturas pra fundo" },
+      { name: "css pattern gallery", href: "https://projects.verou.me/css3patterns/", desc: "padrões só com css" },
+    ],
+  },
+  {
+    title: "música",
+    items: [
+      { name: "bandcamp", href: "https://bandcamp.com", desc: "comprar música direto dos artistas" },
+      { name: "soma fm", href: "https://somafm.com", desc: "rádios sem comercial" },
+      { name: "radio garden", href: "https://radio.garden", desc: "rádio do mundo inteiro num globo" },
+      { name: "wfmu", href: "https://wfmu.org", desc: "rádio freeform desde 1958" },
+      { name: "beepbox", href: "https://www.beepbox.co", desc: "fazer música chiptune no navegador" },
+      { name: "milkytracker", href: "https://milkytracker.org", desc: "tracker clássico" },
+      { name: "radiooooo", href: "https://radiooooo.com", desc: "máquina do tempo musical" },
+    ],
+  },
+  {
+    title: "ciência e natureza",
+    items: [
+      { name: "inaturalist", href: "https://www.inaturalist.org", desc: "observações de espécies pelo mundo" },
+      { name: "conifers.org", href: "https://www.conifers.org", desc: "base de dados de gimnospermas" },
+      { name: "macaulay library", href: "https://www.macaulaylibrary.org", desc: "sons de animais" },
+      { name: "protein data bank", href: "https://www.rcsb.org", desc: "estruturas 3d de moléculas" },
+      { name: "eyes on the solar system", href: "https://eyes.nasa.gov/apps/solar-system/", desc: "sistema solar em tempo real" },
+      { name: "sandgrains", href: "http://sandgrains.com", desc: "fotos microscópicas de grãos de areia" },
+      { name: "wormatlas", href: "https://wormatlas.org", desc: "anatomia do C. elegans" },
+    ],
+  },
+  {
+    title: "jogos",
+    items: [
+      { name: "vimm's lair", href: "https://vimm.net", desc: "roms, emuladores e manuais" },
+      { name: "bitsy", href: "https://bitsy.org", desc: "engine simples pra joguinhos" },
+      { name: "noclip.website", href: "https://noclip.website", desc: "voar por cenários de jogos" },
+      { name: "the cutting room floor", href: "https://tcrf.net", desc: "conteúdo cortado de jogos" },
+      { name: "itch.io randomizer", href: "https://itch.io/randomizer", desc: "descobrir jogos indie" },
+      { name: "easyrpg", href: "https://easyrpg.org", desc: "rodar jogos de rpg maker no navegador" },
+      { name: "death generator", href: "https://deathgenerator.com", desc: "gerar prints falsos de jogos" },
+    ],
+  },
+  {
+    title: "leitura e arquivos",
+    items: [
+      { name: "internet archive", href: "https://archive.org", desc: "a biblioteca da internet" },
+      { name: "project gutenberg", href: "https://www.gutenberg.org", desc: "livros de domínio público" },
+      { name: "public domain review", href: "https://publicdomainreview.org", desc: "obras históricas interessantes" },
+      { name: "monoskop", href: "https://monoskop.org", desc: "wiki de arte, cultura e humanidades" },
+      { name: "oblique strategies", href: "http://stoney.sb.org/eno/oblique.html", desc: "cartas pra desbloquear a criatividade" },
+      { name: "openstreetmap", href: "https://www.openstreetmap.org", desc: "mapa livre e aberto" },
+    ],
+  },
+  {
+    title: "utilidades",
+    items: [
+      { name: "pointer pointer", href: "https://pointerpointer.com", desc: "aponte o dedo" },
+      { name: "radio garden", href: "https://radio.garden", desc: "rádio global" },
+      { name: "wind chime calculator", href: "https://www.windchimecalculator.org", desc: "projetar um sino de vento" },
+      { name: "pink trombone", href: "https://dood.al/pinktrombone/", desc: "síntese de fala (bizarro)" },
+      { name: "radiooooo", href: "https://radiooooo.com", desc: "música por década e país" },
+      { name: "applerankings", href: "https://applerankings.com", desc: "maçãs boas e ruins" },
+    ],
+  },
+];
+
+const slug = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
 ---
 
 <BlogLayout title="Resources" background>
   <h1>resources</h1>
   <p>
-    coisas úteis e lugares bons da web. ideias de link por
+    um diretório de coisas úteis e lugares bons da web. ideia de link por
     <a href="https://art.teleportacia.org/observation/vernacular/links.html">olia lialina</a>
     e <a href="https://melonking.net">melonking</a>.
   </p>
 
-  <article class="card" style="margin: 2rem 0;">
-    <pre style="font-size:7px; overflow-x:auto;">
-                     ▗                ▐
- ▄▖  ▄▖ ▗▄▄ ▗▄▖ ▗ ▗ ▗▟▄  ▄▖  ▖▄      ▄▟ ▗ ▗ ▗▄▄ ▗▄▖ ▗▄▖ ▗▄▖
-▐▘▝ ▐▘▜ ▐▐▐ ▐▘▜ ▐ ▐  ▐  ▐▘▐  ▛ ▘    ▐▘▜ ▐ ▐ ▐▐▐ ▐▘▜ ▐▘▜ ▐▘▜
-▐   ▐ ▐ ▐▐▐ ▐ ▐ ▐ ▐  ▐  ▐▀▀  ▌      ▐ ▐ ▐ ▐ ▐▐▐ ▐ ▐ ▐ ▐ ▐ ▐
-▝▙▞ ▝▙▛ ▐▐▐ ▐▙▛ ▝▄▜  ▝▄ ▝▙▞  ▌      ▝▙█ ▝▄▜ ▐▐▐ ▐▙▛ ▐▙▛ ▐▙▛
-            ▐                                   ▐   ▐   ▐
-            ▝                                   ▝   ▝   ▝
-    </pre>
-    <ul>
-      <li><a href="https://vimm.net">vimm's lair</a> - roms, emuladores e scans de manuais</li>
-      <li><a href="https://www.getzola.org">zola</a> - gerador de site estático em rust</li>
-      <li><a href="https://docs.astro.build">astro</a> - o framework deste site</li>
-      <li><a href="https://dithermark.com">dithermark</a> - dithering no navegador</li>
-    </ul>
-  </article>
+  <nav class="res-index" aria-label="categorias">
+    {
+      groups.map((g) => (
+        <a href={`#${slug(g.title)}`}>{g.title}</a>
+      ))
+    }
+  </nav>
+
+  {
+    groups.map((g) => (
+      <section class="res-cat">
+        <h2 id={slug(g.title)}>{g.title}</h2>
+        <ul class="res-list">
+          {g.items.map((it) => (
+            <li>
+              <a href={it.href}>{it.name}</a>
+              <span class="res-desc">{it.desc}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 </BlogLayout>

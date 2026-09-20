@@ -77,6 +77,42 @@ function stitched({ band, thread }) {
   return svg(p);
 }
 
+function terminal({ line, bright, dim }) {
+  const p = [];
+  const L = 7;
+  const T = 2;
+
+  p.push(`<rect x="0" y="0" width="${D}" height="1" fill="${line}"/>`);
+  p.push(`<rect x="0" y="${D - 1}" width="${D}" height="1" fill="${line}"/>`);
+  p.push(`<rect x="0" y="0" width="1" height="${D}" fill="${line}"/>`);
+  p.push(`<rect x="${D - 1}" y="0" width="1" height="${D}" fill="${line}"/>`);
+
+  for (let x = S + 1; x < 2 * S; x += 4) {
+    p.push(`<rect x="${x}" y="4" width="2" height="1" fill="${dim}"/>`);
+    p.push(`<rect x="${x}" y="${D - 5}" width="2" height="1" fill="${dim}"/>`);
+  }
+  for (let y = S + 1; y < 2 * S; y += 4) {
+    p.push(`<rect x="4" y="${y}" width="1" height="2" fill="${dim}"/>`);
+    p.push(`<rect x="${D - 5}" y="${y}" width="1" height="2" fill="${dim}"/>`);
+  }
+
+  p.push(`<rect x="0" y="0" width="${L}" height="${T}" fill="${bright}"/>`);
+  p.push(`<rect x="0" y="0" width="${T}" height="${L}" fill="${bright}"/>`);
+  p.push(`<rect x="${D - L}" y="0" width="${L}" height="${T}" fill="${bright}"/>`);
+  p.push(`<rect x="${D - T}" y="0" width="${T}" height="${L}" fill="${bright}"/>`);
+  p.push(`<rect x="0" y="${D - T}" width="${L}" height="${T}" fill="${bright}"/>`);
+  p.push(`<rect x="0" y="${D - L}" width="${T}" height="${L}" fill="${bright}"/>`);
+  p.push(`<rect x="${D - L}" y="${D - T}" width="${L}" height="${T}" fill="${bright}"/>`);
+  p.push(`<rect x="${D - T}" y="${D - L}" width="${T}" height="${L}" fill="${bright}"/>`);
+
+  p.push(`<rect x="${S + 5}" y="1" width="2" height="2" fill="${bright}"/>`);
+  p.push(`<rect x="${S + 5}" y="${D - 3}" width="2" height="2" fill="${bright}"/>`);
+  p.push(`<rect x="1" y="${S + 5}" width="2" height="2" fill="${bright}"/>`);
+  p.push(`<rect x="${D - 3}" y="${S + 5}" width="2" height="2" fill="${bright}"/>`);
+
+  return svg(p);
+}
+
 function drips({ band, drop }) {
   const p = [];
   const e = S;
@@ -108,6 +144,11 @@ const files = {
   "thorn.svg": frame({ band: "#151a10", spike: "#4f6b2a", accent: "#8a1c24" }),
   "blood.svg": drips({ band: "#1a0a0c", drop: "#b3161f" }),
   "stitch.svg": stitched({ band: "#0d0d10", thread: "#cfc9bf" }),
+  "terminal.svg": terminal({
+    line: "#2c5a53",
+    bright: "#9fe0c8",
+    dim: "#5f9ea0",
+  }),
 };
 
 for (const [name, content] of Object.entries(files)) {
