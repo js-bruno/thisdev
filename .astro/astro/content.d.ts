@@ -192,6 +192,62 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "photos": {
+"outono-1.md": {
+	id: "outono-1.md";
+  slug: "outono-1";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"outono-2.md": {
+	id: "outono-2.md";
+  slug: "outono-2";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"outono-3.md": {
+	id: "outono-3.md";
+  slug: "outono-3";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"perdido-1.md": {
+	id: "perdido-1.md";
+  slug: "perdido-1";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"perdido-2.md": {
+	id: "perdido-2.md";
+  slug: "perdido-2";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"perdido-3.md": {
+	id: "perdido-3.md";
+  slug: "perdido-3";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"retrato-1.md": {
+	id: "retrato-1.md";
+  slug: "retrato-1";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
+"retrato-2.md": {
+	id: "retrato-2.md";
+  slug: "retrato-2";
+  body: string;
+  collection: "photos";
+  data: InferEntrySchema<"photos">
+} & { render(): Render[".md"] };
 "rises-the-moon.md": {
 	id: "rises-the-moon.md";
   slug: "rises-the-moon";

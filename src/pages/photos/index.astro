@@ -26,8 +26,8 @@ const rolls = [...byRoll.entries()];
 <BlogLayout title="Photos" background>
   <h1>photos</h1>
   <p>
-    fotos da Canon, organizadas por rolo. arrasta pro lado pra ver o resto.
-    tudo passa pelo dithering.
+    fotos da Canon, organizadas por rolo. passa o mouse por cima e usa a roda
+    pra rolar pro lado, ou arrasta. tudo passa pelo dithering.
   </p>
 
   {
@@ -42,7 +42,12 @@ const rolls = [...byRoll.entries()];
               {list.length} foto{list.length !== 1 ? "s" : ""}
             </span>
           </div>
-          <div class="roll-track">
+          <div
+            class="roll-track"
+            tabindex="0"
+            role="region"
+            aria-label={`${roll}, ${list.length} fotos`}
+          >
             {list.map((photo) => (
               <PhotoCard
                 src={photo.data.src}
@@ -59,3 +64,28 @@ const rolls = [...byRoll.entries()];
     )
   }
 </BlogLayout>
+
+<script>
+  function enableWheelScroll(track: HTMLElement) {
+    track.addEventListener(
+      "wheel",
+      (event) => {
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+        const max = track.scrollWidth - track.clientWidth;
+        if (max <= 0) return;
+
+        const atStart = track.scrollLeft <= 0 && event.deltaY < 0;
+        const atEnd = track.scrollLeft >= max - 1 && event.deltaY > 0;
+        if (atStart || atEnd) return;
+
+        event.preventDefault();
+        track.scrollLeft += event.deltaY;
+      },
+      { passive: false },
+    );
+  }
+
+  document
+    .querySelectorAll<HTMLElement>(".roll-track")
+    .forEach(enableWheelScroll);
+</script>

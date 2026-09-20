@@ -31,6 +31,9 @@
   --display: "Silkscreen", "Departure Mono", monospace;
 
   --measure: 44rem;
+  --col: 37rem;
+  --pad-l: 2.5rem;
+  --pad-r: 1.25rem;
   --frame: url("/assets/borders/terminal.svg");
   --scanline: rgb(0 0 0 / 0.16);
   --vignette: rgb(0 0 0 / 0.55);
@@ -112,9 +115,9 @@ html {
 
 body {
   margin: 0 auto;
-  max-width: 37rem;
+  max-width: var(--col);
   min-height: 100vh;
-  padding: 1.5rem 1.25rem calc(3rem + env(safe-area-inset-bottom));
+  padding: 1.5rem var(--pad-r) calc(3rem + env(safe-area-inset-bottom));
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.7;
@@ -127,7 +130,7 @@ body {
 @media (min-width: 900px) {
   body {
     margin: 0;
-    padding-left: 2.5rem;
+    padding-left: var(--pad-l);
   }
 }
 
@@ -436,6 +439,24 @@ details > summary:hover { background: var(--surface); }
   padding: 0.25rem 0.25rem 1rem;
   scroll-snap-type: x mandatory;
   scrollbar-color: var(--accent) var(--bg-deep);
+  cursor: grab;
+  overscroll-behavior-x: contain;
+}
+.roll-track:active { cursor: grabbing; }
+.roll-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.roll-track::-webkit-scrollbar { height: 8px; }
+.roll-track::-webkit-scrollbar-track { background: var(--bg-deep); }
+.roll-track::-webkit-scrollbar-thumb { background: var(--accent); }
+
+/* on desktop the strip bleeds out of the reading column to the right edge */
+@media (min-width: 900px) {
+  .roll-track {
+    margin-right: calc(var(--col) - var(--pad-r) - 100vw);
+    padding-right: 2.5rem;
+  }
 }
 .photo {
   flex: 0 0 auto;
