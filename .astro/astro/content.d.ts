@@ -155,9 +155,23 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"foto-no-mato.md": {
+	id: "foto-no-mato.md";
+  slug: "foto-no-mato";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "mine_server.md": {
 	id: "mine_server.md";
   slug: "mine_server";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"nota-de-madrugada.md": {
+	id: "nota-de-madrugada.md";
+  slug: "nota-de-madrugada";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -169,28 +183,12 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-};
-"micro": {
-"foto-no-mato.md": {
-	id: "foto-no-mato.md";
-  slug: "foto-no-mato";
-  body: string;
-  collection: "micro";
-  data: InferEntrySchema<"micro">
-} & { render(): Render[".md"] };
-"nota-de-madrugada.md": {
-	id: "nota-de-madrugada.md";
-  slug: "nota-de-madrugada";
-  body: string;
-  collection: "micro";
-  data: InferEntrySchema<"micro">
-} & { render(): Render[".md"] };
 "testando-o-feed.md": {
 	id: "testando-o-feed.md";
   slug: "testando-o-feed";
   body: string;
-  collection: "micro";
-  data: InferEntrySchema<"micro">
+  collection: "blog";
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 "photos": {

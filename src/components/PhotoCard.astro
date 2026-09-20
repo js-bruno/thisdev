@@ -12,7 +12,7 @@ const { src, alt, title, camera, lens, location } = Astro.props;
 const meta = [camera, lens, location].filter(Boolean).join(" · ");
 ---
 
-<a href={src} target="_blank" rel="noopener">
+<a class="photo" href={src} target="_blank" rel="noopener">
   <figure>
     <img src={src} alt={alt} loading="lazy" decoding="async" />
     <figcaption>

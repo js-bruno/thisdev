@@ -1,4 +1,6 @@
 ---
+title: foto no mato
+description: saí com a canon sem rumo e voltei com isso
 date: 2026-09-18
 mood: tranquilo
 tags:
@@ -9,4 +11,5 @@ image: /assets/canon/rises_the_moon.png
 
 Saí com a Canon sem rumo e voltei com isso. A luz tava boa demais pra ignorar.
 
-Coloquei a versão dithered aqui só pra manter a vibe do site.
+Coloquei a versão dithered aqui só pra manter a vibe do site. O resto das
+fotos fica na [galeria](/photos/).

@@ -6,11 +6,14 @@ interface Props {
   date?: Date;
   description?: string;
   tags?: string | string[];
+  mood?: string;
+  image?: string;
   prevPost?: { url: string; title: string } | null;
   nextPost?: { url: string; title: string } | null;
 }
 
-const { title, date, description, tags, prevPost, nextPost } = Astro.props;
+const { title, date, description, tags, mood, image, prevPost, nextPost } =
+  Astro.props;
 
 const formattedDate = date
   ? new Date(date).toLocaleDateString("pt-BR", {
@@ -92,10 +95,10 @@ const tagList = tags
     .token.italic { font-style: italic; }
   </style>
 
-  <article>
+  <article class="post">
     <h1>{title}</h1>
 
-    <ul class="post-metadata">
+    <ul class="post-meta-list">
       {
         formattedDate && htmlDate && (
           <li>
@@ -103,6 +106,7 @@ const tagList = tags
           </li>
         )
       }
+      {mood && <li class="post-mood">~ {mood}</li>}
       {
         tagList.map((tag) => (
           <li>
@@ -116,6 +120,8 @@ const tagList = tags
         ))
       }
     </ul>
+
+    {image && <img class="post-hero" src={image} alt="" loading="lazy" />}
 
     <slot />
   </article>

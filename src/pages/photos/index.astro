@@ -26,8 +26,8 @@ const rolls = [...byRoll.entries()];
 <BlogLayout title="Photos" background>
   <h1>photos</h1>
   <p>
-    um lugar pras minhas fotos de Canon. tudo passa pelo dithering pra ficar
-    leve e combinar com o resto do site.
+    fotos da Canon, organizadas por rolo. arrasta pro lado pra ver o resto.
+    tudo passa pelo dithering.
   </p>
 
   {
@@ -35,9 +35,14 @@ const rolls = [...byRoll.entries()];
       <p class="empty">nenhuma foto por aqui ainda.</p>
     ) : (
       rolls.map(([roll, list]) => (
-        <section>
-          <h2>{roll}</h2>
-          <div class="photopile">
+        <section class="roll">
+          <div class="roll-head">
+            <h2>{roll}</h2>
+            <span class="roll-count">
+              {list.length} foto{list.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+          <div class="roll-track">
             {list.map((photo) => (
               <PhotoCard
                 src={photo.data.src}

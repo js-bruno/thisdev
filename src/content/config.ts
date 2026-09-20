@@ -4,20 +4,11 @@ const blog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date().optional(),
+    date: z.date(),
     description: z.string().optional(),
     tags: z.union([z.string(), z.array(z.string())]).optional(),
-    draft: z.boolean().optional(),
-  }),
-});
-
-const micro = defineCollection({
-  type: 'content',
-  schema: z.object({
-    date: z.date(),
-    tags: z.union([z.string(), z.array(z.string())]).optional(),
-    image: z.string().optional(),
     mood: z.string().optional(),
+    image: z.string().optional(),
     draft: z.boolean().optional(),
   }),
 });
@@ -37,4 +28,4 @@ const photos = defineCollection({
   }),
 });
 
-export const collections = { blog, micro, photos };
+export const collections = { blog, photos };
