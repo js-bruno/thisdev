@@ -46,8 +46,10 @@ eu criar um modulo nix apenas para o servidor de minecraft e importar no meu con
   };
 }
 ```
-muito interessante reconher alguns parametros que sao repassados desse arquivo declarativo para o servidor do minecrat na compilacao.
+muito interessante reconhecer alguns parametros que sao repassados desse arquivo declarativo para o servidor do minecrat na compilacao.
 como eu ainda nao sei flake esse arquivo esta importado na minha configuration.nix e esta inicializando com a minha maquina me custando 2G de memoria com 0 players no servidor T___T.
+
+hoje o servidor esta rodando com o minimo de mods no meu servidor de 200 reais.
 
 ## MOds no meu client
 Meu amigo(matteuszinho) me mandou uma lista de mods essesiais para o client do minecraft e 

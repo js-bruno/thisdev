@@ -61,7 +61,7 @@
   color-scheme: dark;
   --bg: #07100f;
   --bg-deep: #040a09;
-  --wash: rgb(4 10 9 / 0.82);
+  --wash: rgb(4 10 9 / 0.93);
   --surface: rgb(9 21 20 / 0.86);
   --ink: #cfe8df;
   --muted: #6f9a8e;
@@ -92,7 +92,7 @@
   color-scheme: light;
   --bg: #dfe8e2;
   --bg-deep: #cfdcd4;
-  --wash: rgb(223 232 226 / 0.88);
+  --wash: rgb(223 232 226 / 0.93);
   --surface: rgb(255 255 255 / 0.82);
   --ink: #12211f;
   --muted: #4f6b64;
@@ -122,11 +122,16 @@ html {
   -webkit-text-size-adjust: 100%;
   background-color: var(--bg);
   background-image:
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgb(0 0 0 / 0.35) 100%
+    ),
     linear-gradient(var(--wash), var(--wash)),
     url("/assets/dither/bg.png");
-  background-size: cover, cover;
-  background-position: center, center;
-  background-attachment: fixed, fixed;
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-attachment: fixed, fixed, fixed;
 }
 
 body {

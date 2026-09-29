@@ -155,13 +155,6 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"foto-no-mato.md": {
-	id: "foto-no-mato.md";
-  slug: "foto-no-mato";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
 "mine_server.md": {
 	id: "mine_server.md";
   slug: "mine_server";
@@ -179,13 +172,6 @@ declare module 'astro:content' {
 "tedio.md": {
 	id: "tedio.md";
   slug: "tedio";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"testando-o-feed.md": {
-	id: "testando-o-feed.md";
-  slug: "testando-o-feed";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
