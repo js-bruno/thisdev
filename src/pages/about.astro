@@ -38,6 +38,30 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       -webkit-text-fill-color: transparent;
       animation: fire-run-vertical 9.2s linear infinite;
     }
+
+    /* ── lain (light touch) ─────────────────────────────────── */
+    @keyframes lain-flicker {
+      0%, 100% { opacity: 1; text-shadow: 0 0 2px rgb(212 58 58 / 0.4); }
+      92% { opacity: 1; }
+      93% { opacity: 0.7; }
+      94% { opacity: 1; }
+      97% { opacity: 0.8; }
+      98% { opacity: 1; }
+    }
+    .lain-title {
+      font-family: var(--lain);
+      color: var(--ink);
+      animation: lain-flicker 6s linear infinite;
+    }
+    .lain-sub {
+      font-family: var(--lain);
+      font-size: 0.82em;
+      letter-spacing: 0.06em;
+      color: var(--faint);
+      margin: -0.4rem 0 1.2rem;
+    }
+    .lain-sub em { color: #d43a3a; font-style: normal; }
+
     .some-me {
       display: flex;
       flex-wrap: wrap;
@@ -45,7 +69,8 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       align-items: flex-start;
     }
     .some-me ul { flex: 1 1 16rem; margin: 0; }
-    .some-me ul li span { color: var(--accent); }
+    .some-me ul li span { color: #d43a3a; }
+    .some-me ul li span::before { content: "▸ "; color: #7a2a2a; }
     .some-me figure { flex: 0 1 14rem; margin: 0; }
     .some-me img {
       display: block;
@@ -55,13 +80,40 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     .some-me aside {
       margin-top: 1rem;
       padding-left: 0.8rem;
-      border-left: 2px dotted var(--border);
+      border-left: 2px dotted #d43a3a;
       color: var(--muted);
       font-style: italic;
     }
+
+    .lain-ascii {
+      flex: 0 1 22rem;
+      margin: 0;
+      overflow: hidden;
+    }
+    .lain-ascii pre {
+      margin: 0;
+      font-family: var(--lain);
+      font-size: 0.72rem;
+      line-height: 1.1;
+      color: #d43a3a;
+      white-space: pre;
+      overflow-x: auto;
+      text-shadow: 0 0 4px rgb(212 58 58 / 0.35);
+    }
+
+    .lain-quote {
+      margin-top: 2.2rem;
+      font-family: var(--lain);
+      font-size: 0.82em;
+      letter-spacing: 0.04em;
+      color: var(--faint);
+      text-align: center;
+    }
+    .lain-quote .jp { color: #d43a3a; }
   </style>
 
-  <h1>some of me</h1>
+  <h1 class="lain-title">some of me</h1>
+  <p class="lain-sub">present day, present time — <em>present day, present time</em></p>
 
   <section class="card some-me">
     <ul>
@@ -74,10 +126,28 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       <aside>não sei exatamente o que estou fazendo, mas estou fazendo algo.</aside>
     </ul>
 
-    <figure>
-      <img src="/assets/images/me1.png" alt="eu" loading="lazy" decoding="async" />
+    <figure class="lain-ascii">
+      <pre>{`
+         .  .  .  .  .  .  .
+        / \\/ \\/ \\/ \\/ \\/ \\/ \\
+       /  \\/  \\/  \\/  \\/  \\/  \\
+      |    |    |    |    |    |
+      |____|____|____|____|____|
+         \\/  \\/  \\/  \\/  \\/
+        / \\/ \\/ \\/ \\/ \\/ \\
+       /  \\/  \\/  \\/  \\/  \\
+      |    |    |    |    |    |
+      |____|____|____|____|____|
+       \\  / \\  / \\  / \\  / \\  /
+        \\/   \\/   \\/   \\/   \\/
+
+         close the world,
+         open the nExt
+      `}</pre>
     </figure>
   </section>
+
+  <p class="lain-quote">let's all love lain <span class="jp">おかえりなさい</span></p>
 
   <p class="empty">all rights reserved to all of us.</p>
 </BlogLayout>

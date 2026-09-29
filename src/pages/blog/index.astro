@@ -6,21 +6,6 @@ const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const posts = allPosts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
-
-function excerpt(body: string, limit = 190) {
-  const text = body
-    .replace(/^---[\s\S]*?---/, "")
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/[#>*_`~]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return text.length > limit ? text.slice(0, limit).trimEnd() + "…" : text;
-}
-
-const tagList = (tags?: string | string[]) =>
-  tags ? (Array.isArray(tags) ? tags : [tags]) : [];
 ---
 
 <BlogLayout title="Blog" background>
@@ -33,7 +18,7 @@ const tagList = (tags?: string | string[]) =>
     posts.length === 0 ? (
       <p class="empty">nada por aqui ainda.</p>
     ) : (
-      <ul class="feed">
+      <ol class="postlist postlist--index">
         {posts.map((post) => {
           const date = new Date(post.data.date);
           const htmlDate = date.toISOString().split("T")[0];
@@ -43,50 +28,19 @@ const tagList = (tags?: string | string[]) =>
             year: "numeric",
             timeZone: "UTC",
           });
-          const tags = tagList(post.data.tags);
 
           return (
-            <li class="post-card frame">
-              {post.data.image && (
-                <img
-                  class="post-thumb"
-                  src={post.data.image}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-              <h2>
-                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-              </h2>
-              <div class="post-meta">
-                <time datetime={htmlDate}>{readable}</time>
-                {post.data.mood && (
-                  <span class="post-mood">~ {post.data.mood}</span>
-                )}
-              </div>
-              <div class="post-excerpt">
-                <p>{post.data.description ?? excerpt(post.body ?? "")}</p>
-              </div>
-              {tags.length > 0 && (
-                <div class="post-tags">
-                  {tags.map((tag) => (
-                    <a
-                      class="tag"
-                      href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
-                    >
-                      #{tag}
-                    </a>
-                  ))}
-                </div>
-              )}
-              <a class="post-more" href={`/blog/${post.slug}/`}>
-                ler →
+            <li class="postlist-item">
+              <time class="postlist-date" datetime={htmlDate}>
+                {readable}
+              </time>
+              <a href={`/blog/${post.slug}/`} class="postlist-link">
+                {post.data.title}
               </a>
             </li>
           );
         })}
-      </ul>
+      </ol>
     )
   }
 
