@@ -1,24 +1,63 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import { Image, getImage } from "astro:assets";
+
 interface Props {
-  src: string;
-  alt: string;
-  title?: string;
-  camera?: string;
-  lens?: string;
-  location?: string;
+  photo: CollectionEntry<"photos">;
+  index: number;
+  frame: number;
+  total: number;
+  roll: string;
 }
 
-const { src, alt, title, camera, lens, location } = Astro.props;
-const meta = [camera, lens, location].filter(Boolean).join(" · ");
+const { photo, index, frame, total, roll } = Astro.props;
+const { src, alt, title, camera, lens, location, date } = photo.data;
+
+const full = await getImage({
+  src,
+  width: Math.min(1600, src.width),
+  format: "avif",
+  quality: 50,
+});
+
+const pad = (value: number) => String(value).padStart(2, "0");
+const dateLabel = date
+  ? `${pad(date.getUTCDate())}.${pad(date.getUTCMonth() + 1)}.${date.getUTCFullYear()}`
+  : "";
+const meta = [camera, lens, location, dateLabel].filter(Boolean).join(" · ");
+const frameLabel = pad(frame);
+const caption = title || alt;
 ---
 
-<a class="photo" href={src} target="_blank" rel="noopener">
-  <figure>
-    <img src={src} alt={alt} loading="lazy" decoding="async" />
-    <figcaption>
-      {title && <strong>{title}</strong>}
-      {title && meta && " — "}
-      {meta}
-    </figcaption>
-  </figure>
-</a>
+<li class="photo-frame">
+  <a
+    class="frame-link"
+    href={full.src}
+    target="_blank"
+    rel="noopener"
+    aria-haspopup="dialog"
+    aria-label={`Abrir foto ${index} de ${total}: ${caption}`}
+    data-full={full.src}
+    data-title={title ?? ""}
+    data-meta={meta}
+    data-alt={alt}
+    data-roll={roll}
+    data-frame={frameLabel}
+  >
+    <span class="frame-img">
+      <Image
+        src={src}
+        alt={alt}
+        width={480}
+        widths={[240, 360, 480]}
+        sizes="(min-width: 900px) 16vw, (min-width: 600px) 30vw, 45vw"
+        format="webp"
+        quality={78}
+        loading={index <= 4 ? "eager" : "lazy"}
+        decoding="async"
+      />
+      <span class="frame-no" aria-hidden="true">{frameLabel}</span>
+    </span>
+    <span class="frame-cap">{caption}</span>
+  </a>
+</li>

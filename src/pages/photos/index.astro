@@ -1,6 +1,7 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import PhotoCard from "../../components/PhotoCard.astro";
+import PhotoLightbox from "../../components/PhotoLightbox.astro";
 import { getCollection } from "astro:content";
 
 const photos = await getCollection("photos", ({ data }) => !data.draft);
@@ -12,110 +13,158 @@ for (const photo of photos) {
   byRoll.get(roll)!.push(photo);
 }
 
-for (const list of byRoll.values()) {
-  list.sort((a, b) => {
-    const da = a.data.date ? new Date(a.data.date).getTime() : 0;
-    const db = b.data.date ? new Date(b.data.date).getTime() : 0;
-    return db - da;
-  });
-}
+const MONTHS = [
+  "jan",
+  "fev",
+  "mar",
+  "abr",
+  "mai",
+  "jun",
+  "jul",
+  "ago",
+  "set",
+  "out",
+  "nov",
+  "dez",
+];
 
-const rolls = [...byRoll.entries()];
+const time = (date?: Date) => (date ? date.getTime() : 0);
+const monthYear = (date: Date) =>
+  `${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+
+const slugify = (value: string) => {
+  const slug = value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || "sem-rolo";
+};
+
+type Roll = {
+  roll: string;
+  slug: string;
+  list: typeof photos;
+  range: string;
+  latest: number;
+  start: number;
+};
+
+const usedSlugs = new Set<string>();
+const rolls: Roll[] = [...byRoll.entries()].map(([roll, list]) => {
+  list.sort((a, b) => time(b.data.date) - time(a.data.date));
+
+  const dates = list
+    .map((photo) => photo.data.date)
+    .filter((date): date is Date => Boolean(date))
+    .sort((a, b) => a.getTime() - b.getTime());
+
+  const first = dates[0];
+  const last = dates[dates.length - 1];
+  const range =
+    first && last
+      ? monthYear(first) === monthYear(last)
+        ? monthYear(first)
+        : `${monthYear(first)} – ${monthYear(last)}`
+      : "";
+
+  let slug = slugify(roll);
+  let suffix = 2;
+  while (usedSlugs.has(slug)) slug = `${slugify(roll)}-${suffix++}`;
+  usedSlugs.add(slug);
+
+  return {
+    roll,
+    slug,
+    list,
+    range,
+    latest: last ? last.getTime() : 0,
+    start: 0,
+  };
+});
+
+rolls.sort((a, b) => b.latest - a.latest);
+
+let cursor = 0;
+for (const roll of rolls) {
+  roll.start = cursor;
+  cursor += roll.list.length;
+}
 ---
 
-<BlogLayout title="Photos" background>
+<BlogLayout title="Photos" background bodyClass="photos-page">
   <h1>photos</h1>
-  <p>
-    fotos da Canon, organizadas por rolo. passa o mouse por cima e usa a roda
-    pra rolar pro lado, ou arrasta. tudo passa pelo dithering.
+  <p class="photos-intro">
+    fotos da Canon, organizadas por rolo. uma folha de contato por rolo — clica
+    num quadro pra abrir, e usa as setas do teclado pra navegar.
   </p>
 
   {
     rolls.length === 0 ? (
       <p class="empty">nenhuma foto por aqui ainda.</p>
     ) : (
-      rolls.map(([roll, list]) => (
-        <section class="roll">
-          <div class="roll-head">
-            <h2>{roll}</h2>
-            <span class="roll-count">
-              {list.length} foto{list.length !== 1 ? "s" : ""}
-            </span>
-            <span class="roll-hint" aria-hidden="true">
-              ↔ roda do mouse rola
-            </span>
-          </div>
-          <div
-            class="roll-track"
-            tabindex="0"
-            role="region"
-            data-roll={roll}
-            aria-label={`${roll}, ${list.length} fotos`}
-          >
-            {list.map((photo) => (
-              <PhotoCard
-                src={photo.data.src}
-                alt={photo.data.alt}
-                title={photo.data.title}
-                camera={photo.data.camera}
-                lens={photo.data.lens}
-                location={photo.data.location}
-              />
-            ))}
-          </div>
-        </section>
-      ))
+      <>
+        <nav class="roll-index" aria-label="Índice de rolos">
+          <span class="roll-index-label">rolos</span>
+          {rolls.map(({ roll, slug, list }) => (
+            <a href={`#${slug}`}>
+              {roll}
+              <span class="roll-index-count">{list.length}</span>
+            </a>
+          ))}
+        </nav>
+
+        {rolls.map(({ roll, slug, list, range, start }) => (
+          <section class="roll" id={slug} aria-labelledby={`${slug}-title`}>
+            <header class="roll-head">
+              <h2 id={`${slug}-title`}>{roll}</h2>
+              <span class="roll-count">
+                {list.length} foto{list.length !== 1 ? "s" : ""}
+              </span>
+              {range && <span class="roll-range">{range}</span>}
+            </header>
+
+            <ol class="contact-sheet">
+              {list.map((photo, i) => (
+                <PhotoCard
+                  photo={photo}
+                  index={start + i + 1}
+                  frame={i + 1}
+                  total={photos.length}
+                  roll={roll}
+                />
+              ))}
+            </ol>
+          </section>
+        ))}
+
+        <PhotoLightbox />
+      </>
     )
   }
 </BlogLayout>
 
 <script>
-  function enableWheelScroll(track: HTMLElement) {
-    const roll = track.closest(".roll");
-    let active = false;
+  const sections = Array.from(document.querySelectorAll<HTMLElement>(".roll"));
+  const links = new Map(
+    Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(".roll-index a"),
+    ).map((link) => [link.hash.slice(1), link]),
+  );
 
-    const activate = () => {
-      active = true;
-      roll?.classList.add("is-active");
-    };
-    const deactivate = () => {
-      active = false;
-      roll?.classList.remove("is-active");
-    };
-
-    track.addEventListener("mouseenter", activate);
-    track.addEventListener("mouseleave", deactivate);
-    track.addEventListener("focusin", activate);
-    track.addEventListener("focusout", deactivate);
-
-    track.addEventListener(
-      "wheel",
-      (event) => {
-        if (!active && !track.contains(document.activeElement)) return;
-        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-
-        const max = track.scrollWidth - track.clientWidth;
-        if (max <= 0) return;
-
-        const delta =
-          event.deltaMode === 1
-            ? event.deltaY * 18
-            : event.deltaMode === 2
-              ? event.deltaY * track.clientWidth
-              : event.deltaY;
-
-        const atStart = track.scrollLeft <= 0 && delta < 0;
-        const atEnd = track.scrollLeft >= max - 1 && delta > 0;
-        if (atStart || atEnd) return;
-
-        event.preventDefault();
-        track.scrollLeft += delta;
+  if (sections.length && links.size) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          links.forEach((link) => link.classList.remove("is-current"));
+          links.get(entry.target.id)?.classList.add("is-current");
+        }
       },
-      { passive: false },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 },
     );
-  }
 
-  document
-    .querySelectorAll<HTMLElement>(".roll-track")
-    .forEach(enableWheelScroll);
+    sections.forEach((section) => observer.observe(section));
+  }
 </script>

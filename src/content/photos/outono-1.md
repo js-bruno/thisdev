@@ -1,6 +1,6 @@
 ---
-src: /assets/canon/outono-1.png
-alt: Foto dithered de tons quentes
+src: ../../assets/photos/outono-1.png
+alt: Foto de tons quentes
 title: folhas
 date: 2026-08-30
 camera: Canon EOS

@@ -1,6 +1,6 @@
 ---
-src: /assets/canon/retrato-1.png
-alt: Retrato dithered em preto e branco
+src: ../../assets/photos/retrato-1.jpg
+alt: Retrato de rua
 title: o cara
 date: 2026-06-05
 camera: Canon EOS

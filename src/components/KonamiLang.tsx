@@ -9,7 +9,7 @@ const KONAMI = [
 export default function KonamiLang() {
   const [visible, setVisible] = useState(false);
   const [lang, setLang] = useState("en");
-  const seq = useRef([]);
+  const seq = useRef<string[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem("lang") || "en";
@@ -20,7 +20,7 @@ export default function KonamiLang() {
   }, []);
 
   useEffect(() => {
-    function onKey(e) {
+    function onKey(e: KeyboardEvent) {
       seq.current = [...seq.current, e.key].slice(-KONAMI.length);
       if (seq.current.join(",") === KONAMI.join(",")) {
         setVisible(true);

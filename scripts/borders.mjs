@@ -15,7 +15,6 @@ const svg = (parts) =>
 function frame({ band, spike, accent }) {
   const p = [];
   const e = S;
-  const mid = S + e / 2;
 
   p.push(`<rect x="${S}" y="0" width="${e}" height="${B}" fill="${band}"/>`);
   p.push(`<rect x="${S}" y="${D - B}" width="${e}" height="${B}" fill="${band}"/>`);

@@ -1,6 +1,6 @@
 ---
-src: /assets/canon/retrato-2.png
-alt: Retrato dithered com contraste alto
+src: ../../assets/photos/retrato-2.png
+alt: Retrato com contraste alto
 title: teste de luz
 date: 2026-05-30
 camera: Canon EOS

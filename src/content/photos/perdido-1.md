@@ -1,6 +1,6 @@
 ---
-src: /assets/canon/perdido-1.png
-alt: Foto dithered sem assunto claro
+src: ../../assets/photos/perdido-1.png
+alt: Foto sem assunto claro
 title: sem título
 date: 2026-07-10
 camera: Canon EOS

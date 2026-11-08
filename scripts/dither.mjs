@@ -8,11 +8,8 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const RAW_DIR = join(ROOT, "assets/raw");
 const OUT_DIR = join(ROOT, "public/assets/dither");
 const PATTERN_DIR = join(ROOT, "public/assets/patterns");
-const PHOTO_SRC_DIR = join(ROOT, "src/assets/photos");
-const PHOTO_OUT_DIR = join(ROOT, "public/assets/canon");
 
 const PALETTE_TEAL = ["#0b1d1d", "#0f5e52", "#5f9ea0", "#e8f2ee"];
-const PALETTE_MONO = ["#122323", "#e8f2ee"];
 
 const BAYER8 = [
   [0, 32, 8, 40, 2, 34, 10, 42],
@@ -172,7 +169,7 @@ async function generatePatterns() {
     const on = (Math.floor(x / 2) + Math.floor(y / 2)) % 2 === 0;
     return [0, 0, 0, on ? 0 : 40];
   });
-  await write("scan.png", (x, y) => [0, 0, 0, y % 2 === 0 ? 0 : 35]);
+  await write("scan.png", (_x, y) => [0, 0, 0, y % 2 === 0 ? 0 : 35]);
   await write("grid.png", (x, y) =>
     x % 8 === 0 || y % 8 === 0 ? [0, 0, 0, 60] : [0, 0, 0, 0],
   );
@@ -188,23 +185,6 @@ async function processRawImages() {
     const rel = relative(RAW_DIR, file);
     const out = join(OUT_DIR, rel.replace(extname(rel), ".png"));
     await ditherFile(file, out, { palette: PALETTE_TEAL, method: "bayer" });
-  }
-}
-
-async function processPhotos() {
-  const files = walk(PHOTO_SRC_DIR);
-  if (!files.length) {
-    console.log("  no photos in src/assets/photos/ (skipping)");
-    return;
-  }
-  for (const file of files) {
-    const rel = relative(PHOTO_SRC_DIR, file);
-    const out = join(PHOTO_OUT_DIR, rel.replace(extname(rel), ".png"));
-    await ditherFile(file, out, {
-      width: 900,
-      palette: PALETTE_TEAL,
-      method: "floyd",
-    });
   }
 }
 
@@ -231,7 +211,6 @@ async function main() {
   console.log("dither: starting");
   await generatePatterns();
   await processRawImages();
-  await processPhotos();
   await ensureDefaultBackground();
   console.log("dither: done");
 }

@@ -15,17 +15,18 @@ const blog = defineCollection({
 
 const photos = defineCollection({
   type: 'content',
-  schema: z.object({
-    src: z.string(),
-    alt: z.string(),
-    title: z.string().optional(),
-    date: z.date().optional(),
-    camera: z.string().optional(),
-    lens: z.string().optional(),
-    location: z.string().optional(),
-    roll: z.string().optional(),
-    draft: z.boolean().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      src: image(),
+      alt: z.string(),
+      title: z.string().optional(),
+      date: z.date().optional(),
+      camera: z.string().optional(),
+      lens: z.string().optional(),
+      location: z.string().optional(),
+      roll: z.string().optional(),
+      draft: z.boolean().optional(),
+    }),
 });
 
 export const collections = { blog, photos };
