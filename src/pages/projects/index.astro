@@ -1,0 +1,34 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import ProjectMap from "../../components/ProjectMap.tsx";
+import { projects, links } from "../../data/projects";
+---
+
+<BlogLayout title="Projects" background bodyClass="projects-page">
+  <h1>projects</h1>
+  <p class="projects-intro">
+    três projetos pessoais, três caminhos. arrasta pra organizar, clica num card
+    pra abrir o repositório no GitHub.
+  </p>
+
+  <ProjectMap client:only="react" projects={projects} links={links} />
+
+  <details class="projects-list">
+    <summary>lista de projetos</summary>
+    <ul>
+      {
+        projects.map((project) => (
+          <li>
+            <a href={project.href} target="_blank" rel="noopener">
+              {project.title}
+            </a>
+            <span>{project.description}</span>
+            <span class="projects-list-meta">
+              {project.language} · {project.year}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+</BlogLayout>
