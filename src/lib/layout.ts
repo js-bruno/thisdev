@@ -4,11 +4,11 @@ import type { Edge, Node } from "@xyflow/react";
 const NODE_WIDTH = 280;
 const NODE_HEIGHT = 330;
 
-export function layoutGraph(
-  nodes: Node[],
+export function layoutGraph<T extends Node>(
+  nodes: T[],
   edges: Edge[],
   direction: "LR" | "TB" = "LR",
-): Node[] {
+): T[] {
   const graph = new dagre.graphlib.Graph();
 
   graph.setDefaultEdgeLabel(() => ({}));

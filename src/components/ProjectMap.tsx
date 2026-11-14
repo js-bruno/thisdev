@@ -111,7 +111,7 @@ export default function ProjectMap({ projects, links }: Props) {
   );
 
   const initialNodes = useMemo<ProjectCardNode[]>(
-    () => layoutGraph(baseNodes, edges, direction) as ProjectCardNode[],
+    () => layoutGraph(baseNodes, edges, direction),
     [baseNodes, edges, direction],
   );
 
@@ -128,17 +128,14 @@ export default function ProjectMap({ projects, links }: Props) {
       return;
     }
 
-    setNodes(layoutGraph(baseNodes, edges, direction) as ProjectCardNode[]);
+    setNodes(layoutGraph(baseNodes, edges, direction));
     requestAnimationFrame(() => {
       void flow?.fitView({ padding: fitPadding });
     });
   }, [direction]);
 
   const reorganize = () => {
-    setNodes(
-      (current) =>
-        layoutGraph(current, edges, direction) as ProjectCardNode[],
-    );
+    setNodes((current) => layoutGraph(current, edges, direction));
     requestAnimationFrame(() => {
       void flow?.fitView({ padding: fitPadding });
     });

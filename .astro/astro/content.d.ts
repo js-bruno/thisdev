@@ -162,6 +162,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"prompts-agentes-tokens.md": {
+	id: "prompts-agentes-tokens.md";
+  slug: "prompts-agentes-tokens";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "tedio.md": {
 	id: "tedio.md";
   slug: "tedio";
