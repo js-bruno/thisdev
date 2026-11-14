@@ -5,26 +5,71 @@
         document.documentElement.setAttribute("data-theme", t);
         document.documentElement.lang = l;
       })();
-    </script><link rel="stylesheet" href="/_astro/color-wheel.B5jCoumX.css">
+    </script><link rel="stylesheet" href="/_astro/color-wheel.xHKntDWU.css">
 <link rel="stylesheet" href="/_astro/_slug_.DeQST6sG.css"></head> <body class="wheel-page"> <a href="#main" id="skip-link" class="visually-hidden"> <span>Skip to main content</span> </a> <main id="main">   <h1 data-astro-cid-roeoucez>círculo cromático</h1> <p class="wheel-intro" data-astro-cid-roeoucez>
-escolha um matiz no círculo, ajuste saturação e luminosidade, e teste harmonias
-    até achar uma paleta que preste. clique nas cores pra usar como base, ou no
-<strong data-astro-cid-roeoucez>+</strong> pra guardar na sua paleta.
-</p> <section class="wheel-grid" data-astro-cid-roeoucez> <div class="card wheel-panel" data-astro-cid-roeoucez> <div class="wheel-wrap" id="wheelWrap" role="slider" tabindex="0" aria-label="matiz e saturação pelo círculo cromático" aria-valuemin="0" aria-valuemax="359" aria-valuenow="172" data-astro-cid-roeoucez> <canvas id="wheel" width="480" height="480" aria-hidden="true" data-astro-cid-roeoucez></canvas> <div class="markers" id="markers" aria-hidden="true" data-astro-cid-roeoucez></div> </div> <div class="readout" data-astro-cid-roeoucez> <button class="value-copy" data-copy="hex" aria-label="copiar valor hex" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hex</span> <span id="hexOut" data-astro-cid-roeoucez><span class="block" id="colorBlock" data-astro-cid-roeoucez></span><span id="hexText" data-astro-cid-roeoucez>#3FA7A0</span></span> </button> <button class="value-copy" data-copy="rgb" aria-label="copiar valor rgb" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>rgb</span> <span id="rgbOut" data-astro-cid-roeoucez></span> </button> <button class="value-copy" data-copy="hsl" aria-label="copiar valor hsl" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hsl</span> <span id="hslOut" data-astro-cid-roeoucez></span> </button> <p class="copy-status" id="copyStatus" aria-live="polite" data-astro-cid-roeoucez></p> </div> </div> <div class="card controls" data-astro-cid-roeoucez> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="hue" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>matiz</span> <output id="hueOut" for="hue" data-astro-cid-roeoucez>172°</output> </label> <input id="hue" type="range" min="0" max="359" step="1" value="172" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="sat" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>saturação</span> <output id="satOut" for="sat" data-astro-cid-roeoucez>44%</output> </label> <input id="sat" type="range" min="0" max="100" step="1" value="44" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="light" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>luminosidade</span> <output id="lightOut" for="light" data-astro-cid-roeoucez>42%</output> </label> <input id="light" type="range" min="0" max="100" step="1" value="42" data-astro-cid-roeoucez> </div> <div class="hex-row" data-astro-cid-roeoucez> <label class="hex-field" for="hexInput" data-astro-cid-roeoucez>
+escolha um matiz no círculo, ajuste a saturação na distância do centro e a
+    luminosidade no anel externo. arraste qualquer círculo pra girar a harmonia
+    inteira, ou clique no <strong data-astro-cid-roeoucez>+</strong> pra guardar uma cor na paleta.
+</p> <section class="wheel-grid" data-astro-cid-roeoucez> <div class="card wheel-panel" data-astro-cid-roeoucez> <div class="wheel-wrap" id="wheelWrap" role="slider" tabindex="0" aria-label="matiz e saturação pelo círculo cromático, luminosidade pelo anel externo" aria-valuemin="0" aria-valuemax="359" aria-valuenow="172" title="arraste pra escolher matiz e saturação · anel externo muda a luminosidade · shift trava o matiz em 15°" data-astro-cid-roeoucez> <canvas id="wheel" width="480" height="480" aria-hidden="true" data-astro-cid-roeoucez></canvas> <div class="markers" id="markers" aria-hidden="true" data-astro-cid-roeoucez> <span class="ring-knob" id="ringKnob" data-astro-cid-roeoucez></span> </div> </div> <div class="readout" data-astro-cid-roeoucez> <button class="value-copy" data-copy="hex" aria-label="copiar valor hex" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hex</span> <span id="hexOut" data-astro-cid-roeoucez><span class="block" id="colorBlock" data-astro-cid-roeoucez></span><span id="hexText" data-astro-cid-roeoucez>#3C9A8E</span></span> </button> <button class="value-copy" data-copy="rgb" aria-label="copiar valor rgb" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>rgb</span> <span id="rgbOut" data-astro-cid-roeoucez></span> </button> <button class="value-copy" data-copy="hsl" aria-label="copiar valor hsl" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hsl</span> <span id="hslOut" data-astro-cid-roeoucez></span> </button> <p class="copy-status" id="copyStatus" aria-live="polite" data-astro-cid-roeoucez></p> </div> </div> <div class="card controls" data-astro-cid-roeoucez> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="hue" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>matiz</span> <output id="hueOut" for="hue" data-astro-cid-roeoucez>172°</output> </label> <input id="hue" type="range" min="0" max="359" step="1" value="172" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="sat" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>saturação</span> <output id="satOut" for="sat" data-astro-cid-roeoucez>44%</output> </label> <input id="sat" type="range" min="0" max="100" step="1" value="44" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="light" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>luminosidade</span> <output id="lightOut" for="light" data-astro-cid-roeoucez>42%</output> </label> <input id="light" type="range" min="0" max="100" step="1" value="42" data-astro-cid-roeoucez> </div> <div class="hex-row" data-astro-cid-roeoucez> <label class="hex-field" for="hexInput" data-astro-cid-roeoucez>
 hex
-<input id="hexInput" type="text" value="#3FA7A0" autocomplete="off" spellcheck="false" maxlength="7" data-astro-cid-roeoucez> </label> <button class="btn" id="randomBtn" type="button" data-astro-cid-roeoucez>aleatória</button> </div> <div class="scheme-block" data-astro-cid-roeoucez> <p class="scheme-title" id="schemeLabel" data-astro-cid-roeoucez>harmonia</p> <div class="scheme-row" id="schemeBtns" role="group" aria-labelledby="schemeLabel" data-astro-cid-roeoucez> <button class="btn" type="button" data-scheme="complementar" aria-pressed="false" data-astro-cid-roeoucez>complementar</button> <button class="btn" type="button" data-scheme="analogica" aria-pressed="true" data-astro-cid-roeoucez>análoga</button> <button class="btn" type="button" data-scheme="triade" aria-pressed="false" data-astro-cid-roeoucez>tríade</button> <button class="btn" type="button" data-scheme="tetrade" aria-pressed="false" data-astro-cid-roeoucez>tétrade</button> <button class="btn" type="button" data-scheme="monocromatica" aria-pressed="false" data-astro-cid-roeoucez>mono</button> </div> <div class="swatches" id="swatches" aria-label="cores da harmonia" data-astro-cid-roeoucez></div> <p class="hint" data-astro-cid-roeoucez>clique na cor pra usar como base · + guarda na paleta</p> </div> </div> </section> <section class="wheel-bottom" data-astro-cid-roeoucez> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>minha paleta</h2> <div class="panel-actions" data-astro-cid-roeoucez> <button class="btn" id="copyCssBtn" type="button" data-astro-cid-roeoucez>copiar css</button> <button class="btn" id="clearPaletteBtn" type="button" data-astro-cid-roeoucez>limpar</button> </div> </div> <p class="hint" id="paletteHint" data-astro-cid-roeoucez>suas cores ficam salvas no navegador.</p> <p class="empty" id="paletteEmpty" data-astro-cid-roeoucez>vazia por enquanto. usa o + nas amostras acima.</p> <div class="palette-list" id="paletteList" aria-label="minha paleta" data-astro-cid-roeoucez></div> <p class="copy-status" id="paletteStatus" aria-live="polite" data-astro-cid-roeoucez></p> </div> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>teste da paleta</h2> <span class="hint" id="previewSource" data-astro-cid-roeoucez>prévia com a harmonia atual</span> </div> <div class="preview-shell" id="previewShell" data-astro-cid-roeoucez> <div class="preview-card" id="previewCard" data-astro-cid-roeoucez> <span class="preview-kicker" id="previewKicker" data-astro-cid-roeoucez>are you dreaming?</span> <p class="preview-title" id="previewTitle" data-astro-cid-roeoucez>um título qualquer</p> <p class="preview-text" id="previewText" data-astro-cid-roeoucez>
+<input id="hexInput" type="text" value="#3C9A8E" autocomplete="off" spellcheck="false" maxlength="7" data-astro-cid-roeoucez> </label> <button class="btn" id="randomBtn" type="button" title="sortear uma cor base" data-astro-cid-roeoucez>cor aleatória</button> </div> <div class="scheme-block" data-astro-cid-roeoucez> <p class="scheme-title" id="schemeLabel" data-astro-cid-roeoucez>harmonia</p> <div class="scheme-row" id="schemeBtns" role="group" aria-labelledby="schemeLabel" data-astro-cid-roeoucez> <button class="btn" type="button" data-scheme="complementar" aria-pressed="false" data-astro-cid-roeoucez>complementar</button> <button class="btn" type="button" data-scheme="split" aria-pressed="false" data-astro-cid-roeoucez>split</button> <button class="btn" type="button" data-scheme="analogica" aria-pressed="true" data-astro-cid-roeoucez>análoga</button> <button class="btn" type="button" data-scheme="triade" aria-pressed="false" data-astro-cid-roeoucez>tríade</button> <button class="btn" type="button" data-scheme="tetrade" aria-pressed="false" data-astro-cid-roeoucez>tétrade</button> <button class="btn" type="button" data-scheme="quadrada" aria-pressed="false" data-astro-cid-roeoucez>quadrada</button> <button class="btn" type="button" data-scheme="monocromatica" aria-pressed="false" data-astro-cid-roeoucez>mono</button> </div> <div class="swatches" id="swatches" aria-label="cores da harmonia" data-astro-cid-roeoucez></div> <p class="hint" data-astro-cid-roeoucez>clique na cor pra usar como base · + guarda na paleta</p> </div> </div> </section> <section class="card codes-card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>códigos</h2> <div class="panel-actions" data-astro-cid-roeoucez> <button class="btn" id="copyCodesBtn" type="button" data-astro-cid-roeoucez>copiar tudo</button> </div> </div> <table class="codes-table" data-astro-cid-roeoucez> <thead data-astro-cid-roeoucez> <tr data-astro-cid-roeoucez> <th scope="col" data-astro-cid-roeoucez>formato</th> <th scope="col" data-astro-cid-roeoucez>código</th> <th scope="col" data-astro-cid-roeoucez>css</th> </tr> </thead> <tbody id="codesBody" data-astro-cid-roeoucez></tbody> </table> <p class="hint" data-astro-cid-roeoucez>clique num valor pra copiar · hsv e cmyk não existem como sintaxe CSS</p> <p class="copy-status" id="codesStatus" aria-live="polite" data-astro-cid-roeoucez></p> </section> <section class="card series-card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>shades · tints · tones</h2> <span class="hint" data-astro-cid-roeoucez>derivadas da cor base, em passos de 10%</span> </div> <div class="series" id="seriesList" data-astro-cid-roeoucez></div> <p class="copy-status" id="seriesStatus" aria-live="polite" data-astro-cid-roeoucez></p> </section> <section class="wheel-bottom" data-astro-cid-roeoucez> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>minha paleta</h2> <div class="panel-actions" data-astro-cid-roeoucez> <button class="btn" id="copyCssBtn" type="button" data-astro-cid-roeoucez>copiar css</button> <button class="btn" id="clearPaletteBtn" type="button" data-astro-cid-roeoucez>limpar</button> </div> </div> <p class="hint" id="paletteHint" data-astro-cid-roeoucez>suas cores ficam salvas no navegador · até 24.</p> <p class="empty" id="paletteEmpty" data-astro-cid-roeoucez>vazia por enquanto. usa o + nas amostras acima.</p> <div class="palette-list" id="paletteList" aria-label="minha paleta" data-astro-cid-roeoucez></div> <p class="copy-status" id="paletteStatus" aria-live="polite" data-astro-cid-roeoucez></p> <div class="palette-tools" data-astro-cid-roeoucez> <button class="btn" id="randomPaletteBtn" type="button" title="sorteia uma harmonia inteira" data-astro-cid-roeoucez>paleta aleatória</button> <button class="btn" id="addHarmonyBtn" type="button" title="adiciona a harmonia atual à paleta" data-astro-cid-roeoucez>+ harmonia</button> <span class="export-group" data-astro-cid-roeoucez> <span class="tag-mini" data-astro-cid-roeoucez>exportar</span> <button class="btn tiny" type="button" data-export="txt" aria-label="exportar paleta em txt" data-astro-cid-roeoucez>txt</button> <button class="btn tiny" type="button" data-export="json" aria-label="exportar paleta em json" data-astro-cid-roeoucez>json</button> <button class="btn tiny" type="button" data-export="css" aria-label="exportar paleta em css" data-astro-cid-roeoucez>css</button> </span> </div> <details class="import-block" data-astro-cid-roeoucez> <summary data-astro-cid-roeoucez>importar cores</summary> <textarea id="importArea" rows="3" spellcheck="false" placeholder="#3FA7A0, #F2C14E, 9fe0c8" aria-label="lista de cores hex para importar" data-astro-cid-roeoucez></textarea> <button class="btn" id="importBtn" type="button" data-astro-cid-roeoucez>importar</button> </details> </div> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>teste da paleta</h2> <span class="hint" id="previewSource" data-astro-cid-roeoucez>prévia com a harmonia atual</span> </div> <div class="preview-shell" id="previewShell" data-astro-cid-roeoucez> <div class="preview-card" id="previewCard" data-astro-cid-roeoucez> <span class="preview-kicker" id="previewKicker" data-astro-cid-roeoucez>are you dreaming?</span> <p class="preview-title" id="previewTitle" data-astro-cid-roeoucez>um título qualquer</p> <p class="preview-text" id="previewText" data-astro-cid-roeoucez>
 texto de exemplo pra sentir o contraste, o peso e o clima da paleta
             antes de usar de verdade.
-</p> <div class="preview-actions" data-astro-cid-roeoucez> <span class="preview-btn" id="previewBtn" data-astro-cid-roeoucez>botão</span> <span class="preview-link" id="previewLink" data-astro-cid-roeoucez>um link</span> </div> </div> </div> </div> </section> <script>
+</p> <div class="preview-actions" data-astro-cid-roeoucez> <span class="preview-btn" id="previewBtn" data-astro-cid-roeoucez>botão</span> <span class="preview-link" id="previewLink" data-astro-cid-roeoucez>um link</span> </div> </div> </div> </div> </section> <section class="theory" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>color theory, briefly</h2> <details data-astro-cid-roeoucez> <summary data-astro-cid-roeoucez>harmonies</summary> <p data-astro-cid-roeoucez>
+Harmonies are colors that sit at fixed angles on the wheel. Complementary
+        pairs sit 180° apart and give maximum contrast. Split-complementary takes
+        the two neighbors of that opposite point — softer, easier to balance.
+        Analogous colors are adjacent (here ±25°) and feel calm. Triadic spreads
+        three colors 120° apart, tetradic uses 60°/180°/240°, and square uses
+        90° steps. When one color dominates, the others read as accents.
+</p> </details> <details data-astro-cid-roeoucez> <summary data-astro-cid-roeoucez>shades, tints and tones</summary> <p data-astro-cid-roeoucez>
+Shades add black, tints add white, tones add gray. All three keep the hue
+        and lower the drama, which is why they are useful for backgrounds, borders
+        and hover states. Pick one saturated accent, then fill the rest of the
+        interface with tints, shades and tones of it.
+</p> </details> <details data-astro-cid-roeoucez> <summary data-astro-cid-roeoucez>primary, secondary and tertiary</summary> <p data-astro-cid-roeoucez>
+In the traditional painter's wheel, primaries are red, yellow and blue;
+        secondaries are the mixes of two primaries (orange, green, purple); and
+        tertiaries mix a primary with a neighboring secondary (vermilion, amber,
+        chartreuse, teal, violet, magenta). Screens mix light instead of pigment,
+        so the wheel above is RGB-based — same relationships, different primaries.
+</p> </details> <details data-astro-cid-roeoucez> <summary data-astro-cid-roeoucez>using this wheel</summary> <p data-astro-cid-roeoucez>
+Drag on the disc to set hue and saturation, use the outer ring for
+        lightness, then rotate the whole harmony by dragging any handle. Paste a
+        hex into the field to start from an existing color, copy any code from the
+        table, and export the palette when it feels right.
+</p> </details> </section> <script>
     const STORAGE_KEY = "thisdev-color-palette";
     const CANVAS_SIZE = 480;
+    const DISK = 0.84;
+    const MAX_COLORS = 24;
+    const SERIES_STEPS = [10, 20, 30, 40, 50, 60, 70, 80, 90];
     const schemes = {
       complementar: [0, 180],
+      split: [0, 150, 210],
       analogica: [-25, 0, 25],
       triade: [0, 120, 240],
-      tetrade: [0, 90, 180, 270],
+      tetrade: [0, 60, 180, 240],
+      quadrada: [0, 90, 180, 270],
       monocromatica: "mono",
     };
+    const schemeLabels = {
+      complementar: "complementar",
+      split: "split-complementar",
+      analogica: "análoga",
+      triade: "tríade",
+      tetrade: "tétrade",
+      quadrada: "quadrada",
+      monocromatica: "monocromática",
+    };
+    const monoSteps = [-32, -24, -16, -8, 0, 8, 16, 24, 32];
+    const monoMarkerSizes = [42, 36, 31, 26, 22, 18, 14, 11, 8];
+    const seriesDefs = [
+      { key: "shades", label: "shades", mix: "#000000" },
+      { key: "tints", label: "tints", mix: "#ffffff" },
+      { key: "tones", label: "tones", mix: "#808080" },
+    ];
+    const codeKeys = ["hex", "rgb", "hsl", "hsv", "oklch", "cmyk"];
 
     const state = {
       h: 172,
@@ -38,6 +83,7 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
     const canvas = document.getElementById("wheel");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const markers = document.getElementById("markers");
+    const ringKnob = document.getElementById("ringKnob");
     const colorBlock = document.getElementById("colorBlock");
     const hexText = document.getElementById("hexText");
     const rgbOut = document.getElementById("rgbOut");
@@ -50,6 +96,8 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
     const satOut = document.getElementById("satOut");
     const lightOut = document.getElementById("lightOut");
     const copyStatus = document.getElementById("copyStatus");
+    const codesStatus = document.getElementById("codesStatus");
+    const seriesStatus = document.getElementById("seriesStatus");
     const paletteStatus = document.getElementById("paletteStatus");
     const paletteList = document.getElementById("paletteList");
     const paletteEmpty = document.getElementById("paletteEmpty");
@@ -60,13 +108,22 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
     const previewSource = document.getElementById("previewSource");
     const schemeBtns = [...document.querySelectorAll("[data-scheme]")];
     const swatches = document.getElementById("swatches");
+    const codesBody = document.getElementById("codesBody");
+    const seriesList = document.getElementById("seriesList");
+    const importArea = document.getElementById("importArea");
+
+    // --- cores: conversões -------------------------------------------------
 
     function clamp(n, min, max) {
       return Math.min(max, Math.max(min, n));
     }
 
+    function normalizeHue(h) {
+      return ((h % 360) + 360) % 360;
+    }
+
     function hslToRgb(h, s, l) {
-      h = ((h % 360) + 360) % 360;
+      h = normalizeHue(h);
       s = clamp(s, 0, 100) / 100;
       l = clamp(l, 0, 100) / 100;
       const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -92,12 +149,15 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       return n.toString(16).padStart(2, "0");
     }
 
-    function hslToHex(h, s, l) {
-      const [r, g, b] = hslToRgb(h, s, l);
-      return "#" + toHex(r) + toHex(g) + toHex(b);
+    function rgbToHex(rgb) {
+      return "#" + rgb.map(toHex).join("");
     }
 
-    function hexToHsl(hex) {
+    function hslToHex(h, s, l) {
+      return rgbToHex(hslToRgb(h, s, l));
+    }
+
+    function hexToRgb(hex) {
       let clean = hex.trim().replace(/^#/, "");
       if (clean.length === 3) {
         clean = clean
@@ -106,9 +166,20 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
           .join("");
       }
       if (!/^[0-9a-f]{6}$/i.test(clean)) return null;
-      const r = parseInt(clean.slice(0, 2), 16) / 255;
-      const g = parseInt(clean.slice(2, 4), 16) / 255;
-      const b = parseInt(clean.slice(4, 6), 16) / 255;
+      return [
+        parseInt(clean.slice(0, 2), 16),
+        parseInt(clean.slice(2, 4), 16),
+        parseInt(clean.slice(4, 6), 16),
+      ];
+    }
+
+    function hexToHsl(hex) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return null;
+      const [r255, g255, b255] = rgb;
+      const r = r255 / 255;
+      const g = g255 / 255;
+      const b = b255 / 255;
       const max = Math.max(r, g, b);
       const min = Math.min(r, g, b);
       const l = (max + min) / 2;
@@ -130,10 +201,66 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       };
     }
 
+    function rgbToHsv(rgb) {
+      const r = rgb[0] / 255;
+      const g = rgb[1] / 255;
+      const b = rgb[2] / 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const d = max - min;
+      let h = 0;
+      if (d !== 0) {
+        if (max === r) h = ((g - b) / d) % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h *= 60;
+        if (h < 0) h += 360;
+      }
+      return {
+        h: Math.round(h),
+        s: Math.round(max === 0 ? 0 : (d / max) * 100),
+        v: Math.round(max * 100),
+      };
+    }
+
+    function srgbToLinear(c) {
+      return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }
+
+    function rgbToOklch(rgb) {
+      const r = srgbToLinear(rgb[0] / 255);
+      const g = srgbToLinear(rgb[1] / 255);
+      const b = srgbToLinear(rgb[2] / 255);
+      const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+      const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+      const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+      const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+      const a = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+      const bb = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+      let h = (Math.atan2(bb, a) * 180) / Math.PI;
+      if (h < 0) h += 360;
+      return { l: L * 100, c: Math.hypot(a, bb), h };
+    }
+
+    function rgbToCmyk(rgb) {
+      const r = rgb[0] / 255;
+      const g = rgb[1] / 255;
+      const b = rgb[2] / 255;
+      const k = 1 - Math.max(r, g, b);
+      if (k >= 1) return { c: 0, m: 0, y: 0, k: 100 };
+      return {
+        c: Math.round(((1 - r - k) / (1 - k)) * 100),
+        m: Math.round(((1 - g - k) / (1 - k)) * 100),
+        y: Math.round(((1 - b - k) / (1 - k)) * 100),
+        k: Math.round(k * 100),
+      };
+    }
+
     function relativeLuminance(hex) {
-      const clean = hex.replace("#", "");
-      const channels = [0, 2, 4].map((i) => {
-        const c = parseInt(clean.slice(i, i + 2), 16) / 255;
+      const rgb = hexToRgb(hex);
+      if (!rgb) return 0;
+      const channels = rgb.map((value) => {
+        const c = value / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
       return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
@@ -141,6 +268,13 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
 
     function inkOn(hex) {
       return relativeLuminance(hex) > 0.42 ? "#07100f" : "#eaf6f1";
+    }
+
+    function mixHex(a, b, t) {
+      const A = hexToRgb(a);
+      const B = hexToRgb(b);
+      if (!A || !B) return a;
+      return rgbToHex(A.map((value, index) => Math.round(value + (B[index] - value) * t)));
     }
 
     function rgbString(h, s, l) {
@@ -155,31 +289,94 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       return hslToHex(state.h, state.s, state.l);
     }
 
+    function currentCodes() {
+      const hex = currentHex();
+      const rgb = hslToRgb(state.h, state.s, state.l);
+      const hsv = rgbToHsv(rgb);
+      const oklch = rgbToOklch(rgb);
+      const cmyk = rgbToCmyk(rgb);
+      const oklchCode = `oklch(${oklch.l.toFixed(1)}% ${oklch.c.toFixed(3)} ${oklch.h.toFixed(1)})`;
+      return [
+        { label: "hex", code: hex.toUpperCase(), css: hex.toUpperCase() },
+        { label: "rgb", code: `rgb(${rgb.join(", ")})`, css: `rgb(${rgb.join(" ")})` },
+        { label: "hsl", code: hslString(state.h, state.s, state.l), css: `hsl(${state.h} ${state.s}% ${state.l}%)` },
+        { label: "hsv", code: `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`, css: "—" },
+        { label: "oklch", code: oklchCode, css: oklchCode },
+        { label: "cmyk", code: `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`, css: "—" },
+      ];
+    }
+
+    // --- roda: desenho -----------------------------------------------------
+
+    const frameImage = ctx.createImageData(CANVAS_SIZE, CANVAS_SIZE);
+    let diskCache = { l: null, data: null };
     let wheelFrame = 0;
-    function drawWheel() {
-      wheelFrame = 0;
+
+    function buildDisk(lightness) {
       const size = CANVAS_SIZE;
       const center = size / 2;
-      const radius = center - 1;
-      const image = ctx.createImageData(size, size);
-      const data = image.data;
-      const l = state.l;
+      const maxRadius = center - 1;
+      const diskRadius = maxRadius * DISK;
+      const data = new Uint8ClampedArray(size * size * 4);
       for (let y = 0; y < size; y += 1) {
         const dy = y - center;
         for (let x = 0; x < size; x += 1) {
           const dx = x - center;
           const distance = Math.hypot(dx, dy);
-          if (distance > radius) continue;
+          if (distance > diskRadius) continue;
           const index = (y * size + x) * 4;
           const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-          const [r, g, b] = hslToRgb(angle, (distance / radius) * 100, l);
+          const [r, g, b] = hslToRgb(angle, (distance / diskRadius) * 100, lightness);
           data[index] = r;
           data[index + 1] = g;
           data[index + 2] = b;
-          data[index + 3] = distance > radius - 1.5 ? Math.round(((radius - distance) / 1.5) * 255) : 255;
+          data[index + 3] =
+            distance > diskRadius - 1.5
+              ? Math.round(((diskRadius - distance) / 1.5) * 255)
+              : 255;
         }
       }
-      ctx.putImageData(image, 0, 0);
+      return data;
+    }
+
+    function paintRing(data, hueValue, satValue) {
+      const size = CANVAS_SIZE;
+      const center = size / 2;
+      const maxRadius = center - 1;
+      const diskRadius = maxRadius * DISK;
+      const ringInner = maxRadius - 1.5;
+      for (let y = 0; y < size; y += 1) {
+        const dy = y - center;
+        for (let x = 0; x < size; x += 1) {
+          const dx = x - center;
+          const distance = Math.hypot(dx, dy);
+          if (distance <= diskRadius || distance > maxRadius) continue;
+          const index = (y * size + x) * 4;
+          let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+          if (angle < 0) angle += 360;
+          let fromTop = (angle + 90) % 360;
+          if (fromTop > 180) fromTop = 360 - fromTop;
+          const lightness = 100 - (fromTop / 180) * 100;
+          const [r, g, b] = hslToRgb(hueValue, satValue, lightness);
+          data[index] = r;
+          data[index + 1] = g;
+          data[index + 2] = b;
+          data[index + 3] =
+            distance > ringInner
+              ? Math.round(((maxRadius - distance) / 1.5) * 255)
+              : 255;
+        }
+      }
+    }
+
+    function drawWheel() {
+      wheelFrame = 0;
+      if (!diskCache.data || diskCache.l !== state.l) {
+        diskCache = { l: state.l, data: buildDisk(state.l) };
+      }
+      frameImage.data.set(diskCache.data);
+      paintRing(frameImage.data, state.h, state.s);
+      ctx.putImageData(frameImage, 0, 0);
     }
 
     function scheduleWheel() {
@@ -188,16 +385,18 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       }
     }
 
+    // --- harmonia ----------------------------------------------------------
+
     function schemeColors() {
       if (schemes[state.scheme] === "mono") {
-        return [-24, -12, 0, 12, 24].map((offset) => ({
+        return monoSteps.map((offset) => ({
           h: state.h,
           s: state.s,
-          l: clamp(state.l + offset, 6, 94),
+          l: clamp(state.l + offset, 4, 96),
         }));
       }
       return schemes[state.scheme].map((offset) => ({
-        h: (state.h + offset + 360) % 360,
+        h: normalizeHue(state.h + offset),
         s: state.s,
         l: state.l,
       }));
@@ -218,36 +417,218 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       );
     }
 
-    const monoMarkerSizes = [32, 25, 19, 13, 8];
+    const markerNodes = [];
 
-    function renderMarkers() {
+    function syncMarkers() {
       const colors = schemeColors();
       const isMono = state.scheme === "monocromatica";
-      const baseIndex = isMono ? 2 : schemes[state.scheme].indexOf(0);
+      const baseIndex = isMono ? monoSteps.indexOf(0) : schemes[state.scheme].indexOf(0);
 
-      markers.replaceChildren();
+      while (markerNodes.length > colors.length) {
+        markerNodes.pop().remove();
+      }
 
       colors.forEach((color, index) => {
+        let marker = markerNodes[index];
+        if (!marker) {
+          marker = document.createElement("span");
+          marker.className = "marker";
+          marker.dataset.index = String(index);
+          markers.appendChild(marker);
+          markerNodes[index] = marker;
+        }
+
         const hex = hslToHex(color.h, color.s, color.l);
         const angle = (color.h * Math.PI) / 180;
-        const distance = color.s / 100;
-        const marker = document.createElement("span");
+        const radius = (color.s / 100) * DISK * 50;
 
-        marker.className = "marker";
-        marker.style.left = `${50 + Math.cos(angle) * distance * 50}%`;
-        marker.style.top = `${50 + Math.sin(angle) * distance * 50}%`;
+        marker.style.left = `${50 + Math.cos(angle) * radius}%`;
+        marker.style.top = `${50 + Math.sin(angle) * radius}%`;
         marker.style.setProperty("--marker", hex);
         marker.title = index === baseIndex ? `${hex.toUpperCase()} (base)` : hex.toUpperCase();
 
-        if (index === baseIndex) marker.classList.add("is-base");
-        if (isMono) {
-          marker.classList.add("is-mono");
-          marker.style.setProperty("--size", `${monoMarkerSizes[index]}px`);
-        }
+        marker.classList.toggle("is-base", index === baseIndex);
+        marker.classList.toggle("is-mono", isMono);
 
-        markers.appendChild(marker);
+        if (isMono) {
+          marker.style.setProperty("--size", `${monoMarkerSizes[index]}px`);
+        } else {
+          marker.style.removeProperty("--size");
+        }
       });
     }
+
+    function syncRingKnob() {
+      const fromTop = ((100 - state.l) / 100) * 180;
+      const angle = ((-90 + fromTop) * Math.PI) / 180;
+      const radius = ((DISK + 1) / 2) * 50;
+
+      ringKnob.style.left = `${50 + Math.cos(angle) * radius}%`;
+      ringKnob.style.top = `${50 + Math.sin(angle) * radius}%`;
+      ringKnob.style.setProperty("--knob", currentHex());
+      ringKnob.title = `luminosidade ${state.l}%`;
+    }
+
+    function renderSwatches() {
+      swatches.replaceChildren();
+      for (const color of schemeColors()) {
+        const hex = hslToHex(color.h, color.s, color.l);
+        const card = document.createElement("div");
+        card.className = "swatch-card";
+
+        const main = document.createElement("button");
+        main.type = "button";
+        main.className = "swatch-main";
+        main.style.setProperty("--swatch", hex);
+        main.title = `usar ${hex.toUpperCase()} como base`;
+        main.setAttribute("aria-label", `usar ${hex.toUpperCase()} como base`);
+        main.addEventListener("click", () => {
+          state.h = color.h;
+          state.s = color.s;
+          state.l = color.l;
+          update();
+        });
+
+        const foot = document.createElement("div");
+        foot.className = "swatch-foot";
+        const label = document.createElement("span");
+        label.textContent = hex.toUpperCase();
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "swatch-add";
+        add.textContent = "+";
+        add.title = "adicionar à minha paleta";
+        add.setAttribute("aria-label", `adicionar ${hex.toUpperCase()} à minha paleta`);
+        add.addEventListener("click", () => addToPalette(hex));
+
+        foot.append(label, add);
+        card.append(main, foot);
+        swatches.appendChild(card);
+      }
+    }
+
+    // --- códigos -----------------------------------------------------------
+
+    const codeCells = [];
+
+    function buildCodesTable() {
+      for (const key of codeKeys) {
+        const row = document.createElement("tr");
+        const labelCell = document.createElement("td");
+        labelCell.textContent = key;
+
+        const codeCell = document.createElement("td");
+        const codeBtn = document.createElement("button");
+        codeBtn.type = "button";
+        codeBtn.className = "code-cell";
+        codeCell.appendChild(codeBtn);
+
+        const cssCell = document.createElement("td");
+        const cssBtn = document.createElement("button");
+        cssBtn.type = "button";
+        cssBtn.className = "code-cell";
+        cssCell.appendChild(cssBtn);
+
+        row.append(labelCell, codeCell, cssCell);
+        codesBody.appendChild(row);
+        codeCells.push({ codeBtn, cssBtn });
+
+        codeBtn.addEventListener("click", async () => {
+          if (codeBtn.textContent === "—") return;
+          const ok = await copyText(codeBtn.textContent);
+          flashStatus(codesStatus, ok ? `${key} copiado` : "não deu pra copiar");
+        });
+
+        cssBtn.addEventListener("click", async () => {
+          if (cssBtn.textContent === "—") return;
+          const ok = await copyText(cssBtn.textContent);
+          flashStatus(codesStatus, ok ? `${key} css copiado` : "não deu pra copiar");
+        });
+      }
+    }
+
+    function renderCodes() {
+      const rows = currentCodes();
+      rows.forEach((row, index) => {
+        const cells = codeCells[index];
+        if (!cells) return;
+
+        cells.codeBtn.textContent = row.code;
+        cells.codeBtn.title = `copiar ${row.label}`;
+
+        cells.cssBtn.textContent = row.css;
+        cells.cssBtn.title = row.css === "—" ? `${row.label} não tem sintaxe css` : `copiar ${row.label} css`;
+        cells.cssBtn.classList.toggle("code-empty", row.css === "—");
+      });
+    }
+
+    // --- shades, tints e tones --------------------------------------------
+
+    const seriesRows = [];
+
+    function buildSeries() {
+      for (const def of seriesDefs) {
+        const row = document.createElement("div");
+        row.className = "series-row";
+
+        const label = document.createElement("p");
+        label.className = "series-label";
+        label.textContent = def.label;
+
+        const strip = document.createElement("div");
+        strip.className = "series-strip";
+
+        const buttons = SERIES_STEPS.map(() => {
+          const swatch = document.createElement("button");
+          swatch.type = "button";
+          swatch.className = "series-swatch";
+          swatch.dataset.hex = "";
+          swatch.addEventListener("click", async () => {
+            const hex = swatch.dataset.hex;
+            if (!hex) return;
+            const ok = await copyText(hex.toUpperCase());
+            flashStatus(seriesStatus, ok ? `${hex.toUpperCase()} copiada` : "não deu pra copiar");
+          });
+          strip.appendChild(swatch);
+          return swatch;
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "series-actions";
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "btn tiny";
+        add.textContent = "+";
+        add.title = `adicionar ${def.label} à paleta`;
+        add.setAttribute("aria-label", `adicionar todas as cores de ${def.label} à paleta`);
+        add.addEventListener("click", () => {
+          addMany(
+            buttons.map((button) => button.dataset.hex).filter(Boolean),
+            seriesStatus,
+          );
+        });
+        actions.appendChild(add);
+
+        row.append(label, strip, actions);
+        seriesList.appendChild(row);
+        seriesRows.push({ def, buttons });
+      }
+    }
+
+    function renderSeries() {
+      const base = currentHex();
+      for (const { def, buttons } of seriesRows) {
+        buttons.forEach((button, index) => {
+          const hex = mixHex(base, def.mix, SERIES_STEPS[index] / 100);
+          button.dataset.hex = hex;
+          button.style.setProperty("--swatch", hex);
+          button.title = `${hex.toUpperCase()} · ${def.label} ${SERIES_STEPS[index]}%`;
+          button.setAttribute("aria-label", button.title);
+        });
+      }
+    }
+
+    // --- status e cópia ----------------------------------------------------
 
     function flashStatus(el, text) {
       el.textContent = text;
@@ -280,43 +661,7 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       }
     }
 
-    function renderSwatches() {
-      swatches.replaceChildren();
-      for (const color of schemeColors()) {
-        const hex = hslToHex(color.h, color.s, color.l);
-        const card = document.createElement("div");
-        card.className = "swatch-card";
-
-        const main = document.createElement("button");
-        main.type = "button";
-        main.className = "swatch-main";
-        main.style.setProperty("--swatch", hex);
-        main.title = `usar ${hex.toUpperCase()} como base`;
-        main.setAttribute("aria-label", `usar ${hex.toUpperCase()} como base`);
-        main.addEventListener("click", () => {
-          state.h = color.h;
-          state.s = color.s;
-          state.l = color.l;
-          update(true);
-        });
-
-        const foot = document.createElement("div");
-        foot.className = "swatch-foot";
-        const label = document.createElement("span");
-        label.textContent = hex.toUpperCase();
-        const add = document.createElement("button");
-        add.type = "button";
-        add.className = "swatch-add";
-        add.textContent = "+";
-        add.title = "adicionar à minha paleta";
-        add.setAttribute("aria-label", `adicionar ${hex.toUpperCase()} à minha paleta`);
-        add.addEventListener("click", () => addToPalette(hex));
-
-        foot.append(label, add);
-        card.append(main, foot);
-        swatches.appendChild(card);
-      }
-    }
+    // --- paleta ------------------------------------------------------------
 
     function savePalette() {
       try {
@@ -333,35 +678,60 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
         if (Array.isArray(parsed)) {
           state.palette = parsed
             .filter((hex) => typeof hex === "string" && /^#[0-9a-f]{6}$/i.test(hex))
-            .slice(0, 12);
+            .slice(0, MAX_COLORS);
         }
       } catch {
         state.palette = [];
       }
     }
 
-    function addToPalette(hex) {
+    function addColor(hex) {
       const normalized = hex.toLowerCase();
-      if (state.palette.includes(normalized)) {
-        flashStatus(paletteStatus, "essa cor já está na paleta");
-        return;
-      }
-      if (state.palette.length >= 12) {
-        flashStatus(paletteStatus, "a paleta já tem 12 cores");
-        return;
-      }
+      if (state.palette.includes(normalized)) return "dup";
+      if (state.palette.length >= MAX_COLORS) return "full";
       state.palette.push(normalized);
+      return "ok";
+    }
+
+    function commitPalette() {
       savePalette();
       renderPalette();
       renderPreview();
-      flashStatus(paletteStatus, `${hex.toUpperCase()} adicionada`);
+    }
+
+    function addToPalette(hex) {
+      const result = addColor(hex);
+      if (result === "ok") {
+        commitPalette();
+        flashStatus(paletteStatus, `${hex.toUpperCase()} adicionada`);
+      } else if (result === "dup") {
+        flashStatus(paletteStatus, "essa cor já está na paleta");
+      } else {
+        flashStatus(paletteStatus, `a paleta já tem ${MAX_COLORS} cores`);
+      }
+    }
+
+    function addMany(hexes, statusEl) {
+      let added = 0;
+      let full = false;
+      for (const hex of hexes) {
+        const result = addColor(hex);
+        if (result === "ok") added += 1;
+        else if (result === "full") {
+          full = true;
+          break;
+        }
+      }
+      if (added > 0) commitPalette();
+      const target = statusEl || paletteStatus;
+      if (added > 0) flashStatus(target, `${added} cores adicionadas`);
+      else if (full) flashStatus(target, `limite de ${MAX_COLORS} cores`);
+      else flashStatus(target, "todas já estavam na paleta");
     }
 
     function removeFromPalette(hex) {
       state.palette = state.palette.filter((item) => item !== hex);
-      savePalette();
-      renderPalette();
-      renderPreview();
+      commitPalette();
     }
 
     function renderPalette() {
@@ -396,11 +766,85 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       }
     }
 
+    function paletteCss() {
+      return [
+        ":root {",
+        ...state.palette.map((hex, index) => `  --palette-${index + 1}: ${hex};`),
+        "}",
+      ].join("\n");
+    }
+
+    function download(name, text, mime) {
+      const blob = new Blob([text], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = name;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportPalette(format) {
+      if (state.palette.length === 0) {
+        flashStatus(paletteStatus, "a paleta está vazia");
+        return;
+      }
+
+      if (format === "css") {
+        download("paleta.css", paletteCss() + "\n", "text/css");
+      } else if (format === "json") {
+        const data = {
+          generatedAt: new Date().toISOString(),
+          palette: state.palette.map((hex) => {
+            const parsed = hexToHsl(hex);
+            const rgb = hexToRgb(hex);
+            return {
+              hex: hex.toUpperCase(),
+              rgb: rgb ? `rgb(${rgb.join(", ")})` : "",
+              hsl: parsed ? `hsl(${parsed.h}, ${parsed.s}%, ${parsed.l}%)` : "",
+            };
+          }),
+        };
+        download("paleta.json", JSON.stringify(data, null, 2) + "\n", "application/json");
+      } else {
+        download(
+          "paleta.txt",
+          state.palette.map((hex) => hex.toUpperCase()).join("\n") + "\n",
+          "text/plain",
+        );
+      }
+
+      flashStatus(paletteStatus, `${format} exportado`);
+    }
+
+    function parseHexList(text) {
+      const matches =
+        text.match(/#[0-9a-f]{3}(?:[0-9a-f]{3})?\b|\b[0-9a-f]{6}\b/gi) || [];
+      const found = [];
+      for (const match of matches) {
+        let clean = match.replace("#", "");
+        if (clean.length === 3) {
+          clean = clean
+            .split("")
+            .map((char) => char + char)
+            .join("");
+        }
+        const hex = "#" + clean.toLowerCase();
+        if (!found.includes(hex)) found.push(hex);
+      }
+      return found;
+    }
+
+    // --- prévia ------------------------------------------------------------
+
     function renderPreview() {
       const usePalette = state.palette.length >= 2;
       const colors = usePalette
         ? state.palette
-        : schemeColors().map((c) => hslToHex(c.h, c.s, c.l));
+        : schemeColors().map((color) => hslToHex(color.h, color.s, color.l));
       const background = colors[0];
       const card = colors[1] || colors[0];
       const accent = colors[2] || colors[0];
@@ -422,8 +866,17 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       previewLink.style.textDecorationColor = cardInk + "aa";
     }
 
-    function update(redraw = false) {
-      state.h = (state.h + 360) % 360;
+    // --- estado ------------------------------------------------------------
+
+    function setScheme(name) {
+      state.scheme = name;
+      schemeBtns.forEach((button) => {
+        button.setAttribute("aria-pressed", button.dataset.scheme === name ? "true" : "false");
+      });
+    }
+
+    function update() {
+      state.h = normalizeHue(state.h);
       state.s = clamp(state.s, 0, 100);
       state.l = clamp(state.l, 0, 100);
 
@@ -442,48 +895,118 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       satOut.textContent = `${state.s}%`;
       lightOut.textContent = `${state.l}%`;
       wrap.setAttribute("aria-valuenow", String(state.h));
-      wrap.setAttribute("aria-valuetext", `matiz ${state.h} graus, saturação ${state.s}%`);
+      wrap.setAttribute(
+        "aria-valuetext",
+        `matiz ${state.h} graus, saturação ${state.s}%, luminosidade ${state.l}%`,
+      );
 
       updateTracks();
-      renderMarkers();
+      syncMarkers();
+      syncRingKnob();
       renderSwatches();
+      renderCodes();
+      renderSeries();
       renderPreview();
 
-      if (redraw) scheduleWheel();
+      scheduleWheel();
     }
 
-    function pickFromPointer(event) {
+    // --- ponteiro ----------------------------------------------------------
+
+    let drag = null;
+
+    function pointerGeometry(event) {
       const rect = canvas.getBoundingClientRect();
       const dx = event.clientX - (rect.left + rect.width / 2);
       const dy = event.clientY - (rect.top + rect.height / 2);
       const radius = rect.width / 2;
-      const distance = Math.min(1, Math.hypot(dx, dy) / radius);
-      state.h = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
-      if (state.h < 0) state.h += 360;
-      state.s = Math.round(distance * 100);
-      update(false);
+      const distance = Math.hypot(dx, dy) / radius;
+      let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+      if (angle < 0) angle += 360;
+      return { distance, angle, radius };
+    }
+
+    function ringLightness(angle) {
+      let fromTop = (angle + 90) % 360;
+      if (fromTop > 180) fromTop = 360 - fromTop;
+      return Math.round(100 - (fromTop / 180) * 100);
+    }
+
+    function applyWheel(geometry, snapHue) {
+      const hueValue = snapHue
+        ? Math.round(geometry.angle / 15) * 15
+        : Math.round(geometry.angle);
+      state.h = normalizeHue(hueValue);
+      state.s = Math.round(clamp(geometry.distance / DISK, 0, 1) * 100);
+      update();
+    }
+
+    function applyRing(geometry) {
+      state.l = clamp(ringLightness(geometry.angle), 0, 100);
+      update();
+    }
+
+    function shortestAngle(delta) {
+      let value = ((delta + 180) % 360 + 360) % 360 - 180;
+      return value;
+    }
+
+    function applyMarker(geometry) {
+      const delta = shortestAngle(geometry.angle - drag.lastAngle);
+      drag.lastAngle = geometry.angle;
+      drag.hue += delta;
+      state.h = drag.hue;
+      state.s = Math.round(clamp(geometry.distance / DISK, 0, 1) * 100);
+      update();
     }
 
     wrap.addEventListener("pointerdown", (event) => {
       event.preventDefault();
+      const marker = event.target.closest ? event.target.closest(".marker") : null;
+      const isKnob = event.target === ringKnob;
+      const isMono = marker ? marker.classList.contains("is-mono") : false;
+      const geometry = pointerGeometry(event);
+
       wrap.setPointerCapture(event.pointerId);
       wrap.focus({ preventScroll: true });
-      pickFromPointer(event);
+
+      if (marker && !isMono) {
+        drag = {
+          type: "marker",
+          lastAngle: geometry.angle,
+          hue: state.h,
+        };
+        applyMarker(geometry);
+        return;
+      }
+
+      if (isKnob || geometry.distance > DISK) {
+        drag = { type: "ring" };
+        applyRing(geometry);
+        return;
+      }
+
+      drag = { type: "wheel" };
+      applyWheel(geometry, event.shiftKey);
     });
 
     wrap.addEventListener("pointermove", (event) => {
-      if (wrap.hasPointerCapture(event.pointerId)) {
-        pickFromPointer(event);
-      }
+      if (!drag || !wrap.hasPointerCapture(event.pointerId)) return;
+      const geometry = pointerGeometry(event);
+      if (drag.type === "wheel") applyWheel(geometry, event.shiftKey);
+      else if (drag.type === "ring") applyRing(geometry);
+      else applyMarker(geometry);
     });
 
     wrap.addEventListener("pointerup", (event) => {
       if (wrap.hasPointerCapture(event.pointerId)) {
         wrap.releasePointerCapture(event.pointerId);
       }
+      drag = null;
     });
 
     wrap.addEventListener("pointercancel", () => {
+      drag = null;
       if (wheelFrame) {
         cancelAnimationFrame(wheelFrame);
         wheelFrame = 0;
@@ -492,28 +1015,37 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
 
     wrap.addEventListener("keydown", (event) => {
       const step = event.shiftKey ? 10 : 2;
+      let handled = true;
       if (event.key === "ArrowLeft") state.h -= step;
       else if (event.key === "ArrowRight") state.h += step;
       else if (event.key === "ArrowUp") state.s += step;
       else if (event.key === "ArrowDown") state.s -= step;
-      else return;
+      else if (event.key === "PageUp") state.l += step;
+      else if (event.key === "PageDown") state.l -= step;
+      else if (event.key === "Home") state.l = 100;
+      else if (event.key === "End") state.l = 0;
+      else handled = false;
+
+      if (!handled) return;
       event.preventDefault();
-      update(false);
+      update();
     });
+
+    // --- controles ---------------------------------------------------------
 
     hue.addEventListener("input", () => {
       state.h = Number(hue.value);
-      update(false);
+      update();
     });
 
     sat.addEventListener("input", () => {
       state.s = Number(sat.value);
-      update(false);
+      update();
     });
 
     light.addEventListener("input", () => {
       state.l = Number(light.value);
-      update(true);
+      update();
     });
 
     hexInput.addEventListener("input", () => {
@@ -527,7 +1059,7 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
         state.h = parsed.h;
         state.s = parsed.s;
         state.l = parsed.l;
-        update(true);
+        update();
       } else {
         hexInput.value = currentHex().toUpperCase();
         hexInput.classList.remove("invalid");
@@ -546,18 +1078,13 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       state.h = Math.floor(Math.random() * 360);
       state.s = 42 + Math.floor(Math.random() * 49);
       state.l = 34 + Math.floor(Math.random() * 33);
-      update(true);
+      update();
     });
 
     schemeBtns.forEach((button) => {
       button.addEventListener("click", () => {
-        state.scheme = button.dataset.scheme;
-        schemeBtns.forEach((item) => {
-          item.setAttribute("aria-pressed", item === button ? "true" : "false");
-        });
-        renderMarkers();
-        renderSwatches();
-        renderPreview();
+        setScheme(button.dataset.scheme);
+        update();
       });
     });
 
@@ -572,29 +1099,68 @@ texto de exemplo pra sentir o contraste, o peso e o clima da paleta
       });
     }
 
+    document.getElementById("copyCodesBtn").addEventListener("click", async () => {
+      const text = currentCodes()
+        .map((row) => `${row.label}: ${row.code}`)
+        .join("\n");
+      const ok = await copyText(text);
+      flashStatus(codesStatus, ok ? "códigos copiados" : "não deu pra copiar");
+    });
+
     document.getElementById("copyCssBtn").addEventListener("click", async () => {
       if (state.palette.length === 0) {
         flashStatus(paletteStatus, "a paleta está vazia");
         return;
       }
-      const css = [
-        ":root {",
-        ...state.palette.map((hex, i) => `  --palette-${i + 1}: ${hex};`),
-        "}",
-      ].join("\n");
-      const ok = await copyText(css);
+      const ok = await copyText(paletteCss());
       flashStatus(paletteStatus, ok ? "css copiado" : "não deu pra copiar");
     });
 
     document.getElementById("clearPaletteBtn").addEventListener("click", () => {
       state.palette = [];
-      savePalette();
-      renderPalette();
-      renderPreview();
+      commitPalette();
       flashStatus(paletteStatus, "paleta limpa");
     });
 
+    document.getElementById("randomPaletteBtn").addEventListener("click", () => {
+      const keys = Object.keys(schemes);
+      const scheme = keys[Math.floor(Math.random() * keys.length)];
+      setScheme(scheme);
+      state.h = Math.floor(Math.random() * 360);
+      state.s = 46 + Math.floor(Math.random() * 44);
+      state.l = 36 + Math.floor(Math.random() * 30);
+      update();
+      flashStatus(paletteStatus, `paleta aleatória: ${schemeLabels[scheme]}`);
+    });
+
+    document.getElementById("addHarmonyBtn").addEventListener("click", () => {
+      addMany(
+        schemeColors().map((color) => hslToHex(color.h, color.s, color.l)),
+        paletteStatus,
+      );
+    });
+
+    document.querySelectorAll("[data-export]").forEach((button) => {
+      button.addEventListener("click", () => {
+        exportPalette(button.dataset.export);
+      });
+    });
+
+    document.getElementById("importBtn").addEventListener("click", () => {
+      const hexes = parseHexList(importArea.value);
+      if (hexes.length === 0) {
+        flashStatus(paletteStatus, "nenhum hex válido encontrado");
+        return;
+      }
+      addMany(hexes, paletteStatus);
+      importArea.value = "";
+    });
+
+    // --- inicialização -----------------------------------------------------
+
     loadPalette();
+    buildCodesTable();
+    buildSeries();
     renderPalette();
-    update(true);
+    update();
   </script>  </main> <footer class="site-footer"> <span><a href="/">~/this_dev</a></span> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="Z27oRnf" prefix="r0" component-url="/_astro/ThemeToggle.CiAKsaWx.js" component-export="default" renderer-url="/_astro/client.DC_qMzga.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;ThemeToggle&quot;,&quot;value&quot;:true}" await-children=""><button aria-label="Toggle theme" title="Mudar para claro" style="background:none;border:none;color:var(--muted);cursor:pointer;font-family:inherit;font-size:0.95em;padding:0.2rem 0;line-height:1.4">claro</button><!--astro:end--></astro-island> <span>Z — 2026</span> </footer> <astro-island uid="172kMr" prefix="r1" component-url="/_astro/KonamiLang.BGEhEALh.js" component-export="default" renderer-url="/_astro/client.DC_qMzga.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;KonamiLang&quot;,&quot;value&quot;:true}"></astro-island> </body></html>

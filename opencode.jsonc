@@ -2,9 +2,24 @@
   "$schema": "https://opencode.ai/config.json",
   "compaction": {
     "auto": true,
-    "keep": { "tokens": 15000 },
-    // buffer em tokens: a versão 2.0.32 ignora o formato percentual.
-    // 40k deixa ~31% de folga numa janela de 128k antes de compactar.
-    "buffer": 40000
+    "keep": { "tokens": 40000 },
+    // Janela do DeepSeek Flash: 1M. Buffer de 400k => compacta em ~600k.
+    // Inteiro em tokens para não depender do suporte a percentual.
+    // Se trocar para um modelo com janela menor que 400k, este valor é
+    // ignorado e o padrão vale; ajuste junto com o modelo.
+    "buffer": 400000
+  },
+  "mcp": {
+    "servers": {
+      "pinterest": {
+        "type": "local",
+        "command": ["npx", "-y", "@sunkimkk/pinterest-mcp@1.2.0"],
+        "codemode": false,
+        "environment": {
+          "MCP_PINTEREST_DOWNLOAD_DIR": "/home/lacon/Pictures/pinterest-refs",
+          "MCP_PINTEREST_LOCALE": "en-US"
+        }
+      }
+    }
   }
 }

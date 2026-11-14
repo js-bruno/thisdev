@@ -26,7 +26,9 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     }
 
     .wheel-grid .card h2,
-    .wheel-bottom .card h2 {
+    .wheel-bottom .card h2,
+    .codes-card h2,
+    .series-card h2 {
       margin: 0;
       font-size: 1em;
       letter-spacing: 0.02em;
@@ -84,12 +86,16 @@ import BlogLayout from "../layouts/BlogLayout.astro";
         0 0 5px rgb(0 0 0 / 0.45);
       transform: translate(-50%, -50%);
       pointer-events: auto;
-      cursor: crosshair;
+      cursor: grab;
       transition:
         width 0.15s ease,
         height 0.15s ease,
         background-color 0.15s ease,
         border-color 0.15s ease;
+    }
+
+    :global(.marker:active) {
+      cursor: grabbing;
     }
 
     :global(.marker.is-base) {
@@ -133,6 +139,22 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 
     :global(.marker.is-mono.is-base)::after {
       content: none;
+    }
+
+    .ring-knob {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: var(--knob);
+      box-shadow:
+        0 0 0 1px rgb(0 0 0 / 0.85),
+        0 0 5px rgb(0 0 0 / 0.45);
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: ns-resize;
+      z-index: 4;
     }
 
     .readout {
@@ -354,6 +376,11 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       color: var(--bg-deep);
     }
 
+    .btn.tiny {
+      padding: 1px 6px 2px;
+      font-size: 0.6em;
+    }
+
     .scheme-block {
       margin-top: 1.2rem;
       padding-top: 1.1rem;
@@ -512,6 +539,59 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       background: var(--surface);
     }
 
+    .palette-tools {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.9rem;
+      padding-top: 0.8rem;
+      border-top: 1px dotted var(--border-strong);
+    }
+
+    .export-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: auto;
+    }
+
+    .tag-mini {
+      font-size: 0.6em;
+      letter-spacing: 0.1em;
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+
+    .import-block {
+      margin-top: 0.9rem;
+      font-size: 0.72em;
+    }
+
+    .import-block summary {
+      cursor: pointer;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .import-block summary:hover {
+      color: var(--accent-2);
+    }
+
+    .import-block textarea {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-deep);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.95em;
+      letter-spacing: 0.04em;
+      resize: vertical;
+    }
+
     .preview-shell {
       display: flex;
       align-items: center;
@@ -578,6 +658,186 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       text-underline-offset: 3px;
     }
 
+    .codes-card {
+      margin-bottom: 1.4rem;
+      padding: 1.4rem;
+    }
+
+    .codes-table {
+      display: table;
+      width: 100%;
+      margin-top: 0.9rem;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.72em;
+      table-layout: fixed;
+      overflow: visible;
+    }
+
+    .codes-table th {
+      padding: 0 0 0.35rem;
+      border: 0;
+      border-bottom: 1px dotted var(--border-strong);
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.85em;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .codes-table th:first-child {
+      width: 5.4rem;
+    }
+
+    .codes-table th:nth-child(3) {
+      width: 46%;
+    }
+
+    :global(.codes-table td) {
+      padding: 0.18rem 0;
+      border: 0;
+      border-bottom: 1px dotted var(--border);
+      vertical-align: middle;
+    }
+
+    :global(.codes-table td:first-child) {
+      color: var(--faint);
+      font-size: 0.9em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    :global(.code-cell) {
+      width: 100%;
+      padding: 2px 5px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 1em;
+      letter-spacing: 0.02em;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    :global(.code-cell:hover),
+    :global(.code-cell:focus-visible) {
+      border-color: var(--border-strong);
+      background: var(--surface);
+      color: var(--accent-2);
+    }
+
+    :global(.code-cell.code-empty) {
+      color: var(--faint);
+      cursor: default;
+    }
+
+    :global(.code-cell.code-empty:hover) {
+      border-color: transparent;
+      background: transparent;
+      color: var(--faint);
+    }
+
+    .series-card {
+      margin-bottom: 1.4rem;
+      padding: 1.4rem;
+    }
+
+    .series {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+    }
+
+    :global(.series-row) {
+      display: grid;
+      grid-template-columns: 4.2rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    :global(.series-label) {
+      margin: 0;
+      font-size: 0.68em;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    :global(.series-strip) {
+      display: flex;
+      min-width: 0;
+      border: 1px solid var(--border-strong);
+    }
+
+    :global(.series-swatch) {
+      flex: 1 1 0;
+      min-width: 0;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      border-right: 1px solid rgb(0 0 0 / 0.25);
+      background: var(--swatch);
+      cursor: pointer;
+    }
+
+    :global(.series-swatch:last-child) {
+      border-right: 0;
+    }
+
+    :global(.series-swatch:hover),
+    :global(.series-swatch:focus-visible) {
+      outline: 2px solid var(--accent-2);
+      outline-offset: -2px;
+    }
+
+    :global(.series-actions) {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .theory {
+      max-width: 46rem;
+      margin: 0 0 2rem;
+    }
+
+    .theory h2 {
+      margin-bottom: 0.6rem;
+      color: var(--muted);
+      font-size: 0.8em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .theory details {
+      border-top: 1px dotted var(--border-strong);
+      padding: 0.6rem 0;
+    }
+
+    .theory summary {
+      font-family: var(--display);
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .theory summary:hover {
+      color: var(--accent-2);
+    }
+
+    .theory details p {
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      font-size: 0.8em;
+      line-height: 1.7;
+    }
+
     @media (max-width: 800px) {
       .wheel-grid,
       .wheel-bottom {
@@ -587,10 +847,41 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       .wheel-panel {
         padding: 1rem;
       }
+
+      :global(.series-row) {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      :global(.series-label) {
+        grid-column: 1 / -1;
+      }
+
+      .codes-table {
+        font-size: 0.68em;
+        table-layout: auto;
+      }
+
+      .codes-table th:first-child {
+        width: 4.2rem;
+      }
+
+      .codes-table th:nth-child(3) {
+        width: 44%;
+      }
+
+      :global(.code-cell) {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-overflow: clip;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .preview-shell {
+        transition: none;
+      }
+
+      :global(.marker) {
         transition: none;
       }
     }
@@ -598,9 +889,9 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 
   <h1>círculo cromático</h1>
   <p class="wheel-intro">
-    escolha um matiz no círculo, ajuste saturação e luminosidade, e teste harmonias
-    até achar uma paleta que preste. clique nas cores pra usar como base, ou no
-    <strong>+</strong> pra guardar na sua paleta.
+    escolha um matiz no círculo, ajuste a saturação na distância do centro e a
+    luminosidade no anel externo. arraste qualquer círculo pra girar a harmonia
+    inteira, ou clique no <strong>+</strong> pra guardar uma cor na paleta.
   </p>
 
   <section class="wheel-grid">
@@ -610,19 +901,22 @@ import BlogLayout from "../layouts/BlogLayout.astro";
         id="wheelWrap"
         role="slider"
         tabindex="0"
-        aria-label="matiz e saturação pelo círculo cromático"
+        aria-label="matiz e saturação pelo círculo cromático, luminosidade pelo anel externo"
         aria-valuemin="0"
         aria-valuemax="359"
         aria-valuenow="172"
+        title="arraste pra escolher matiz e saturação · anel externo muda a luminosidade · shift trava o matiz em 15°"
       >
         <canvas id="wheel" width="480" height="480" aria-hidden="true"></canvas>
-        <div class="markers" id="markers" aria-hidden="true"></div>
+        <div class="markers" id="markers" aria-hidden="true">
+          <span class="ring-knob" id="ringKnob"></span>
+        </div>
       </div>
 
       <div class="readout">
         <button class="value-copy" data-copy="hex" aria-label="copiar valor hex">
           <span class="tag">hex</span>
-          <span id="hexOut"><span class="block" id="colorBlock"></span><span id="hexText">#3FA7A0</span></span>
+          <span id="hexOut"><span class="block" id="colorBlock"></span><span id="hexText">#3C9A8E</span></span>
         </button>
         <button class="value-copy" data-copy="rgb" aria-label="copiar valor rgb">
           <span class="tag">rgb</span>
@@ -664,24 +958,56 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       <div class="hex-row">
         <label class="hex-field" for="hexInput">
           hex
-          <input id="hexInput" type="text" value="#3FA7A0" autocomplete="off" spellcheck="false" maxlength="7" />
+          <input id="hexInput" type="text" value="#3C9A8E" autocomplete="off" spellcheck="false" maxlength="7" />
         </label>
-        <button class="btn" id="randomBtn" type="button">aleatória</button>
+        <button class="btn" id="randomBtn" type="button" title="sortear uma cor base">cor aleatória</button>
       </div>
 
       <div class="scheme-block">
         <p class="scheme-title" id="schemeLabel">harmonia</p>
         <div class="scheme-row" id="schemeBtns" role="group" aria-labelledby="schemeLabel">
           <button class="btn" type="button" data-scheme="complementar" aria-pressed="false">complementar</button>
+          <button class="btn" type="button" data-scheme="split" aria-pressed="false">split</button>
           <button class="btn" type="button" data-scheme="analogica" aria-pressed="true">análoga</button>
           <button class="btn" type="button" data-scheme="triade" aria-pressed="false">tríade</button>
           <button class="btn" type="button" data-scheme="tetrade" aria-pressed="false">tétrade</button>
+          <button class="btn" type="button" data-scheme="quadrada" aria-pressed="false">quadrada</button>
           <button class="btn" type="button" data-scheme="monocromatica" aria-pressed="false">mono</button>
         </div>
         <div class="swatches" id="swatches" aria-label="cores da harmonia"></div>
         <p class="hint">clique na cor pra usar como base · + guarda na paleta</p>
       </div>
     </div>
+  </section>
+
+  <section class="card codes-card">
+    <div class="panel-head">
+      <h2>códigos</h2>
+      <div class="panel-actions">
+        <button class="btn" id="copyCodesBtn" type="button">copiar tudo</button>
+      </div>
+    </div>
+    <table class="codes-table">
+      <thead>
+        <tr>
+          <th scope="col">formato</th>
+          <th scope="col">código</th>
+          <th scope="col">css</th>
+        </tr>
+      </thead>
+      <tbody id="codesBody"></tbody>
+    </table>
+    <p class="hint">clique num valor pra copiar · hsv e cmyk não existem como sintaxe CSS</p>
+    <p class="copy-status" id="codesStatus" aria-live="polite"></p>
+  </section>
+
+  <section class="card series-card">
+    <div class="panel-head">
+      <h2>shades · tints · tones</h2>
+      <span class="hint">derivadas da cor base, em passos de 10%</span>
+    </div>
+    <div class="series" id="seriesList"></div>
+    <p class="copy-status" id="seriesStatus" aria-live="polite"></p>
   </section>
 
   <section class="wheel-bottom">
@@ -693,10 +1019,33 @@ import BlogLayout from "../layouts/BlogLayout.astro";
           <button class="btn" id="clearPaletteBtn" type="button">limpar</button>
         </div>
       </div>
-      <p class="hint" id="paletteHint">suas cores ficam salvas no navegador.</p>
+      <p class="hint" id="paletteHint">suas cores ficam salvas no navegador · até 24.</p>
       <p class="empty" id="paletteEmpty">vazia por enquanto. usa o + nas amostras acima.</p>
       <div class="palette-list" id="paletteList" aria-label="minha paleta"></div>
       <p class="copy-status" id="paletteStatus" aria-live="polite"></p>
+
+      <div class="palette-tools">
+        <button class="btn" id="randomPaletteBtn" type="button" title="sorteia uma harmonia inteira">paleta aleatória</button>
+        <button class="btn" id="addHarmonyBtn" type="button" title="adiciona a harmonia atual à paleta">+ harmonia</button>
+        <span class="export-group">
+          <span class="tag-mini">exportar</span>
+          <button class="btn tiny" type="button" data-export="txt" aria-label="exportar paleta em txt">txt</button>
+          <button class="btn tiny" type="button" data-export="json" aria-label="exportar paleta em json">json</button>
+          <button class="btn tiny" type="button" data-export="css" aria-label="exportar paleta em css">css</button>
+        </span>
+      </div>
+
+      <details class="import-block">
+        <summary>importar cores</summary>
+        <textarea
+          id="importArea"
+          rows="3"
+          spellcheck="false"
+          placeholder="#3FA7A0, #F2C14E, 9fe0c8"
+          aria-label="lista de cores hex para importar"
+        ></textarea>
+        <button class="btn" id="importBtn" type="button">importar</button>
+      </details>
     </div>
 
     <div class="card">
@@ -721,16 +1070,85 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     </div>
   </section>
 
+  <section class="theory">
+    <h2>color theory, briefly</h2>
+
+    <details>
+      <summary>harmonies</summary>
+      <p>
+        Harmonies are colors that sit at fixed angles on the wheel. Complementary
+        pairs sit 180° apart and give maximum contrast. Split-complementary takes
+        the two neighbors of that opposite point — softer, easier to balance.
+        Analogous colors are adjacent (here ±25°) and feel calm. Triadic spreads
+        three colors 120° apart, tetradic uses 60°/180°/240°, and square uses
+        90° steps. When one color dominates, the others read as accents.
+      </p>
+    </details>
+
+    <details>
+      <summary>shades, tints and tones</summary>
+      <p>
+        Shades add black, tints add white, tones add gray. All three keep the hue
+        and lower the drama, which is why they are useful for backgrounds, borders
+        and hover states. Pick one saturated accent, then fill the rest of the
+        interface with tints, shades and tones of it.
+      </p>
+    </details>
+
+    <details>
+      <summary>primary, secondary and tertiary</summary>
+      <p>
+        In the traditional painter's wheel, primaries are red, yellow and blue;
+        secondaries are the mixes of two primaries (orange, green, purple); and
+        tertiaries mix a primary with a neighboring secondary (vermilion, amber,
+        chartreuse, teal, violet, magenta). Screens mix light instead of pigment,
+        so the wheel above is RGB-based — same relationships, different primaries.
+      </p>
+    </details>
+
+    <details>
+      <summary>using this wheel</summary>
+      <p>
+        Drag on the disc to set hue and saturation, use the outer ring for
+        lightness, then rotate the whole harmony by dragging any handle. Paste a
+        hex into the field to start from an existing color, copy any code from the
+        table, and export the palette when it feels right.
+      </p>
+    </details>
+  </section>
+
   <script is:inline>
     const STORAGE_KEY = "thisdev-color-palette";
     const CANVAS_SIZE = 480;
+    const DISK = 0.84;
+    const MAX_COLORS = 24;
+    const SERIES_STEPS = [10, 20, 30, 40, 50, 60, 70, 80, 90];
     const schemes = {
       complementar: [0, 180],
+      split: [0, 150, 210],
       analogica: [-25, 0, 25],
       triade: [0, 120, 240],
-      tetrade: [0, 90, 180, 270],
+      tetrade: [0, 60, 180, 240],
+      quadrada: [0, 90, 180, 270],
       monocromatica: "mono",
     };
+    const schemeLabels = {
+      complementar: "complementar",
+      split: "split-complementar",
+      analogica: "análoga",
+      triade: "tríade",
+      tetrade: "tétrade",
+      quadrada: "quadrada",
+      monocromatica: "monocromática",
+    };
+    const monoSteps = [-32, -24, -16, -8, 0, 8, 16, 24, 32];
+    const monoMarkerSizes = [42, 36, 31, 26, 22, 18, 14, 11, 8];
+    const seriesDefs = [
+      { key: "shades", label: "shades", mix: "#000000" },
+      { key: "tints", label: "tints", mix: "#ffffff" },
+      { key: "tones", label: "tones", mix: "#808080" },
+    ];
+    const codeKeys = ["hex", "rgb", "hsl", "hsv", "oklch", "cmyk"];
 
     const state = {
       h: 172,
@@ -744,6 +1162,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     const canvas = document.getElementById("wheel");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const markers = document.getElementById("markers");
+    const ringKnob = document.getElementById("ringKnob");
     const colorBlock = document.getElementById("colorBlock");
     const hexText = document.getElementById("hexText");
     const rgbOut = document.getElementById("rgbOut");
@@ -756,6 +1175,8 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     const satOut = document.getElementById("satOut");
     const lightOut = document.getElementById("lightOut");
     const copyStatus = document.getElementById("copyStatus");
+    const codesStatus = document.getElementById("codesStatus");
+    const seriesStatus = document.getElementById("seriesStatus");
     const paletteStatus = document.getElementById("paletteStatus");
     const paletteList = document.getElementById("paletteList");
     const paletteEmpty = document.getElementById("paletteEmpty");
@@ -766,13 +1187,22 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     const previewSource = document.getElementById("previewSource");
     const schemeBtns = [...document.querySelectorAll("[data-scheme]")];
     const swatches = document.getElementById("swatches");
+    const codesBody = document.getElementById("codesBody");
+    const seriesList = document.getElementById("seriesList");
+    const importArea = document.getElementById("importArea");
+
+    // --- cores: conversões -------------------------------------------------
 
     function clamp(n, min, max) {
       return Math.min(max, Math.max(min, n));
     }
 
+    function normalizeHue(h) {
+      return ((h % 360) + 360) % 360;
+    }
+
     function hslToRgb(h, s, l) {
-      h = ((h % 360) + 360) % 360;
+      h = normalizeHue(h);
       s = clamp(s, 0, 100) / 100;
       l = clamp(l, 0, 100) / 100;
       const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -798,12 +1228,15 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       return n.toString(16).padStart(2, "0");
     }
 
-    function hslToHex(h, s, l) {
-      const [r, g, b] = hslToRgb(h, s, l);
-      return "#" + toHex(r) + toHex(g) + toHex(b);
+    function rgbToHex(rgb) {
+      return "#" + rgb.map(toHex).join("");
     }
 
-    function hexToHsl(hex) {
+    function hslToHex(h, s, l) {
+      return rgbToHex(hslToRgb(h, s, l));
+    }
+
+    function hexToRgb(hex) {
       let clean = hex.trim().replace(/^#/, "");
       if (clean.length === 3) {
         clean = clean
@@ -812,9 +1245,20 @@ import BlogLayout from "../layouts/BlogLayout.astro";
           .join("");
       }
       if (!/^[0-9a-f]{6}$/i.test(clean)) return null;
-      const r = parseInt(clean.slice(0, 2), 16) / 255;
-      const g = parseInt(clean.slice(2, 4), 16) / 255;
-      const b = parseInt(clean.slice(4, 6), 16) / 255;
+      return [
+        parseInt(clean.slice(0, 2), 16),
+        parseInt(clean.slice(2, 4), 16),
+        parseInt(clean.slice(4, 6), 16),
+      ];
+    }
+
+    function hexToHsl(hex) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return null;
+      const [r255, g255, b255] = rgb;
+      const r = r255 / 255;
+      const g = g255 / 255;
+      const b = b255 / 255;
       const max = Math.max(r, g, b);
       const min = Math.min(r, g, b);
       const l = (max + min) / 2;
@@ -836,10 +1280,66 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       };
     }
 
+    function rgbToHsv(rgb) {
+      const r = rgb[0] / 255;
+      const g = rgb[1] / 255;
+      const b = rgb[2] / 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const d = max - min;
+      let h = 0;
+      if (d !== 0) {
+        if (max === r) h = ((g - b) / d) % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h *= 60;
+        if (h < 0) h += 360;
+      }
+      return {
+        h: Math.round(h),
+        s: Math.round(max === 0 ? 0 : (d / max) * 100),
+        v: Math.round(max * 100),
+      };
+    }
+
+    function srgbToLinear(c) {
+      return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }
+
+    function rgbToOklch(rgb) {
+      const r = srgbToLinear(rgb[0] / 255);
+      const g = srgbToLinear(rgb[1] / 255);
+      const b = srgbToLinear(rgb[2] / 255);
+      const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+      const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+      const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+      const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+      const a = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+      const bb = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+      let h = (Math.atan2(bb, a) * 180) / Math.PI;
+      if (h < 0) h += 360;
+      return { l: L * 100, c: Math.hypot(a, bb), h };
+    }
+
+    function rgbToCmyk(rgb) {
+      const r = rgb[0] / 255;
+      const g = rgb[1] / 255;
+      const b = rgb[2] / 255;
+      const k = 1 - Math.max(r, g, b);
+      if (k >= 1) return { c: 0, m: 0, y: 0, k: 100 };
+      return {
+        c: Math.round(((1 - r - k) / (1 - k)) * 100),
+        m: Math.round(((1 - g - k) / (1 - k)) * 100),
+        y: Math.round(((1 - b - k) / (1 - k)) * 100),
+        k: Math.round(k * 100),
+      };
+    }
+
     function relativeLuminance(hex) {
-      const clean = hex.replace("#", "");
-      const channels = [0, 2, 4].map((i) => {
-        const c = parseInt(clean.slice(i, i + 2), 16) / 255;
+      const rgb = hexToRgb(hex);
+      if (!rgb) return 0;
+      const channels = rgb.map((value) => {
+        const c = value / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
       return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
@@ -847,6 +1347,13 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 
     function inkOn(hex) {
       return relativeLuminance(hex) > 0.42 ? "#07100f" : "#eaf6f1";
+    }
+
+    function mixHex(a, b, t) {
+      const A = hexToRgb(a);
+      const B = hexToRgb(b);
+      if (!A || !B) return a;
+      return rgbToHex(A.map((value, index) => Math.round(value + (B[index] - value) * t)));
     }
 
     function rgbString(h, s, l) {
@@ -861,31 +1368,94 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       return hslToHex(state.h, state.s, state.l);
     }
 
+    function currentCodes() {
+      const hex = currentHex();
+      const rgb = hslToRgb(state.h, state.s, state.l);
+      const hsv = rgbToHsv(rgb);
+      const oklch = rgbToOklch(rgb);
+      const cmyk = rgbToCmyk(rgb);
+      const oklchCode = `oklch(${oklch.l.toFixed(1)}% ${oklch.c.toFixed(3)} ${oklch.h.toFixed(1)})`;
+      return [
+        { label: "hex", code: hex.toUpperCase(), css: hex.toUpperCase() },
+        { label: "rgb", code: `rgb(${rgb.join(", ")})`, css: `rgb(${rgb.join(" ")})` },
+        { label: "hsl", code: hslString(state.h, state.s, state.l), css: `hsl(${state.h} ${state.s}% ${state.l}%)` },
+        { label: "hsv", code: `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`, css: "—" },
+        { label: "oklch", code: oklchCode, css: oklchCode },
+        { label: "cmyk", code: `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`, css: "—" },
+      ];
+    }
+
+    // --- roda: desenho -----------------------------------------------------
+
+    const frameImage = ctx.createImageData(CANVAS_SIZE, CANVAS_SIZE);
+    let diskCache = { l: null, data: null };
     let wheelFrame = 0;
-    function drawWheel() {
-      wheelFrame = 0;
+
+    function buildDisk(lightness) {
       const size = CANVAS_SIZE;
       const center = size / 2;
-      const radius = center - 1;
-      const image = ctx.createImageData(size, size);
-      const data = image.data;
-      const l = state.l;
+      const maxRadius = center - 1;
+      const diskRadius = maxRadius * DISK;
+      const data = new Uint8ClampedArray(size * size * 4);
       for (let y = 0; y < size; y += 1) {
         const dy = y - center;
         for (let x = 0; x < size; x += 1) {
           const dx = x - center;
           const distance = Math.hypot(dx, dy);
-          if (distance > radius) continue;
+          if (distance > diskRadius) continue;
           const index = (y * size + x) * 4;
           const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-          const [r, g, b] = hslToRgb(angle, (distance / radius) * 100, l);
+          const [r, g, b] = hslToRgb(angle, (distance / diskRadius) * 100, lightness);
           data[index] = r;
           data[index + 1] = g;
           data[index + 2] = b;
-          data[index + 3] = distance > radius - 1.5 ? Math.round(((radius - distance) / 1.5) * 255) : 255;
+          data[index + 3] =
+            distance > diskRadius - 1.5
+              ? Math.round(((diskRadius - distance) / 1.5) * 255)
+              : 255;
         }
       }
-      ctx.putImageData(image, 0, 0);
+      return data;
+    }
+
+    function paintRing(data, hueValue, satValue) {
+      const size = CANVAS_SIZE;
+      const center = size / 2;
+      const maxRadius = center - 1;
+      const diskRadius = maxRadius * DISK;
+      const ringInner = maxRadius - 1.5;
+      for (let y = 0; y < size; y += 1) {
+        const dy = y - center;
+        for (let x = 0; x < size; x += 1) {
+          const dx = x - center;
+          const distance = Math.hypot(dx, dy);
+          if (distance <= diskRadius || distance > maxRadius) continue;
+          const index = (y * size + x) * 4;
+          let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+          if (angle < 0) angle += 360;
+          let fromTop = (angle + 90) % 360;
+          if (fromTop > 180) fromTop = 360 - fromTop;
+          const lightness = 100 - (fromTop / 180) * 100;
+          const [r, g, b] = hslToRgb(hueValue, satValue, lightness);
+          data[index] = r;
+          data[index + 1] = g;
+          data[index + 2] = b;
+          data[index + 3] =
+            distance > ringInner
+              ? Math.round(((maxRadius - distance) / 1.5) * 255)
+              : 255;
+        }
+      }
+    }
+
+    function drawWheel() {
+      wheelFrame = 0;
+      if (!diskCache.data || diskCache.l !== state.l) {
+        diskCache = { l: state.l, data: buildDisk(state.l) };
+      }
+      frameImage.data.set(diskCache.data);
+      paintRing(frameImage.data, state.h, state.s);
+      ctx.putImageData(frameImage, 0, 0);
     }
 
     function scheduleWheel() {
@@ -894,16 +1464,18 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       }
     }
 
+    // --- harmonia ----------------------------------------------------------
+
     function schemeColors() {
       if (schemes[state.scheme] === "mono") {
-        return [-24, -12, 0, 12, 24].map((offset) => ({
+        return monoSteps.map((offset) => ({
           h: state.h,
           s: state.s,
-          l: clamp(state.l + offset, 6, 94),
+          l: clamp(state.l + offset, 4, 96),
         }));
       }
       return schemes[state.scheme].map((offset) => ({
-        h: (state.h + offset + 360) % 360,
+        h: normalizeHue(state.h + offset),
         s: state.s,
         l: state.l,
       }));
@@ -924,36 +1496,218 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       );
     }
 
-    const monoMarkerSizes = [32, 25, 19, 13, 8];
+    const markerNodes = [];
 
-    function renderMarkers() {
+    function syncMarkers() {
       const colors = schemeColors();
       const isMono = state.scheme === "monocromatica";
-      const baseIndex = isMono ? 2 : schemes[state.scheme].indexOf(0);
+      const baseIndex = isMono ? monoSteps.indexOf(0) : schemes[state.scheme].indexOf(0);
 
-      markers.replaceChildren();
+      while (markerNodes.length > colors.length) {
+        markerNodes.pop().remove();
+      }
 
       colors.forEach((color, index) => {
+        let marker = markerNodes[index];
+        if (!marker) {
+          marker = document.createElement("span");
+          marker.className = "marker";
+          marker.dataset.index = String(index);
+          markers.appendChild(marker);
+          markerNodes[index] = marker;
+        }
+
         const hex = hslToHex(color.h, color.s, color.l);
         const angle = (color.h * Math.PI) / 180;
-        const distance = color.s / 100;
-        const marker = document.createElement("span");
+        const radius = (color.s / 100) * DISK * 50;
 
-        marker.className = "marker";
-        marker.style.left = `${50 + Math.cos(angle) * distance * 50}%`;
-        marker.style.top = `${50 + Math.sin(angle) * distance * 50}%`;
+        marker.style.left = `${50 + Math.cos(angle) * radius}%`;
+        marker.style.top = `${50 + Math.sin(angle) * radius}%`;
         marker.style.setProperty("--marker", hex);
         marker.title = index === baseIndex ? `${hex.toUpperCase()} (base)` : hex.toUpperCase();
 
-        if (index === baseIndex) marker.classList.add("is-base");
-        if (isMono) {
-          marker.classList.add("is-mono");
-          marker.style.setProperty("--size", `${monoMarkerSizes[index]}px`);
-        }
+        marker.classList.toggle("is-base", index === baseIndex);
+        marker.classList.toggle("is-mono", isMono);
 
-        markers.appendChild(marker);
+        if (isMono) {
+          marker.style.setProperty("--size", `${monoMarkerSizes[index]}px`);
+        } else {
+          marker.style.removeProperty("--size");
+        }
       });
     }
+
+    function syncRingKnob() {
+      const fromTop = ((100 - state.l) / 100) * 180;
+      const angle = ((-90 + fromTop) * Math.PI) / 180;
+      const radius = ((DISK + 1) / 2) * 50;
+
+      ringKnob.style.left = `${50 + Math.cos(angle) * radius}%`;
+      ringKnob.style.top = `${50 + Math.sin(angle) * radius}%`;
+      ringKnob.style.setProperty("--knob", currentHex());
+      ringKnob.title = `luminosidade ${state.l}%`;
+    }
+
+    function renderSwatches() {
+      swatches.replaceChildren();
+      for (const color of schemeColors()) {
+        const hex = hslToHex(color.h, color.s, color.l);
+        const card = document.createElement("div");
+        card.className = "swatch-card";
+
+        const main = document.createElement("button");
+        main.type = "button";
+        main.className = "swatch-main";
+        main.style.setProperty("--swatch", hex);
+        main.title = `usar ${hex.toUpperCase()} como base`;
+        main.setAttribute("aria-label", `usar ${hex.toUpperCase()} como base`);
+        main.addEventListener("click", () => {
+          state.h = color.h;
+          state.s = color.s;
+          state.l = color.l;
+          update();
+        });
+
+        const foot = document.createElement("div");
+        foot.className = "swatch-foot";
+        const label = document.createElement("span");
+        label.textContent = hex.toUpperCase();
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "swatch-add";
+        add.textContent = "+";
+        add.title = "adicionar à minha paleta";
+        add.setAttribute("aria-label", `adicionar ${hex.toUpperCase()} à minha paleta`);
+        add.addEventListener("click", () => addToPalette(hex));
+
+        foot.append(label, add);
+        card.append(main, foot);
+        swatches.appendChild(card);
+      }
+    }
+
+    // --- códigos -----------------------------------------------------------
+
+    const codeCells = [];
+
+    function buildCodesTable() {
+      for (const key of codeKeys) {
+        const row = document.createElement("tr");
+        const labelCell = document.createElement("td");
+        labelCell.textContent = key;
+
+        const codeCell = document.createElement("td");
+        const codeBtn = document.createElement("button");
+        codeBtn.type = "button";
+        codeBtn.className = "code-cell";
+        codeCell.appendChild(codeBtn);
+
+        const cssCell = document.createElement("td");
+        const cssBtn = document.createElement("button");
+        cssBtn.type = "button";
+        cssBtn.className = "code-cell";
+        cssCell.appendChild(cssBtn);
+
+        row.append(labelCell, codeCell, cssCell);
+        codesBody.appendChild(row);
+        codeCells.push({ codeBtn, cssBtn });
+
+        codeBtn.addEventListener("click", async () => {
+          if (codeBtn.textContent === "—") return;
+          const ok = await copyText(codeBtn.textContent);
+          flashStatus(codesStatus, ok ? `${key} copiado` : "não deu pra copiar");
+        });
+
+        cssBtn.addEventListener("click", async () => {
+          if (cssBtn.textContent === "—") return;
+          const ok = await copyText(cssBtn.textContent);
+          flashStatus(codesStatus, ok ? `${key} css copiado` : "não deu pra copiar");
+        });
+      }
+    }
+
+    function renderCodes() {
+      const rows = currentCodes();
+      rows.forEach((row, index) => {
+        const cells = codeCells[index];
+        if (!cells) return;
+
+        cells.codeBtn.textContent = row.code;
+        cells.codeBtn.title = `copiar ${row.label}`;
+
+        cells.cssBtn.textContent = row.css;
+        cells.cssBtn.title = row.css === "—" ? `${row.label} não tem sintaxe css` : `copiar ${row.label} css`;
+        cells.cssBtn.classList.toggle("code-empty", row.css === "—");
+      });
+    }
+
+    // --- shades, tints e tones --------------------------------------------
+
+    const seriesRows = [];
+
+    function buildSeries() {
+      for (const def of seriesDefs) {
+        const row = document.createElement("div");
+        row.className = "series-row";
+
+        const label = document.createElement("p");
+        label.className = "series-label";
+        label.textContent = def.label;
+
+        const strip = document.createElement("div");
+        strip.className = "series-strip";
+
+        const buttons = SERIES_STEPS.map(() => {
+          const swatch = document.createElement("button");
+          swatch.type = "button";
+          swatch.className = "series-swatch";
+          swatch.dataset.hex = "";
+          swatch.addEventListener("click", async () => {
+            const hex = swatch.dataset.hex;
+            if (!hex) return;
+            const ok = await copyText(hex.toUpperCase());
+            flashStatus(seriesStatus, ok ? `${hex.toUpperCase()} copiada` : "não deu pra copiar");
+          });
+          strip.appendChild(swatch);
+          return swatch;
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "series-actions";
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "btn tiny";
+        add.textContent = "+";
+        add.title = `adicionar ${def.label} à paleta`;
+        add.setAttribute("aria-label", `adicionar todas as cores de ${def.label} à paleta`);
+        add.addEventListener("click", () => {
+          addMany(
+            buttons.map((button) => button.dataset.hex).filter(Boolean),
+            seriesStatus,
+          );
+        });
+        actions.appendChild(add);
+
+        row.append(label, strip, actions);
+        seriesList.appendChild(row);
+        seriesRows.push({ def, buttons });
+      }
+    }
+
+    function renderSeries() {
+      const base = currentHex();
+      for (const { def, buttons } of seriesRows) {
+        buttons.forEach((button, index) => {
+          const hex = mixHex(base, def.mix, SERIES_STEPS[index] / 100);
+          button.dataset.hex = hex;
+          button.style.setProperty("--swatch", hex);
+          button.title = `${hex.toUpperCase()} · ${def.label} ${SERIES_STEPS[index]}%`;
+          button.setAttribute("aria-label", button.title);
+        });
+      }
+    }
+
+    // --- status e cópia ----------------------------------------------------
 
     function flashStatus(el, text) {
       el.textContent = text;
@@ -986,43 +1740,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       }
     }
 
-    function renderSwatches() {
-      swatches.replaceChildren();
-      for (const color of schemeColors()) {
-        const hex = hslToHex(color.h, color.s, color.l);
-        const card = document.createElement("div");
-        card.className = "swatch-card";
-
-        const main = document.createElement("button");
-        main.type = "button";
-        main.className = "swatch-main";
-        main.style.setProperty("--swatch", hex);
-        main.title = `usar ${hex.toUpperCase()} como base`;
-        main.setAttribute("aria-label", `usar ${hex.toUpperCase()} como base`);
-        main.addEventListener("click", () => {
-          state.h = color.h;
-          state.s = color.s;
-          state.l = color.l;
-          update(true);
-        });
-
-        const foot = document.createElement("div");
-        foot.className = "swatch-foot";
-        const label = document.createElement("span");
-        label.textContent = hex.toUpperCase();
-        const add = document.createElement("button");
-        add.type = "button";
-        add.className = "swatch-add";
-        add.textContent = "+";
-        add.title = "adicionar à minha paleta";
-        add.setAttribute("aria-label", `adicionar ${hex.toUpperCase()} à minha paleta`);
-        add.addEventListener("click", () => addToPalette(hex));
-
-        foot.append(label, add);
-        card.append(main, foot);
-        swatches.appendChild(card);
-      }
-    }
+    // --- paleta ------------------------------------------------------------
 
     function savePalette() {
       try {
@@ -1039,35 +1757,60 @@ import BlogLayout from "../layouts/BlogLayout.astro";
         if (Array.isArray(parsed)) {
           state.palette = parsed
             .filter((hex) => typeof hex === "string" && /^#[0-9a-f]{6}$/i.test(hex))
-            .slice(0, 12);
+            .slice(0, MAX_COLORS);
         }
       } catch {
         state.palette = [];
       }
     }
 
-    function addToPalette(hex) {
+    function addColor(hex) {
       const normalized = hex.toLowerCase();
-      if (state.palette.includes(normalized)) {
-        flashStatus(paletteStatus, "essa cor já está na paleta");
-        return;
-      }
-      if (state.palette.length >= 12) {
-        flashStatus(paletteStatus, "a paleta já tem 12 cores");
-        return;
-      }
+      if (state.palette.includes(normalized)) return "dup";
+      if (state.palette.length >= MAX_COLORS) return "full";
       state.palette.push(normalized);
+      return "ok";
+    }
+
+    function commitPalette() {
       savePalette();
       renderPalette();
       renderPreview();
-      flashStatus(paletteStatus, `${hex.toUpperCase()} adicionada`);
+    }
+
+    function addToPalette(hex) {
+      const result = addColor(hex);
+      if (result === "ok") {
+        commitPalette();
+        flashStatus(paletteStatus, `${hex.toUpperCase()} adicionada`);
+      } else if (result === "dup") {
+        flashStatus(paletteStatus, "essa cor já está na paleta");
+      } else {
+        flashStatus(paletteStatus, `a paleta já tem ${MAX_COLORS} cores`);
+      }
+    }
+
+    function addMany(hexes, statusEl) {
+      let added = 0;
+      let full = false;
+      for (const hex of hexes) {
+        const result = addColor(hex);
+        if (result === "ok") added += 1;
+        else if (result === "full") {
+          full = true;
+          break;
+        }
+      }
+      if (added > 0) commitPalette();
+      const target = statusEl || paletteStatus;
+      if (added > 0) flashStatus(target, `${added} cores adicionadas`);
+      else if (full) flashStatus(target, `limite de ${MAX_COLORS} cores`);
+      else flashStatus(target, "todas já estavam na paleta");
     }
 
     function removeFromPalette(hex) {
       state.palette = state.palette.filter((item) => item !== hex);
-      savePalette();
-      renderPalette();
-      renderPreview();
+      commitPalette();
     }
 
     function renderPalette() {
@@ -1102,11 +1845,85 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       }
     }
 
+    function paletteCss() {
+      return [
+        ":root {",
+        ...state.palette.map((hex, index) => `  --palette-${index + 1}: ${hex};`),
+        "}",
+      ].join("\n");
+    }
+
+    function download(name, text, mime) {
+      const blob = new Blob([text], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = name;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportPalette(format) {
+      if (state.palette.length === 0) {
+        flashStatus(paletteStatus, "a paleta está vazia");
+        return;
+      }
+
+      if (format === "css") {
+        download("paleta.css", paletteCss() + "\n", "text/css");
+      } else if (format === "json") {
+        const data = {
+          generatedAt: new Date().toISOString(),
+          palette: state.palette.map((hex) => {
+            const parsed = hexToHsl(hex);
+            const rgb = hexToRgb(hex);
+            return {
+              hex: hex.toUpperCase(),
+              rgb: rgb ? `rgb(${rgb.join(", ")})` : "",
+              hsl: parsed ? `hsl(${parsed.h}, ${parsed.s}%, ${parsed.l}%)` : "",
+            };
+          }),
+        };
+        download("paleta.json", JSON.stringify(data, null, 2) + "\n", "application/json");
+      } else {
+        download(
+          "paleta.txt",
+          state.palette.map((hex) => hex.toUpperCase()).join("\n") + "\n",
+          "text/plain",
+        );
+      }
+
+      flashStatus(paletteStatus, `${format} exportado`);
+    }
+
+    function parseHexList(text) {
+      const matches =
+        text.match(/#[0-9a-f]{3}(?:[0-9a-f]{3})?\b|\b[0-9a-f]{6}\b/gi) || [];
+      const found = [];
+      for (const match of matches) {
+        let clean = match.replace("#", "");
+        if (clean.length === 3) {
+          clean = clean
+            .split("")
+            .map((char) => char + char)
+            .join("");
+        }
+        const hex = "#" + clean.toLowerCase();
+        if (!found.includes(hex)) found.push(hex);
+      }
+      return found;
+    }
+
+    // --- prévia ------------------------------------------------------------
+
     function renderPreview() {
       const usePalette = state.palette.length >= 2;
       const colors = usePalette
         ? state.palette
-        : schemeColors().map((c) => hslToHex(c.h, c.s, c.l));
+        : schemeColors().map((color) => hslToHex(color.h, color.s, color.l));
       const background = colors[0];
       const card = colors[1] || colors[0];
       const accent = colors[2] || colors[0];
@@ -1128,8 +1945,17 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       previewLink.style.textDecorationColor = cardInk + "aa";
     }
 
-    function update(redraw = false) {
-      state.h = (state.h + 360) % 360;
+    // --- estado ------------------------------------------------------------
+
+    function setScheme(name) {
+      state.scheme = name;
+      schemeBtns.forEach((button) => {
+        button.setAttribute("aria-pressed", button.dataset.scheme === name ? "true" : "false");
+      });
+    }
+
+    function update() {
+      state.h = normalizeHue(state.h);
       state.s = clamp(state.s, 0, 100);
       state.l = clamp(state.l, 0, 100);
 
@@ -1148,48 +1974,118 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       satOut.textContent = `${state.s}%`;
       lightOut.textContent = `${state.l}%`;
       wrap.setAttribute("aria-valuenow", String(state.h));
-      wrap.setAttribute("aria-valuetext", `matiz ${state.h} graus, saturação ${state.s}%`);
+      wrap.setAttribute(
+        "aria-valuetext",
+        `matiz ${state.h} graus, saturação ${state.s}%, luminosidade ${state.l}%`,
+      );
 
       updateTracks();
-      renderMarkers();
+      syncMarkers();
+      syncRingKnob();
       renderSwatches();
+      renderCodes();
+      renderSeries();
       renderPreview();
 
-      if (redraw) scheduleWheel();
+      scheduleWheel();
     }
 
-    function pickFromPointer(event) {
+    // --- ponteiro ----------------------------------------------------------
+
+    let drag = null;
+
+    function pointerGeometry(event) {
       const rect = canvas.getBoundingClientRect();
       const dx = event.clientX - (rect.left + rect.width / 2);
       const dy = event.clientY - (rect.top + rect.height / 2);
       const radius = rect.width / 2;
-      const distance = Math.min(1, Math.hypot(dx, dy) / radius);
-      state.h = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
-      if (state.h < 0) state.h += 360;
-      state.s = Math.round(distance * 100);
-      update(false);
+      const distance = Math.hypot(dx, dy) / radius;
+      let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+      if (angle < 0) angle += 360;
+      return { distance, angle, radius };
+    }
+
+    function ringLightness(angle) {
+      let fromTop = (angle + 90) % 360;
+      if (fromTop > 180) fromTop = 360 - fromTop;
+      return Math.round(100 - (fromTop / 180) * 100);
+    }
+
+    function applyWheel(geometry, snapHue) {
+      const hueValue = snapHue
+        ? Math.round(geometry.angle / 15) * 15
+        : Math.round(geometry.angle);
+      state.h = normalizeHue(hueValue);
+      state.s = Math.round(clamp(geometry.distance / DISK, 0, 1) * 100);
+      update();
+    }
+
+    function applyRing(geometry) {
+      state.l = clamp(ringLightness(geometry.angle), 0, 100);
+      update();
+    }
+
+    function shortestAngle(delta) {
+      let value = ((delta + 180) % 360 + 360) % 360 - 180;
+      return value;
+    }
+
+    function applyMarker(geometry) {
+      const delta = shortestAngle(geometry.angle - drag.lastAngle);
+      drag.lastAngle = geometry.angle;
+      drag.hue += delta;
+      state.h = drag.hue;
+      state.s = Math.round(clamp(geometry.distance / DISK, 0, 1) * 100);
+      update();
     }
 
     wrap.addEventListener("pointerdown", (event) => {
       event.preventDefault();
+      const marker = event.target.closest ? event.target.closest(".marker") : null;
+      const isKnob = event.target === ringKnob;
+      const isMono = marker ? marker.classList.contains("is-mono") : false;
+      const geometry = pointerGeometry(event);
+
       wrap.setPointerCapture(event.pointerId);
       wrap.focus({ preventScroll: true });
-      pickFromPointer(event);
+
+      if (marker && !isMono) {
+        drag = {
+          type: "marker",
+          lastAngle: geometry.angle,
+          hue: state.h,
+        };
+        applyMarker(geometry);
+        return;
+      }
+
+      if (isKnob || geometry.distance > DISK) {
+        drag = { type: "ring" };
+        applyRing(geometry);
+        return;
+      }
+
+      drag = { type: "wheel" };
+      applyWheel(geometry, event.shiftKey);
     });
 
     wrap.addEventListener("pointermove", (event) => {
-      if (wrap.hasPointerCapture(event.pointerId)) {
-        pickFromPointer(event);
-      }
+      if (!drag || !wrap.hasPointerCapture(event.pointerId)) return;
+      const geometry = pointerGeometry(event);
+      if (drag.type === "wheel") applyWheel(geometry, event.shiftKey);
+      else if (drag.type === "ring") applyRing(geometry);
+      else applyMarker(geometry);
     });
 
     wrap.addEventListener("pointerup", (event) => {
       if (wrap.hasPointerCapture(event.pointerId)) {
         wrap.releasePointerCapture(event.pointerId);
       }
+      drag = null;
     });
 
     wrap.addEventListener("pointercancel", () => {
+      drag = null;
       if (wheelFrame) {
         cancelAnimationFrame(wheelFrame);
         wheelFrame = 0;
@@ -1198,28 +2094,37 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 
     wrap.addEventListener("keydown", (event) => {
       const step = event.shiftKey ? 10 : 2;
+      let handled = true;
       if (event.key === "ArrowLeft") state.h -= step;
       else if (event.key === "ArrowRight") state.h += step;
       else if (event.key === "ArrowUp") state.s += step;
       else if (event.key === "ArrowDown") state.s -= step;
-      else return;
+      else if (event.key === "PageUp") state.l += step;
+      else if (event.key === "PageDown") state.l -= step;
+      else if (event.key === "Home") state.l = 100;
+      else if (event.key === "End") state.l = 0;
+      else handled = false;
+
+      if (!handled) return;
       event.preventDefault();
-      update(false);
+      update();
     });
+
+    // --- controles ---------------------------------------------------------
 
     hue.addEventListener("input", () => {
       state.h = Number(hue.value);
-      update(false);
+      update();
     });
 
     sat.addEventListener("input", () => {
       state.s = Number(sat.value);
-      update(false);
+      update();
     });
 
     light.addEventListener("input", () => {
       state.l = Number(light.value);
-      update(true);
+      update();
     });
 
     hexInput.addEventListener("input", () => {
@@ -1233,7 +2138,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
         state.h = parsed.h;
         state.s = parsed.s;
         state.l = parsed.l;
-        update(true);
+        update();
       } else {
         hexInput.value = currentHex().toUpperCase();
         hexInput.classList.remove("invalid");
@@ -1252,18 +2157,13 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       state.h = Math.floor(Math.random() * 360);
       state.s = 42 + Math.floor(Math.random() * 49);
       state.l = 34 + Math.floor(Math.random() * 33);
-      update(true);
+      update();
     });
 
     schemeBtns.forEach((button) => {
       button.addEventListener("click", () => {
-        state.scheme = button.dataset.scheme;
-        schemeBtns.forEach((item) => {
-          item.setAttribute("aria-pressed", item === button ? "true" : "false");
-        });
-        renderMarkers();
-        renderSwatches();
-        renderPreview();
+        setScheme(button.dataset.scheme);
+        update();
       });
     });
 
@@ -1278,30 +2178,69 @@ import BlogLayout from "../layouts/BlogLayout.astro";
       });
     }
 
+    document.getElementById("copyCodesBtn").addEventListener("click", async () => {
+      const text = currentCodes()
+        .map((row) => `${row.label}: ${row.code}`)
+        .join("\n");
+      const ok = await copyText(text);
+      flashStatus(codesStatus, ok ? "códigos copiados" : "não deu pra copiar");
+    });
+
     document.getElementById("copyCssBtn").addEventListener("click", async () => {
       if (state.palette.length === 0) {
         flashStatus(paletteStatus, "a paleta está vazia");
         return;
       }
-      const css = [
-        ":root {",
-        ...state.palette.map((hex, i) => `  --palette-${i + 1}: ${hex};`),
-        "}",
-      ].join("\n");
-      const ok = await copyText(css);
+      const ok = await copyText(paletteCss());
       flashStatus(paletteStatus, ok ? "css copiado" : "não deu pra copiar");
     });
 
     document.getElementById("clearPaletteBtn").addEventListener("click", () => {
       state.palette = [];
-      savePalette();
-      renderPalette();
-      renderPreview();
+      commitPalette();
       flashStatus(paletteStatus, "paleta limpa");
     });
 
+    document.getElementById("randomPaletteBtn").addEventListener("click", () => {
+      const keys = Object.keys(schemes);
+      const scheme = keys[Math.floor(Math.random() * keys.length)];
+      setScheme(scheme);
+      state.h = Math.floor(Math.random() * 360);
+      state.s = 46 + Math.floor(Math.random() * 44);
+      state.l = 36 + Math.floor(Math.random() * 30);
+      update();
+      flashStatus(paletteStatus, `paleta aleatória: ${schemeLabels[scheme]}`);
+    });
+
+    document.getElementById("addHarmonyBtn").addEventListener("click", () => {
+      addMany(
+        schemeColors().map((color) => hslToHex(color.h, color.s, color.l)),
+        paletteStatus,
+      );
+    });
+
+    document.querySelectorAll("[data-export]").forEach((button) => {
+      button.addEventListener("click", () => {
+        exportPalette(button.dataset.export);
+      });
+    });
+
+    document.getElementById("importBtn").addEventListener("click", () => {
+      const hexes = parseHexList(importArea.value);
+      if (hexes.length === 0) {
+        flashStatus(paletteStatus, "nenhum hex válido encontrado");
+        return;
+      }
+      addMany(hexes, paletteStatus);
+      importArea.value = "";
+    });
+
+    // --- inicialização -----------------------------------------------------
+
     loadPalette();
+    buildCodesTable();
+    buildSeries();
     renderPalette();
-    update(true);
+    update();
   </script>
 </BlogLayout>

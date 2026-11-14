@@ -150,6 +150,60 @@ Ela verifica:
 4. rotas geradas em `blog/`;
 5. relatório final com veredito `OK` ou `bloqueado`.
 
+### `visual-refs`
+
+Busca referências visuais no Pinterest com custo controlado: estética, paleta,
+tipografia, layout e downloads selecionados.
+
+```text
+Use a skill visual-refs para buscar referências de dashboard escuro e minimalista.
+```
+
+Defaults que ela aplica:
+
+| Parâmetro | Valor | Motivo |
+|---|---:|---|
+| `limit` | 8 | menos metadados por busca |
+| `previews` | 4 | basta para triagem |
+| Thumbnail | 236px | ~60–80 tokens por imagem |
+| Alta resolução | 736px, só 1–3 finalistas | ~700 tokens por imagem |
+| Buscas | no máximo 2 | evita repetição |
+| Downloads | só os escolhidos | mantém a pasta limpa |
+
+Custo medido: 1 busca com 5 resultados + 2 previews ≈ 1.450 tokens; 8 previews
+em 736px ≈ 6.000 tokens. Uma sessão típica fica em ~4–6k tokens.
+
+## MCP do Pinterest
+
+O projeto usa o servidor local `@sunkimkk/pinterest-mcp@1.2.0`, sem login e sem
+API key. A configuração fica em `opencode.jsonc`:
+
+```jsonc
+{
+  "mcp": {
+    "servers": {
+      "pinterest": {
+        "type": "local",
+        "command": ["npx", "-y", "@sunkimkk/pinterest-mcp@1.2.0"],
+        "codemode": false,
+        "environment": {
+          "MCP_PINTEREST_DOWNLOAD_DIR": "/home/lacon/Pictures/pinterest-refs"
+        }
+      }
+    }
+  }
+}
+```
+
+- `codemode: false` entrega as thumbnails como imagem; no Code Mode padrão elas
+  podem virar texto.
+- Downloads vão para `~/Pictures/pinterest-refs`.
+- É uma API web não oficial: pode quebrar quando o Pinterest mudar. Use como
+  referência, não como conteúdo publicável.
+- Desconecte em `/mcps` quando não estiver usando. O schema fixo custa ~1.650
+  tokens por turno; com cache é quase nada, mas em sessões de código puro não há
+  motivo para mantê-lo.
+
 ## Como criar um agente novo
 
 1. Crie `.opencode/agents/<id>.md` (ou `~/.config/opencode/agents/` para global).
