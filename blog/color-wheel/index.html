@@ -1,0 +1,575 @@
+<!DOCTYPE html><html lang="pt-br" data-theme="light"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Color Wheel | ~/this_dev</title><meta name="description" content="círculo cromático pra brincar com matizes, harmonia e paletas de cor."><link rel="stylesheet" href="/assets/css/prism-diff.css"><script>
+      (function () {
+        var t = localStorage.getItem("theme") || "dark";
+        var l = localStorage.getItem("lang") || "pt-br";
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.lang = l;
+      })();
+    </script><link rel="stylesheet" href="/_astro/color-wheel.DjNWFQ1O.css">
+<link rel="stylesheet" href="/_astro/_slug_.DeQST6sG.css"></head> <body class="wheel-page"> <a href="#main" id="skip-link" class="visually-hidden"> <span>Skip to main content</span> </a> <main id="main">   <h1 data-astro-cid-roeoucez>círculo cromático</h1> <p class="wheel-intro" data-astro-cid-roeoucez>
+escolha um matiz no círculo, ajuste saturação e luminosidade, e teste harmonias
+    até achar uma paleta que preste. clique nas cores pra usar como base, ou no
+<strong data-astro-cid-roeoucez>+</strong> pra guardar na sua paleta.
+</p> <section class="wheel-grid" data-astro-cid-roeoucez> <div class="card wheel-panel" data-astro-cid-roeoucez> <div class="wheel-wrap" id="wheelWrap" role="slider" tabindex="0" aria-label="matiz e saturação pelo círculo cromático" aria-valuemin="0" aria-valuemax="359" aria-valuenow="172" data-astro-cid-roeoucez> <canvas id="wheel" width="480" height="480" aria-hidden="true" data-astro-cid-roeoucez></canvas> <div id="marker" data-astro-cid-roeoucez></div> </div> <div class="readout" data-astro-cid-roeoucez> <button class="value-copy" data-copy="hex" aria-label="copiar valor hex" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hex</span> <span id="hexOut" data-astro-cid-roeoucez><span class="block" id="colorBlock" data-astro-cid-roeoucez></span><span id="hexText" data-astro-cid-roeoucez>#3FA7A0</span></span> </button> <button class="value-copy" data-copy="rgb" aria-label="copiar valor rgb" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>rgb</span> <span id="rgbOut" data-astro-cid-roeoucez></span> </button> <button class="value-copy" data-copy="hsl" aria-label="copiar valor hsl" data-astro-cid-roeoucez> <span class="tag" data-astro-cid-roeoucez>hsl</span> <span id="hslOut" data-astro-cid-roeoucez></span> </button> <p class="copy-status" id="copyStatus" aria-live="polite" data-astro-cid-roeoucez></p> </div> </div> <div class="card controls" data-astro-cid-roeoucez> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="hue" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>matiz</span> <output id="hueOut" for="hue" data-astro-cid-roeoucez>172°</output> </label> <input id="hue" type="range" min="0" max="359" step="1" value="172" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="sat" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>saturação</span> <output id="satOut" for="sat" data-astro-cid-roeoucez>44%</output> </label> <input id="sat" type="range" min="0" max="100" step="1" value="44" data-astro-cid-roeoucez> </div> <div class="control" data-astro-cid-roeoucez> <label class="control-label" for="light" data-astro-cid-roeoucez> <span data-astro-cid-roeoucez>luminosidade</span> <output id="lightOut" for="light" data-astro-cid-roeoucez>42%</output> </label> <input id="light" type="range" min="0" max="100" step="1" value="42" data-astro-cid-roeoucez> </div> <div class="hex-row" data-astro-cid-roeoucez> <label class="hex-field" for="hexInput" data-astro-cid-roeoucez>
+hex
+<input id="hexInput" type="text" value="#3FA7A0" autocomplete="off" spellcheck="false" maxlength="7" data-astro-cid-roeoucez> </label> <button class="btn" id="randomBtn" type="button" data-astro-cid-roeoucez>aleatória</button> </div> <div class="scheme-block" data-astro-cid-roeoucez> <p class="scheme-title" id="schemeLabel" data-astro-cid-roeoucez>harmonia</p> <div class="scheme-row" id="schemeBtns" role="group" aria-labelledby="schemeLabel" data-astro-cid-roeoucez> <button class="btn" type="button" data-scheme="complementar" aria-pressed="false" data-astro-cid-roeoucez>complementar</button> <button class="btn" type="button" data-scheme="analogica" aria-pressed="true" data-astro-cid-roeoucez>análoga</button> <button class="btn" type="button" data-scheme="triade" aria-pressed="false" data-astro-cid-roeoucez>tríade</button> <button class="btn" type="button" data-scheme="tetrade" aria-pressed="false" data-astro-cid-roeoucez>tétrade</button> <button class="btn" type="button" data-scheme="monocromatica" aria-pressed="false" data-astro-cid-roeoucez>mono</button> </div> <div class="swatches" id="swatches" aria-label="cores da harmonia" data-astro-cid-roeoucez></div> <p class="hint" data-astro-cid-roeoucez>clique na cor pra usar como base · + guarda na paleta</p> </div> </div> </section> <section class="wheel-bottom" data-astro-cid-roeoucez> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>minha paleta</h2> <div class="panel-actions" data-astro-cid-roeoucez> <button class="btn" id="copyCssBtn" type="button" data-astro-cid-roeoucez>copiar css</button> <button class="btn" id="clearPaletteBtn" type="button" data-astro-cid-roeoucez>limpar</button> </div> </div> <p class="hint" id="paletteHint" data-astro-cid-roeoucez>suas cores ficam salvas no navegador.</p> <p class="empty" id="paletteEmpty" data-astro-cid-roeoucez>vazia por enquanto. usa o + nas amostras acima.</p> <div class="palette-list" id="paletteList" aria-label="minha paleta" data-astro-cid-roeoucez></div> <p class="copy-status" id="paletteStatus" aria-live="polite" data-astro-cid-roeoucez></p> </div> <div class="card" data-astro-cid-roeoucez> <div class="panel-head" data-astro-cid-roeoucez> <h2 data-astro-cid-roeoucez>teste da paleta</h2> <span class="hint" id="previewSource" data-astro-cid-roeoucez>prévia com a harmonia atual</span> </div> <div class="preview-shell" id="previewShell" data-astro-cid-roeoucez> <div class="preview-card" id="previewCard" data-astro-cid-roeoucez> <span class="preview-kicker" id="previewKicker" data-astro-cid-roeoucez>are you dreaming?</span> <p class="preview-title" id="previewTitle" data-astro-cid-roeoucez>um título qualquer</p> <p class="preview-text" id="previewText" data-astro-cid-roeoucez>
+texto de exemplo pra sentir o contraste, o peso e o clima da paleta
+            antes de usar de verdade.
+</p> <div class="preview-actions" data-astro-cid-roeoucez> <span class="preview-btn" id="previewBtn" data-astro-cid-roeoucez>botão</span> <span class="preview-link" id="previewLink" data-astro-cid-roeoucez>um link</span> </div> </div> </div> </div> </section> <script>
+    const STORAGE_KEY = "thisdev-color-palette";
+    const CANVAS_SIZE = 480;
+    const schemes = {
+      complementar: [0, 180],
+      analogica: [-25, 0, 25],
+      triade: [0, 120, 240],
+      tetrade: [0, 90, 180, 270],
+      monocromatica: "mono",
+    };
+
+    const state = {
+      h: 172,
+      s: 44,
+      l: 42,
+      scheme: "analogica",
+      palette: [],
+    };
+
+    const wrap = document.getElementById("wheelWrap");
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const marker = document.getElementById("marker");
+    const colorBlock = document.getElementById("colorBlock");
+    const hexText = document.getElementById("hexText");
+    const rgbOut = document.getElementById("rgbOut");
+    const hslOut = document.getElementById("hslOut");
+    const hexInput = document.getElementById("hexInput");
+    const hue = document.getElementById("hue");
+    const sat = document.getElementById("sat");
+    const light = document.getElementById("light");
+    const hueOut = document.getElementById("hueOut");
+    const satOut = document.getElementById("satOut");
+    const lightOut = document.getElementById("lightOut");
+    const copyStatus = document.getElementById("copyStatus");
+    const paletteStatus = document.getElementById("paletteStatus");
+    const paletteList = document.getElementById("paletteList");
+    const paletteEmpty = document.getElementById("paletteEmpty");
+    const previewShell = document.getElementById("previewShell");
+    const previewCard = document.getElementById("previewCard");
+    const previewBtn = document.getElementById("previewBtn");
+    const previewLink = document.getElementById("previewLink");
+    const previewSource = document.getElementById("previewSource");
+    const schemeBtns = [...document.querySelectorAll("[data-scheme]")];
+    const swatches = document.getElementById("swatches");
+
+    function clamp(n, min, max) {
+      return Math.min(max, Math.max(min, n));
+    }
+
+    function hslToRgb(h, s, l) {
+      h = ((h % 360) + 360) % 360;
+      s = clamp(s, 0, 100) / 100;
+      l = clamp(l, 0, 100) / 100;
+      const c = (1 - Math.abs(2 * l - 1)) * s;
+      const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+      const m = l - c / 2;
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      if (h < 60) [r, g, b] = [c, x, 0];
+      else if (h < 120) [r, g, b] = [x, c, 0];
+      else if (h < 180) [r, g, b] = [0, c, x];
+      else if (h < 240) [r, g, b] = [0, x, c];
+      else if (h < 300) [r, g, b] = [x, 0, c];
+      else [r, g, b] = [c, 0, x];
+      return [
+        Math.round((r + m) * 255),
+        Math.round((g + m) * 255),
+        Math.round((b + m) * 255),
+      ];
+    }
+
+    function toHex(n) {
+      return n.toString(16).padStart(2, "0");
+    }
+
+    function hslToHex(h, s, l) {
+      const [r, g, b] = hslToRgb(h, s, l);
+      return "#" + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    function hexToHsl(hex) {
+      let clean = hex.trim().replace(/^#/, "");
+      if (clean.length === 3) {
+        clean = clean
+          .split("")
+          .map((c) => c + c)
+          .join("");
+      }
+      if (!/^[0-9a-f]{6}$/i.test(clean)) return null;
+      const r = parseInt(clean.slice(0, 2), 16) / 255;
+      const g = parseInt(clean.slice(2, 4), 16) / 255;
+      const b = parseInt(clean.slice(4, 6), 16) / 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const l = (max + min) / 2;
+      let h = 0;
+      let s = 0;
+      if (max !== min) {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = ((g - b) / d) % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h *= 60;
+        if (h < 0) h += 360;
+      }
+      return {
+        h: Math.round(h),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100),
+      };
+    }
+
+    function relativeLuminance(hex) {
+      const clean = hex.replace("#", "");
+      const channels = [0, 2, 4].map((i) => {
+        const c = parseInt(clean.slice(i, i + 2), 16) / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+    }
+
+    function inkOn(hex) {
+      return relativeLuminance(hex) > 0.42 ? "#07100f" : "#eaf6f1";
+    }
+
+    function rgbString(h, s, l) {
+      return `rgb(${hslToRgb(h, s, l).join(", ")})`;
+    }
+
+    function hslString(h, s, l) {
+      return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+
+    function currentHex() {
+      return hslToHex(state.h, state.s, state.l);
+    }
+
+    let wheelFrame = 0;
+    function drawWheel() {
+      wheelFrame = 0;
+      const size = CANVAS_SIZE;
+      const center = size / 2;
+      const radius = center - 1;
+      const image = ctx.createImageData(size, size);
+      const data = image.data;
+      const l = state.l;
+      for (let y = 0; y < size; y += 1) {
+        const dy = y - center;
+        for (let x = 0; x < size; x += 1) {
+          const dx = x - center;
+          const distance = Math.hypot(dx, dy);
+          if (distance > radius) continue;
+          const index = (y * size + x) * 4;
+          const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+          const [r, g, b] = hslToRgb(angle, (distance / radius) * 100, l);
+          data[index] = r;
+          data[index + 1] = g;
+          data[index + 2] = b;
+          data[index + 3] = distance > radius - 1.5 ? Math.round(((radius - distance) / 1.5) * 255) : 255;
+        }
+      }
+      ctx.putImageData(image, 0, 0);
+    }
+
+    function scheduleWheel() {
+      if (!wheelFrame) {
+        wheelFrame = requestAnimationFrame(drawWheel);
+      }
+    }
+
+    function schemeColors() {
+      if (schemes[state.scheme] === "mono") {
+        return [-24, -12, 0, 12, 24].map((offset) => ({
+          h: state.h,
+          s: state.s,
+          l: clamp(state.l + offset, 6, 94),
+        }));
+      }
+      return schemes[state.scheme].map((offset) => ({
+        h: (state.h + offset + 360) % 360,
+        s: state.s,
+        l: state.l,
+      }));
+    }
+
+    function updateTracks() {
+      hue.style.setProperty(
+        "--track",
+        "linear-gradient(to right, #ff0000, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000)",
+      );
+      sat.style.setProperty(
+        "--track",
+        `linear-gradient(to right, ${hslString(state.h, 0, state.l)}, ${hslString(state.h, 100, state.l)})`,
+      );
+      light.style.setProperty(
+        "--track",
+        `linear-gradient(to right, ${hslString(state.h, state.s, 4)}, ${hslString(state.h, state.s, 50)} 50%, ${hslString(state.h, state.s, 96)})`,
+      );
+    }
+
+    function updateMarker() {
+      const angle = (state.h * Math.PI) / 180;
+      const distance = state.s / 100;
+      marker.style.left = `${50 + Math.cos(angle) * distance * 50}%`;
+      marker.style.top = `${50 + Math.sin(angle) * distance * 50}%`;
+    }
+
+    function flashStatus(el, text) {
+      el.textContent = text;
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => {
+        el.textContent = "";
+      }, 1600);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.top = "-100px";
+        document.body.appendChild(area);
+        area.select();
+        let ok = false;
+        try {
+          ok = document.execCommand("copy");
+        } catch {
+          ok = false;
+        }
+        area.remove();
+        return ok;
+      }
+    }
+
+    function renderSwatches() {
+      swatches.replaceChildren();
+      for (const color of schemeColors()) {
+        const hex = hslToHex(color.h, color.s, color.l);
+        const card = document.createElement("div");
+        card.className = "swatch-card";
+
+        const main = document.createElement("button");
+        main.type = "button";
+        main.className = "swatch-main";
+        main.style.setProperty("--swatch", hex);
+        main.title = `usar ${hex.toUpperCase()} como base`;
+        main.setAttribute("aria-label", `usar ${hex.toUpperCase()} como base`);
+        main.addEventListener("click", () => {
+          state.h = color.h;
+          state.s = color.s;
+          state.l = color.l;
+          update(true);
+        });
+
+        const foot = document.createElement("div");
+        foot.className = "swatch-foot";
+        const label = document.createElement("span");
+        label.textContent = hex.toUpperCase();
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "swatch-add";
+        add.textContent = "+";
+        add.title = "adicionar à minha paleta";
+        add.setAttribute("aria-label", `adicionar ${hex.toUpperCase()} à minha paleta`);
+        add.addEventListener("click", () => addToPalette(hex));
+
+        foot.append(label, add);
+        card.append(main, foot);
+        swatches.appendChild(card);
+      }
+    }
+
+    function savePalette() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.palette));
+      } catch {
+        /* localStorage indisponível */
+      }
+    }
+
+    function loadPalette() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(parsed)) {
+          state.palette = parsed
+            .filter((hex) => typeof hex === "string" && /^#[0-9a-f]{6}$/i.test(hex))
+            .slice(0, 12);
+        }
+      } catch {
+        state.palette = [];
+      }
+    }
+
+    function addToPalette(hex) {
+      const normalized = hex.toLowerCase();
+      if (state.palette.includes(normalized)) {
+        flashStatus(paletteStatus, "essa cor já está na paleta");
+        return;
+      }
+      if (state.palette.length >= 12) {
+        flashStatus(paletteStatus, "a paleta já tem 12 cores");
+        return;
+      }
+      state.palette.push(normalized);
+      savePalette();
+      renderPalette();
+      renderPreview();
+      flashStatus(paletteStatus, `${hex.toUpperCase()} adicionada`);
+    }
+
+    function removeFromPalette(hex) {
+      state.palette = state.palette.filter((item) => item !== hex);
+      savePalette();
+      renderPalette();
+      renderPreview();
+    }
+
+    function renderPalette() {
+      paletteList.replaceChildren();
+      paletteEmpty.hidden = state.palette.length > 0;
+      for (const hex of state.palette) {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+
+        const swatch = document.createElement("span");
+        swatch.className = "chip-color";
+        swatch.style.background = hex;
+
+        const copy = document.createElement("button");
+        copy.type = "button";
+        copy.textContent = hex.toUpperCase();
+        copy.title = "copiar hex";
+        copy.addEventListener("click", async () => {
+          const ok = await copyText(hex.toUpperCase());
+          flashStatus(paletteStatus, ok ? `${hex.toUpperCase()} copiada` : "não deu pra copiar");
+        });
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "×";
+        remove.title = "remover da paleta";
+        remove.setAttribute("aria-label", `remover ${hex.toUpperCase()}`);
+        remove.addEventListener("click", () => removeFromPalette(hex));
+
+        chip.append(swatch, copy, remove);
+        paletteList.appendChild(chip);
+      }
+    }
+
+    function renderPreview() {
+      const usePalette = state.palette.length >= 2;
+      const colors = usePalette
+        ? state.palette
+        : schemeColors().map((c) => hslToHex(c.h, c.s, c.l));
+      const background = colors[0];
+      const card = colors[1] || colors[0];
+      const accent = colors[2] || colors[0];
+      const cardInk = inkOn(card);
+      const accentInk = inkOn(accent);
+
+      previewSource.textContent = usePalette
+        ? "prévia com a minha paleta"
+        : "prévia com a harmonia atual";
+
+      previewShell.style.background = background;
+      previewCard.style.background = card;
+      previewCard.style.color = cardInk;
+      previewCard.style.borderColor = cardInk + "55";
+      previewBtn.style.background = accent;
+      previewBtn.style.color = accentInk;
+      previewBtn.style.borderColor = accentInk + "66";
+      previewLink.style.color = cardInk;
+      previewLink.style.textDecorationColor = cardInk + "aa";
+    }
+
+    function update(redraw = false) {
+      state.h = (state.h + 360) % 360;
+      state.s = clamp(state.s, 0, 100);
+      state.l = clamp(state.l, 0, 100);
+
+      const hex = currentHex();
+      colorBlock.style.background = hex;
+      hexText.textContent = hex.toUpperCase();
+      rgbOut.textContent = rgbString(state.h, state.s, state.l);
+      hslOut.textContent = hslString(state.h, state.s, state.l);
+
+      hexInput.value = hex.toUpperCase();
+      hexInput.classList.remove("invalid");
+      hue.value = String(state.h);
+      sat.value = String(state.s);
+      light.value = String(state.l);
+      hueOut.textContent = `${state.h}°`;
+      satOut.textContent = `${state.s}%`;
+      lightOut.textContent = `${state.l}%`;
+      wrap.setAttribute("aria-valuenow", String(state.h));
+      wrap.setAttribute("aria-valuetext", `matiz ${state.h} graus, saturação ${state.s}%`);
+
+      updateTracks();
+      updateMarker();
+      renderSwatches();
+      renderPreview();
+
+      if (redraw) scheduleWheel();
+    }
+
+    function pickFromPointer(event) {
+      const rect = canvas.getBoundingClientRect();
+      const dx = event.clientX - (rect.left + rect.width / 2);
+      const dy = event.clientY - (rect.top + rect.height / 2);
+      const radius = rect.width / 2;
+      const distance = Math.min(1, Math.hypot(dx, dy) / radius);
+      state.h = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
+      if (state.h < 0) state.h += 360;
+      state.s = Math.round(distance * 100);
+      update(false);
+    }
+
+    wrap.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      wrap.setPointerCapture(event.pointerId);
+      wrap.focus({ preventScroll: true });
+      pickFromPointer(event);
+    });
+
+    wrap.addEventListener("pointermove", (event) => {
+      if (wrap.hasPointerCapture(event.pointerId)) {
+        pickFromPointer(event);
+      }
+    });
+
+    wrap.addEventListener("pointerup", (event) => {
+      if (wrap.hasPointerCapture(event.pointerId)) {
+        wrap.releasePointerCapture(event.pointerId);
+      }
+    });
+
+    wrap.addEventListener("pointercancel", () => {
+      if (wheelFrame) {
+        cancelAnimationFrame(wheelFrame);
+        wheelFrame = 0;
+      }
+    });
+
+    wrap.addEventListener("keydown", (event) => {
+      const step = event.shiftKey ? 10 : 2;
+      if (event.key === "ArrowLeft") state.h -= step;
+      else if (event.key === "ArrowRight") state.h += step;
+      else if (event.key === "ArrowUp") state.s += step;
+      else if (event.key === "ArrowDown") state.s -= step;
+      else return;
+      event.preventDefault();
+      update(false);
+    });
+
+    hue.addEventListener("input", () => {
+      state.h = Number(hue.value);
+      update(false);
+    });
+
+    sat.addEventListener("input", () => {
+      state.s = Number(sat.value);
+      update(false);
+    });
+
+    light.addEventListener("input", () => {
+      state.l = Number(light.value);
+      update(true);
+    });
+
+    hexInput.addEventListener("input", () => {
+      const parsed = hexToHsl(hexInput.value);
+      hexInput.classList.toggle("invalid", parsed === null && hexInput.value.trim() !== "");
+    });
+
+    function applyHex() {
+      const parsed = hexToHsl(hexInput.value);
+      if (parsed) {
+        state.h = parsed.h;
+        state.s = parsed.s;
+        state.l = parsed.l;
+        update(true);
+      } else {
+        hexInput.value = currentHex().toUpperCase();
+        hexInput.classList.remove("invalid");
+      }
+    }
+
+    hexInput.addEventListener("change", applyHex);
+    hexInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        applyHex();
+      }
+    });
+
+    document.getElementById("randomBtn").addEventListener("click", () => {
+      state.h = Math.floor(Math.random() * 360);
+      state.s = 42 + Math.floor(Math.random() * 49);
+      state.l = 34 + Math.floor(Math.random() * 33);
+      update(true);
+    });
+
+    schemeBtns.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.scheme = button.dataset.scheme;
+        schemeBtns.forEach((item) => {
+          item.setAttribute("aria-pressed", item === button ? "true" : "false");
+        });
+        renderSwatches();
+        renderPreview();
+      });
+    });
+
+    for (const button of document.querySelectorAll("[data-copy]")) {
+      button.addEventListener("click", async () => {
+        const type = button.dataset.copy;
+        let text = currentHex().toUpperCase();
+        if (type === "rgb") text = rgbString(state.h, state.s, state.l);
+        if (type === "hsl") text = hslString(state.h, state.s, state.l);
+        const ok = await copyText(text);
+        flashStatus(copyStatus, ok ? `${type} copiado` : "não deu pra copiar");
+      });
+    }
+
+    document.getElementById("copyCssBtn").addEventListener("click", async () => {
+      if (state.palette.length === 0) {
+        flashStatus(paletteStatus, "a paleta está vazia");
+        return;
+      }
+      const css = [
+        ":root {",
+        ...state.palette.map((hex, i) => `  --palette-${i + 1}: ${hex};`),
+        "}",
+      ].join("\n");
+      const ok = await copyText(css);
+      flashStatus(paletteStatus, ok ? "css copiado" : "não deu pra copiar");
+    });
+
+    document.getElementById("clearPaletteBtn").addEventListener("click", () => {
+      state.palette = [];
+      savePalette();
+      renderPalette();
+      renderPreview();
+      flashStatus(paletteStatus, "paleta limpa");
+    });
+
+    loadPalette();
+    renderPalette();
+    update(true);
+  </script>  </main> <footer class="site-footer"> <span><a href="/">~/this_dev</a></span> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="Z27oRnf" prefix="r0" component-url="/_astro/ThemeToggle.CiAKsaWx.js" component-export="default" renderer-url="/_astro/client.DC_qMzga.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;ThemeToggle&quot;,&quot;value&quot;:true}" await-children=""><button aria-label="Toggle theme" title="Mudar para claro" style="background:none;border:none;color:var(--muted);cursor:pointer;font-family:inherit;font-size:0.95em;padding:0.2rem 0;line-height:1.4">claro</button><!--astro:end--></astro-island> <span>Z — 2026</span> </footer> <astro-island uid="172kMr" prefix="r1" component-url="/_astro/KonamiLang.BGEhEALh.js" component-export="default" renderer-url="/_astro/client.DC_qMzga.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;KonamiLang&quot;,&quot;value&quot;:true}"></astro-island> </body></html>
