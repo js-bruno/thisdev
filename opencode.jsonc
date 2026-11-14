@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "compaction": {
+    "auto": true,
+    "keep": { "tokens": 15000 },
+    // buffer em tokens: a versão 2.0.32 ignora o formato percentual.
+    // 40k deixa ~31% de folga numa janela de 128k antes de compactar.
+    "buffer": 40000
+  }
+}

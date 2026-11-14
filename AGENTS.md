@@ -43,3 +43,7 @@ Site pessoal em Astro 4 com ilhas React. Build publicado em VPS via GitHub Actio
 - `prebuild` regenera imagens com `sharp`; o build depende disso.
 - `packages/` tem `package.json` próprio: comandos npm rodam lá, não na raiz.
 - `packages/` está excluído do `tsconfig.json` da raiz.
+
+## Docs
+
+- Manual de agentes e skills: `docs/agentes-e-skills.md`
