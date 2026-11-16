@@ -143,11 +143,7 @@ const files = {
   "thorn.svg": frame({ band: "#151a10", spike: "#4f6b2a", accent: "#8a1c24" }),
   "blood.svg": drips({ band: "#1a0a0c", drop: "#b3161f" }),
   "stitch.svg": stitched({ band: "#0d0d10", thread: "#cfc9bf" }),
-  "terminal.svg": terminal({
-    line: "#2c5a53",
-    bright: "#9fe0c8",
-    dim: "#5f9ea0",
-  }),
+  "terminal.svg": terminal({ line: "#4a3222", bright: "#e0b464", dim: "#8a6a3f" }),
 };
 
 for (const [name, content] of Object.entries(files)) {

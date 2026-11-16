@@ -9,7 +9,11 @@ const RAW_DIR = join(ROOT, "assets/raw");
 const OUT_DIR = join(ROOT, "public/assets/dither");
 const PATTERN_DIR = join(ROOT, "public/assets/patterns");
 
-const PALETTE_TEAL = ["#0b1d1d", "#0f5e52", "#5f9ea0", "#e8f2ee"];
+// paleta "grimório": obsidiana, vinho, umber e osso
+const PALETTE = ["#070607", "#2a1a1c", "#6b4b32", "#ded0b4"];
+
+// largura de saída por arquivo (sem extensão); o resto mantém a original
+const RAW_WIDTH = { bg: 960 };
 
 const BAYER8 = [
   [0, 32, 8, 40, 2, 34, 10, 42],
@@ -102,7 +106,7 @@ function floydSteinberg(data, width, height, palette) {
 }
 
 async function ditherFile(input, output, opts = {}) {
-  const { width, palette = PALETTE_TEAL, method = "bayer" } = opts;
+  const { width, palette = PALETTE, method = "bayer" } = opts;
   mkdirSync(dirname(output), { recursive: true });
 
   let pipeline = sharp(input).ensureAlpha();
@@ -184,34 +188,15 @@ async function processRawImages() {
   for (const file of files) {
     const rel = relative(RAW_DIR, file);
     const out = join(OUT_DIR, rel.replace(extname(rel), ".png"));
-    await ditherFile(file, out, { palette: PALETTE_TEAL, method: "bayer" });
+    const base = rel.split("/").pop().replace(extname(rel), "");
+    await ditherFile(file, out, { width: RAW_WIDTH[base], palette: PALETTE, method: "bayer" });
   }
-}
-
-async function ensureDefaultBackground() {
-  const target = join(OUT_DIR, "bg.png");
-  const candidates = [
-    join(ROOT, "public/assets/images/rises_the_moon.jpeg"),
-    join(ROOT, "public/assets/images/w.png"),
-    join(ROOT, "public/assets/images/color.png"),
-  ];
-  const src = candidates.find((p) => existsSync(p));
-  if (!src) {
-    console.log("  no source image for default background (skipping)");
-    return;
-  }
-  await ditherFile(src, target, {
-    width: 640,
-    palette: PALETTE_TEAL,
-    method: "bayer",
-  });
 }
 
 async function main() {
   console.log("dither: starting");
   await generatePatterns();
   await processRawImages();
-  await ensureDefaultBackground();
   console.log("dither: done");
 }
 
