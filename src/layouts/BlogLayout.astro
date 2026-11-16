@@ -1,6 +1,5 @@
 ---
 import site from "../data/site.ts";
-import ThemeToggle from "../components/ThemeToggle.tsx";
 import KonamiLang from "../components/KonamiLang.tsx";
 import "../styles/global.css";
 
@@ -40,12 +39,6 @@ const pageDesc = description || site.description;
     <main id="main">
       <slot />
     </main>
-
-    <footer class="site-footer">
-      <span><a href="/">{site.name}</a></span>
-      <ThemeToggle client:load />
-      <span>{site.author} — {new Date().getFullYear()}</span>
-    </footer>
 
     <KonamiLang client:load />
   </body>

@@ -8,12 +8,9 @@ interface Props {
   tags?: string | string[];
   mood?: string;
   image?: string;
-  prevPost?: { url: string; title: string } | null;
-  nextPost?: { url: string; title: string } | null;
 }
 
-const { title, date, description, tags, mood, image, prevPost, nextPost } =
-  Astro.props;
+const { title, date, description, tags, mood, image } = Astro.props;
 
 const formattedDate = date
   ? new Date(date).toLocaleDateString("pt-BR", {
@@ -126,25 +123,4 @@ const tagList = tags
 
     <slot />
   </article>
-
-  {
-    (prevPost || nextPost) && (
-      <ul class="links-nextprev">
-        {prevPost && (
-          <li class="links-nextprev-prev">
-            <span>← anterior</span>
-            <br />
-            <a href={prevPost.url}>{prevPost.title}</a>
-          </li>
-        )}
-        {nextPost && (
-          <li class="links-nextprev-next">
-            <span>próximo →</span>
-            <br />
-            <a href={nextPost.url}>{nextPost.title}</a>
-          </li>
-        )}
-      </ul>
-    )
-  }
 </BlogLayout>
