@@ -91,6 +91,52 @@ const tagList = tags
     .token.important,
     .token.bold { font-weight: bold; }
     .token.italic { font-style: italic; }
+
+    .post-back { margin: 2.5rem 0 0; }
+
+    .back-bracket {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.2rem;
+      font-family: var(--display);
+      font-size: 0.7em;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.18s ease;
+    }
+
+    .back-bracket::before,
+    .back-bracket::after {
+      content: "";
+      width: 0.42rem;
+      height: 1.15em;
+      border: 1px solid var(--border-strong);
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .back-bracket::before { border-right: 0; }
+    .back-bracket::after { border-left: 0; }
+
+    .back-bracket:hover,
+    .back-bracket:focus-visible { color: var(--accent-2); }
+    .back-bracket:hover::before,
+    .back-bracket:focus-visible::before {
+      border-color: var(--accent-2);
+      transform: translateX(-2px);
+    }
+    .back-bracket:hover::after,
+    .back-bracket:focus-visible::after {
+      border-color: var(--accent-2);
+      transform: translateX(2px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .back-bracket,
+      .back-bracket::before,
+      .back-bracket::after { transition: none; transform: none; }
+    }
   </style>
 
   <article class="post">
@@ -123,4 +169,8 @@ const tagList = tags
 
     <slot />
   </article>
+
+  <p class="post-back">
+    <a class="back-bracket" href="/ai-slops/">← voltar</a>
+  </p>
 </BlogLayout>
