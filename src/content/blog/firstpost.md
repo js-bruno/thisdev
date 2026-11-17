@@ -2,7 +2,9 @@
 title: Meu primeiro post
 description: depois de muita luta consegui subir esse blog
 date: 2026-05-16
-tags: my
+tags:
+  - my
+  - ia
 ---
 Eae esse e meu primieiro post e do blog e estou terminando de finalizar alguns detalhes de estilo dele.
 

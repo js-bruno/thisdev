@@ -2,7 +2,9 @@
 title: Nixos minecraft server
 description: criando um servidor de minecraft declarativo com nixos ❄️
 date: 2026-06-20
-tags: my
+tags:
+  - my
+  - ia
 ---
 ## um dia normar
 nesse final de semanal eu comecei a tentar escrever um servidor de minecraft declarativo para  meu grupo de amigos meu

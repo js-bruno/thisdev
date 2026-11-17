@@ -1,0 +1,17 @@
+---
+import Redirect from "../../components/Redirect.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { to: `/ai-slops/${post.slug}/` },
+  }));
+}
+
+const { to } = Astro.props;
+---
+
+<Redirect to={to} />

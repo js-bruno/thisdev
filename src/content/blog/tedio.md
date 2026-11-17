@@ -5,6 +5,7 @@ date: 2026-05-21
 tags: 
    - web
    - games
+   - ia
 ---
 
 # Quinta

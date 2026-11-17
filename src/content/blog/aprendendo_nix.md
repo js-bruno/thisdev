@@ -5,5 +5,6 @@ date: 2026-05-20
 tags: 
    - nix 
    - digital-garden
+   - ia
 ---
 Aqui está o meu gatinho em ASCII:
