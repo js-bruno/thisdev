@@ -9,8 +9,63 @@ const posts = allPosts.sort(
 ---
 
 <BlogLayout title="ai slops">
+  <style>
+    @keyframes rainbow-run {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .rainbow-word {
+      background-image: linear-gradient(
+        90deg,
+        #ff6b3d,
+        #e8c87a,
+        #9ed36a,
+        #55d6c2,
+        #8f9cff,
+        #d98fd1,
+        #ff6b3d
+      );
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow-run 6s linear infinite;
+    }
+
+    :global([data-theme="light"]) .rainbow-word {
+      background-image: linear-gradient(
+        90deg,
+        #b4482a,
+        #8a6a1f,
+        #4f7a3a,
+        #1f7a74,
+        #4f5bbf,
+        #8a3f80,
+        #b4482a
+      );
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rainbow-word {
+        animation: none;
+      }
+    }
+
+    .postlist-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 1.5rem;
+    }
+  </style>
+
   <h1>ai slops</h1>
-  <p>some writes</p>
+  <p>
+    Guias gerados por i.a <span class="rainbow-word">uteis</span> para min
+  </p>
 
   {
     posts.length === 0 ? (
@@ -42,7 +97,8 @@ const posts = allPosts.sort(
     )
   }
 
-  <p>
+  <p class="postlist-footer">
     <a href="/ai-slops/archive/">arquivo completo →</a>
+    <a href="/">← voltar</a>
   </p>
 </BlogLayout>
