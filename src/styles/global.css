@@ -494,6 +494,14 @@ details > summary:hover { background: var(--surface); }
   body.photos-page { --col: 64rem; }
 }
 
+@media (min-width: 900px) {
+  body.links-page,
+  body.photos-page {
+    margin: 0 auto;
+    padding-inline: var(--pad-r);
+  }
+}
+
 .photos-intro { max-width: 34rem; }
 
 .roll-index {
