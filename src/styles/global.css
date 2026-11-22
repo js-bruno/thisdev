@@ -1201,6 +1201,1072 @@ body.projects-page { --col: 92rem; }
   .res-desc { flex: 1; }
 }
 
+/* ── ai slops: lousa de post-its ─────────────────────────────── */
+@media (min-width: 900px) {
+  body.ai-slops-page {
+    --col: 92rem;
+  }
+}
+
+.slop-intro {
+  max-width: 46rem;
+}
+
+.slop-shell {
+  margin-top: 1.4rem;
+}
+
+.slop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1rem;
+  margin: 0 0 0.5rem;
+  padding: 0.65rem 0;
+  border-top: 1px dotted var(--border-strong);
+  border-bottom: 1px dotted var(--border-strong);
+}
+
+.slop-count {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.slop-count strong {
+  font-family: var(--display);
+  font-size: 1.15em;
+  color: var(--accent-2);
+}
+
+.slop-count span {
+  color: var(--faint);
+}
+
+.slop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin: 0;
+}
+
+.slop-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.slop-filter:hover {
+  color: var(--ink);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.slop-filter:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.slop-filter[aria-pressed="true"] {
+  color: var(--bg-deep);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+.slop-filter-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.slop-filter[data-tool="chatgpt"] .slop-filter-dot { background: #9ed36a; }
+.slop-filter[data-tool="claude"] .slop-filter-dot { background: #e8c87a; }
+.slop-filter[data-tool="gemini"] .slop-filter-dot { background: #8f9cff; }
+.slop-filter[data-tool="copilot"] .slop-filter-dot { background: #55d6c2; }
+.slop-filter[data-tool="outra"] .slop-filter-dot { background: #d98fd1; }
+.slop-filter[data-tool="texto"] .slop-filter-dot { background: var(--muted); }
+
+.slop-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-left: auto;
+}
+
+.slop-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.slop-btn:hover:not(:disabled) {
+  color: var(--accent-2);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.slop-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+.slop-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slop-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #f4e7cf;
+}
+
+.slop-btn--primary:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent-2);
+  color: #fff8e9;
+}
+
+.slop-btn-plus {
+  display: inline-block;
+  font-size: 1.05em;
+  line-height: 1;
+  transition: transform 0.22s ease;
+}
+
+.slop-btn--primary:hover .slop-btn-plus {
+  transform: rotate(90deg) scale(1.15);
+}
+
+.slop-btn--danger:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.slop-file-input {
+  display: none;
+}
+
+.slop-hint {
+  margin: 0 0 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--faint);
+}
+
+.slop-hint kbd {
+  padding: 0 0.25rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+/* ── canvas ──────────────────────────────────────────────────── */
+.slop-board {
+  position: relative;
+  height: min(68vh, 760px);
+  min-height: 520px;
+  margin: 0 0 2rem;
+  border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(circle at 18% 22%, rgb(232 200 122 / 0.05), transparent 42%),
+    radial-gradient(circle at 82% 74%, rgb(180 72 42 / 0.06), transparent 45%),
+    var(--bg-deep);
+  box-shadow: inset 0 0 80px rgb(0 0 0 / 0.45);
+  overflow: hidden;
+}
+
+.slop-board::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 40%, rgb(232 200 122 / 0.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgb(232 200 122 / 0.05) 0 1px, transparent 2px);
+  background-size: 120px 120px, 180px 180px;
+  animation: slop-dust 38s ease-in-out infinite alternate;
+}
+
+@keyframes slop-dust {
+  to {
+    transform: translate3d(2.5%, -1.5%, 0) rotate(0.6deg);
+  }
+}
+
+.slop-board > .react-flow {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+.slop-board.is-organizing .react-flow__node {
+  transition: transform 0.5s cubic-bezier(0.22, 0.8, 0.28, 1);
+}
+
+.slop-board .react-flow__controls button {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--ink);
+}
+
+.slop-board .react-flow__controls button:hover {
+  background: var(--bg-deep);
+  color: var(--accent-2);
+}
+
+.slop-board .react-flow__minimap {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.slop-board .react-flow__attribution {
+  background: transparent;
+  color: var(--faint);
+  font-size: 0.55rem;
+}
+
+.slop-panel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.32rem 0.5rem;
+  background: var(--wash);
+  border: 1px solid var(--border-strong);
+  backdrop-filter: blur(6px);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--muted);
+}
+
+.slop-loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--faint);
+}
+
+.slop-board-empty {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  pointer-events: none;
+  background: rgb(5 3 3 / 0.4);
+  backdrop-filter: blur(2px);
+}
+
+.slop-board-empty > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px dashed var(--border-strong);
+  background: var(--surface);
+  pointer-events: auto;
+}
+
+.slop-board-empty p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* ── post-it ─────────────────────────────────────────────────── */
+.react-flow__node-slop {
+  width: 260px;
+}
+
+.slop-note {
+  --paper: #cdb87f;
+  --paper-ink: #241a15;
+  --paper-muted: rgb(36 26 21 / 0.62);
+  --paper-line: rgb(36 26 21 / 0.18);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  padding: 1.05rem 0.95rem 0.65rem;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border: 1px solid rgb(36 26 21 / 0.16);
+  box-shadow:
+    0 10px 22px rgb(0 0 0 / 0.34),
+    0 2px 5px rgb(0 0 0 / 0.3),
+    inset 0 1px 0 rgb(255 255 255 / 0.32);
+  font-family: var(--font);
+  transform: rotate(var(--note-rot, 0deg));
+  transform-origin: 50% 18%;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  animation: slop-drop 0.46s cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+@keyframes slop-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) rotate(calc(var(--note-rot) * 2.6)) scale(0.82);
+  }
+  55% {
+    opacity: 1;
+  }
+  76% {
+    transform: translateY(4px) rotate(calc(var(--note-rot) * 0.55)) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--note-rot)) scale(1);
+  }
+}
+
+.slop-note--c0 { --paper: #cdb87f; }
+.slop-note--c1 { --paper: #cfa092; }
+.slop-note--c2 { --paper: #aebd8c; }
+.slop-note--c3 { --paper: #9fbac6; }
+.slop-note--c4 { --paper: #b8a7cb; }
+.slop-note--c5 { --paper: #d3a983; }
+
+[data-theme="light"] .slop-note {
+  border-color: rgb(36 26 21 / 0.24);
+  box-shadow:
+    0 10px 20px rgb(70 45 20 / 0.22),
+    0 2px 4px rgb(70 45 20 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.5);
+}
+
+[data-theme="light"] .slop-note--c0 { --paper: #e8d5a0; }
+[data-theme="light"] .slop-note--c1 { --paper: #e7bdb4; }
+[data-theme="light"] .slop-note--c2 { --paper: #c8d5a9; }
+[data-theme="light"] .slop-note--c3 { --paper: #b9d3dc; }
+[data-theme="light"] .slop-note--c4 { --paper: #d2c1e0; }
+[data-theme="light"] .slop-note--c5 { --paper: #e8c4a3; }
+
+.slop-note:hover {
+  z-index: 2;
+  transform: rotate(0deg) translateY(-4px) scale(1.014);
+  box-shadow:
+    0 18px 32px rgb(0 0 0 / 0.4),
+    0 4px 8px rgb(0 0 0 / 0.32),
+    inset 0 1px 0 rgb(255 255 255 / 0.32);
+}
+
+[data-theme="light"] .slop-note:hover {
+  box-shadow:
+    0 18px 30px rgb(70 45 20 / 0.28),
+    0 4px 8px rgb(70 45 20 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.5);
+}
+
+.slop-note::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 15px 15px;
+  border-color: transparent transparent rgb(36 26 21 / 0.14) transparent;
+  pointer-events: none;
+}
+
+.slop-note-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 72px;
+  height: 16px;
+  transform: translateX(-50%) rotate(-2.5deg);
+  background: rgb(236 222 184 / 0.52);
+  border-left: 1px dashed rgb(36 26 21 / 0.18);
+  border-right: 1px dashed rgb(36 26 21 / 0.18);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.16);
+  pointer-events: none;
+  transition: transform 0.18s ease;
+}
+
+[data-theme="light"] .slop-note-tape {
+  background: rgb(255 250 230 / 0.7);
+}
+
+.slop-note:hover .slop-note-tape {
+  transform: translateX(-50%) rotate(1.5deg);
+}
+
+.slop-note-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-right: 0.1rem;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.07em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+  cursor: grab;
+  user-select: none;
+}
+
+.slop-note--post .slop-note-head {
+  padding-right: 2.9rem;
+}
+
+.react-flow__node.dragging .slop-note-head {
+  cursor: grabbing;
+}
+
+.slop-note-tool {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slop-note-head time {
+  flex: 0 0 auto;
+  opacity: 0.8;
+}
+
+.slop-note-badge {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.45rem;
+  padding: 0 0.24rem;
+  border: 1px solid rgb(36 26 21 / 0.24);
+  background: rgb(255 255 255 / 0.16);
+  font-family: var(--mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+  pointer-events: none;
+}
+
+.slop-note-body {
+  min-width: 0;
+}
+
+.slop-note-title {
+  margin: 0.15rem 0 0;
+  font-family: var(--display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--paper-ink);
+}
+
+.slop-note-text,
+.slop-note-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0.15rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.slop-note-text {
+  -webkit-line-clamp: 7;
+  font-family: var(--lain);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--paper-ink);
+}
+
+.slop-note-desc {
+  -webkit-line-clamp: 4;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--paper-muted);
+}
+
+.slop-note.is-expanded .slop-note-text,
+.slop-note.is-expanded .slop-note-desc {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+
+.slop-note-more {
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--paper-muted);
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
+.slop-note-more:hover {
+  color: var(--paper-ink);
+}
+
+.slop-note-author {
+  font-family: var(--lain);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--paper-muted);
+}
+
+.slop-note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.65rem;
+  margin-top: 0.15rem;
+  padding-top: 0.32rem;
+  border-top: 1px dotted var(--paper-line);
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.03em;
+}
+
+.slop-note-actions a[href],
+.slop-note-actions button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--paper-muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.slop-note-actions a[href]:visited {
+  color: var(--paper-muted);
+}
+
+.slop-note-actions a[href]:hover,
+.slop-note-actions a[href]:focus-visible,
+.slop-note-actions button:hover,
+.slop-note-actions button:focus-visible {
+  color: var(--paper-ink);
+  background: none;
+  outline: none;
+  text-decoration: underline dotted;
+  text-shadow: none;
+}
+
+.slop-note-actions .is-copied {
+  color: #3f6b2e;
+}
+
+.slop-note-actions .is-danger:hover,
+.slop-note-actions .is-danger:focus-visible {
+  color: #8f2a20;
+}
+
+.slop-note-count {
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+.slop-note--post .slop-note-count {
+  display: none;
+}
+
+.slop-note--preview {
+  pointer-events: none;
+  animation: none;
+  transform: rotate(-1.3deg);
+}
+
+.slop-note--preview:hover {
+  transform: rotate(-1.3deg);
+}
+
+.slop-note-ping {
+  position: absolute;
+  inset: -5px;
+  border: 2px solid var(--accent-2);
+  animation: slop-ping 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes slop-ping {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.96) rotate(-1deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.14) rotate(1deg);
+  }
+}
+
+.slop-note--deleting {
+  pointer-events: none;
+  animation: slop-crumple 0.36s ease-in forwards;
+}
+
+@keyframes slop-crumple {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--note-rot)) scale(1);
+  }
+  32% {
+    opacity: 1;
+    transform: rotate(calc(var(--note-rot) - 5deg)) scale(0.94);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(28px) rotate(calc(var(--note-rot) + 14deg)) scale(0.55);
+  }
+}
+
+.react-flow__node.dragging .slop-note {
+  transform: rotate(0deg) translateY(-6px) scale(1.04);
+  box-shadow:
+    0 26px 46px rgb(0 0 0 / 0.48),
+    0 6px 10px rgb(0 0 0 / 0.35);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.15s ease;
+}
+
+.react-flow__node-slop.selected .slop-note {
+  outline: 2px dotted var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── mural mobile ────────────────────────────────────────────── */
+.slop-wall {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+  margin: 1.2rem 0 2.2rem;
+}
+
+.slop-wall .slop-note {
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.slop-empty {
+  color: var(--faint);
+  font-style: italic;
+}
+
+.slop-empty-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--link);
+  font: inherit;
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
+/* ── compositor ──────────────────────────────────────────────── */
+.slop-composer {
+  width: min(94vw, 780px);
+  max-height: 92vh;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-deep);
+  color: var(--ink);
+  box-shadow: 0 30px 90px rgb(0 0 0 / 0.65);
+  overflow: auto;
+}
+
+.slop-composer::backdrop {
+  background: rgb(5 3 3 / 0.84);
+  backdrop-filter: blur(5px);
+}
+
+.slop-composer[open] {
+  animation: slop-dialog-in 0.28s cubic-bezier(0.2, 0.8, 0.3, 1.1);
+}
+
+.slop-composer[open]::backdrop {
+  animation: slop-backdrop-in 0.25s ease;
+}
+
+@keyframes slop-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(-0.5deg) scale(0.96);
+  }
+}
+
+@keyframes slop-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.slop-composer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.slop-composer-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.slop-composer-head p {
+  margin: 0.2rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--faint);
+}
+
+.slop-composer-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-deep);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.slop-composer-close:hover {
+  color: var(--accent-2);
+  border-color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.slop-composer-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+  gap: 1.1rem 1.4rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.slop-composer-fields {
+  min-width: 0;
+}
+
+.slop-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0 0 0.85rem;
+}
+
+.slop-field > span {
+  font-family: var(--display);
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.slop-composer textarea,
+.slop-composer input[type="text"] {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.slop-composer textarea {
+  min-height: 9.5rem;
+  resize: vertical;
+}
+
+.slop-composer textarea:focus,
+.slop-composer input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--glow),
+    0 0 22px var(--glow);
+}
+
+.slop-composer textarea::placeholder,
+.slop-composer input::placeholder {
+  color: var(--faint);
+  opacity: 0.8;
+}
+
+.slop-counter-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: -0.5rem 0 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--faint);
+}
+
+.slop-counter {
+  font-family: var(--mono);
+}
+
+.slop-counter.is-warning {
+  color: var(--accent-2);
+}
+
+.slop-counter.is-danger {
+  color: var(--accent);
+  animation: slop-counter-pulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes slop-counter-pulse {
+  to {
+    opacity: 0.45;
+  }
+}
+
+.slop-tool-row,
+.slop-swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.slop-tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.slop-tool-chip:hover {
+  color: var(--ink);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.slop-tool-chip[aria-pressed="true"] {
+  color: var(--bg-deep);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  transform: rotate(-1deg) scale(1.03);
+}
+
+.slop-tool-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.slop-tool-chip[data-tool="chatgpt"] .slop-tool-dot { background: #9ed36a; }
+.slop-tool-chip[data-tool="claude"] .slop-tool-dot { background: #e8c87a; }
+.slop-tool-chip[data-tool="gemini"] .slop-tool-dot { background: #8f9cff; }
+.slop-tool-chip[data-tool="copilot"] .slop-tool-dot { background: #55d6c2; }
+.slop-tool-chip[data-tool="outra"] .slop-tool-dot { background: #d98fd1; }
+
+.slop-swatch {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid rgb(36 26 21 / 0.3);
+  border-radius: 50%;
+  background: var(--paper, #cdb87f);
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.slop-swatch:nth-child(odd) {
+  transform: rotate(-4deg);
+}
+
+.slop-swatch:hover {
+  transform: scale(1.16) rotate(5deg);
+}
+
+.slop-swatch[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 2px var(--bg-deep),
+    0 0 0 4px var(--accent-2);
+  transform: scale(1.12);
+}
+
+.slop-composer-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.slop-preview-label {
+  font-family: var(--display);
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.slop-composer-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  padding-top: 0.8rem;
+  border-top: 1px dotted var(--border);
+}
+
+/* ── fallback / toast ────────────────────────────────────────── */
+.slop-fallback {
+  max-width: 44rem;
+  margin: 2.4rem 0 1rem;
+}
+
+.slop-fallback summary {
+  font-family: var(--display);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.slop-fallback .postlist {
+  margin: 0.9rem 0 0;
+}
+
+.slop-page-footer {
+  margin: 1.5rem 0 0;
+}
+
+.slop-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1.2rem + env(safe-area-inset-bottom));
+  z-index: 1200;
+  max-width: calc(100vw - 2rem);
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--accent);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.55);
+  transform: translateX(-50%);
+  animation: slop-toast-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes slop-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 14px) scale(0.94);
+  }
+}
+
+@media (max-width: 720px) {
+  .slop-toolbar {
+    align-items: flex-start;
+  }
+
+  .slop-tools {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .slop-board {
+    min-height: 480px;
+    height: 70vh;
+  }
+
+  .slop-composer-form {
+    grid-template-columns: 1fr;
+  }
+
+  .slop-composer-preview {
+    display: none;
+  }
+
+  .slop-composer-actions {
+    position: sticky;
+    bottom: 0;
+    margin: 0 -1.25rem -1.25rem;
+    padding: 0.8rem 1.25rem;
+    background: var(--bg-deep);
+  }
+}
+
 /* ── utilities ───────────────────────────────────────────────── */
 .empty { color: var(--faint); font-style: italic; }
 

@@ -1,14 +1,23 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import SlopBoard from "../../components/SlopBoard.tsx";
 import { getCollection } from "astro:content";
+import type { SlopPostInput } from "../../lib/slops";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const posts = allPosts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
+
+const pinned: SlopPostInput[] = posts.map((post) => ({
+  slug: post.slug,
+  title: post.data.title,
+  description: post.data.description,
+  date: post.data.date.toISOString(),
+}));
 ---
 
-<BlogLayout title="ai slops">
+<BlogLayout title="ai slops" bodyClass="ai-slops-page">
   <style>
     @keyframes rainbow-run {
       to {
@@ -63,16 +72,22 @@ const posts = allPosts.sort(
   </style>
 
   <h1>ai slops</h1>
-  <p>
-    Guias gerados por i.a <span class="rainbow-word">uteis</span> para min
+
+  <p class="slop-intro">
+    a lousa de slop gerado por i.a. prega o teu post-it, arrasta os outros pela
+    fita, apaga o que não presta. <span class="rainbow-word"
+      >nada sai do teu navegador</span
+    > — o teu mural vive só ali. os textos longos do site continuam pregados
+    como notas fixas.
   </p>
 
-  {
-    posts.length === 0 ? (
-      <p class="empty">nada por aqui ainda.</p>
-    ) : (
-      <ol class="postlist postlist--index">
-        {posts.map((post) => {
+  <SlopBoard client:only="react" posts={pinned} />
+
+  <details class="slop-fallback">
+    <summary>índice dos textos do site</summary>
+    <ol class="postlist postlist--index">
+      {
+        posts.map((post) => {
           const date = new Date(post.data.date);
           const htmlDate = date.toISOString().split("T")[0];
           const readable = date.toLocaleDateString("pt-BR", {
@@ -92,12 +107,12 @@ const posts = allPosts.sort(
               </a>
             </li>
           );
-        })}
-      </ol>
-    )
-  }
+        })
+      }
+    </ol>
+  </details>
 
-  <p class="postlist-footer">
+  <p class="postlist-footer slop-page-footer">
     <a href="/ai-slops/archive/">arquivo completo →</a>
     <a href="/">← voltar</a>
   </p>
