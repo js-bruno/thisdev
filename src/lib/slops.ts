@@ -1,6 +1,8 @@
 export const STORAGE_KEY = "ai-slops:board:v1";
 export const MAX_NOTES = 200;
 export const MAX_TEXT = 500;
+export const MAX_COMMENT = 280;
+export const MAX_COMMENTS = 40;
 export const MAX_AUTHOR = 24;
 export const NOTE_WIDTH = 260;
 
@@ -53,6 +55,13 @@ export type SlopPostInput = {
   date: string;
 };
 
+export type SlopComment = {
+  id: string;
+  text: string;
+  author?: string;
+  createdAt: string;
+};
+
 export type BoardPosition = {
   x: number;
   y: number;
@@ -62,6 +71,7 @@ export type BoardState = {
   version: 1;
   notes: SlopNote[];
   positions: Record<string, BoardPosition>;
+  comments: Record<string, SlopComment[]>;
 };
 
 export const NOTE_TOOLS: { value: NoteTool; label: string }[] = [
@@ -256,6 +266,52 @@ function parseNote(value: unknown): SlopNote | null {
   return { id, text, tool, author, color, createdAt };
 }
 
+function parseComment(value: unknown): SlopComment | null {
+  if (!isRecord(value)) return null;
+
+  const text =
+    typeof value.text === "string" ? sanitizeText(value.text, MAX_COMMENT) : "";
+
+  if (!text) return null;
+
+  const author =
+    typeof value.author === "string"
+      ? sanitizeText(value.author, MAX_AUTHOR) || undefined
+      : undefined;
+  const createdAt =
+    typeof value.createdAt === "string" &&
+    !Number.isNaN(new Date(value.createdAt).getTime())
+      ? value.createdAt
+      : new Date().toISOString();
+  const id =
+    typeof value.id === "string" && value.id.length > 0
+      ? value.id.slice(0, 80)
+      : createSlopId();
+
+  return { id, text, author, createdAt };
+}
+
+function parseComments(
+  value: unknown,
+): Record<string, SlopComment[]> {
+  if (!isRecord(value)) return {};
+
+  const comments: Record<string, SlopComment[]> = {};
+
+  for (const [itemId, list] of Object.entries(value).slice(0, 400)) {
+    if (!Array.isArray(list)) continue;
+
+    const parsed = list
+      .slice(0, MAX_COMMENTS)
+      .map(parseComment)
+      .filter((comment): comment is SlopComment => Boolean(comment));
+
+    if (parsed.length > 0) comments[itemId.slice(0, 80)] = parsed;
+  }
+
+  return comments;
+}
+
 function parsePositions(value: unknown): Record<string, BoardPosition> {
   if (!isRecord(value)) return {};
 
@@ -307,6 +363,7 @@ export function parseBoard(raw: string): BoardState | null {
       version: 1,
       notes,
       positions: parsePositions(value.positions),
+      comments: parseComments(value.comments),
     };
   } catch {
     return null;
@@ -315,7 +372,7 @@ export function parseBoard(raw: string): BoardState | null {
 
 export function loadBoard(): BoardState {
   if (typeof window === "undefined") {
-    return { version: 1, notes: [], positions: {} };
+    return { version: 1, notes: [], positions: {}, comments: {} };
   }
 
   try {
@@ -325,9 +382,10 @@ export function loadBoard(): BoardState {
       version: 1,
       notes: [],
       positions: {},
+      comments: {},
     };
   } catch {
-    return { version: 1, notes: [], positions: {} };
+    return { version: 1, notes: [], positions: {}, comments: {} };
   }
 }
 
@@ -339,9 +397,29 @@ export function saveBoard(state: BoardState): void {
       .slice(0, MAX_NOTES)
       .map(({ fresh: _fresh, deleting: _deleting, ...note }) => note);
 
+    const comments = Object.fromEntries(
+      Object.entries(state.comments)
+        .slice(0, 400)
+        .map(([itemId, list]) => [
+          itemId,
+          list.slice(0, MAX_COMMENTS).map(({ id, text, author, createdAt }) => ({
+            id,
+            text: sanitizeText(text, MAX_COMMENT),
+            author,
+            createdAt,
+          })),
+        ])
+        .filter(([, list]) => list.length > 0),
+    );
+
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ version: 1, notes, positions: state.positions }),
+      JSON.stringify({
+        version: 1,
+        notes,
+        positions: state.positions,
+        comments,
+      }),
     );
   } catch {
     // localStorage pode estar cheio ou bloqueado: a lousa segue em memória.

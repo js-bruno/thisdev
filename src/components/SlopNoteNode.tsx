@@ -20,7 +20,9 @@ export default function SlopNoteNode({ data }: NodeProps<SlopBoardNode>) {
     <SlopCard
       item={data.item}
       index={data.index}
+      commentCount={actions?.commentCountFor(data.item.id) ?? 0}
       onOpen={actions?.open ?? noop}
+      onComment={() => actions?.open(data.item, true)}
       onDelete={actions?.remove ?? noop}
     />
   );

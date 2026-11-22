@@ -13,7 +13,9 @@ import {
 type Props = {
   item: SlopItem;
   index: number;
+  commentCount: number;
   onOpen: (item: SlopItem) => void;
+  onComment: () => void;
   onDelete: (id: string) => void;
 };
 
@@ -22,7 +24,14 @@ type NoteStyle = CSSProperties & {
   "--enter-delay": string;
 };
 
-export default function SlopCard({ item, index, onOpen, onDelete }: Props) {
+export default function SlopCard({
+  item,
+  index,
+  commentCount,
+  onOpen,
+  onComment,
+  onDelete,
+}: Props) {
   const isPost = item.kind === "post";
   const style: NoteStyle = {
     "--note-rot": `${noteRotationFor(item.id)}deg`,
@@ -64,6 +73,11 @@ export default function SlopCard({ item, index, onOpen, onDelete }: Props) {
     onDelete(item.id);
   }
 
+  function handleComment(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    onComment();
+  }
+
   return (
     <article className={className} style={style} data-kind={item.kind}>
       <span className="slop-note-tape" aria-hidden="true" />
@@ -100,8 +114,23 @@ export default function SlopCard({ item, index, onOpen, onDelete }: Props) {
 
       {item.author && <span className="slop-note-author">~ {item.author}</span>}
 
-      {!isPost && (
-        <footer className="slop-note-actions nodrag">
+      <footer className="slop-note-actions nodrag">
+        <button
+          type="button"
+          className="is-comment"
+          onClick={handleComment}
+          aria-label={
+            commentCount > 0
+              ? `ver ${commentCount} comentário${commentCount === 1 ? "" : "s"}`
+              : "comentar neste slop"
+          }
+        >
+          {commentCount > 0
+            ? `${commentCount === 1 ? "comentário" : "comentários"} ${String(commentCount).padStart(2, "0")}`
+            : "comentar"}
+        </button>
+
+        {!isPost && (
           <button
             type="button"
             className="is-danger"
@@ -110,8 +139,8 @@ export default function SlopCard({ item, index, onOpen, onDelete }: Props) {
           >
             apagar
           </button>
-        </footer>
-      )}
+        )}
+      </footer>
     </article>
   );
 }

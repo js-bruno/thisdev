@@ -3,31 +3,54 @@ import {
   useEffect,
   useRef,
   useState,
+  type FormEvent,
+  type KeyboardEvent,
   type MouseEvent,
   type SyntheticEvent,
 } from "react";
 import {
+  MAX_AUTHOR,
+  MAX_COMMENT,
   MAX_TEXT,
   formatRelative,
   formatTool,
+  sanitizeText,
+  type SlopComment,
   type SlopItem,
 } from "../lib/slops";
 
 type Props = {
   item: SlopItem | null;
+  comments: SlopComment[];
+  focusComments?: boolean;
   onClose: () => void;
   onCopy: (text: string) => void;
+  onAddComment: (text: string, author?: string) => void;
+  onDeleteComment: (id: string) => void;
 };
 
 const CLOSE_MS = 190;
 
-export default function SlopReader({ item, onClose, onCopy }: Props) {
+export default function SlopReader({
+  item,
+  comments,
+  focusComments = false,
+  onClose,
+  onCopy,
+  onAddComment,
+  onDeleteComment,
+}: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const proseRef = useRef<HTMLDivElement>(null);
+  const commentsRef = useRef<HTMLElement>(null);
+  const commentInputRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const closeTimer = useRef<number | null>(null);
   const copyTimer = useRef<number | null>(null);
   const [closing, setClosing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [commentAuthor, setCommentAuthor] = useState("");
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -35,6 +58,8 @@ export default function SlopReader({ item, onClose, onCopy }: Props) {
 
     setClosing(false);
     setCopied(false);
+    setCommentText("");
+    setCommentAuthor("");
     document.documentElement.classList.add("slop-reader-open");
 
     if (!dialog.open) dialog.showModal();
@@ -60,6 +85,22 @@ export default function SlopReader({ item, onClose, onCopy }: Props) {
       if (dialog.open) dialog.close();
     };
   }, [item]);
+
+  useEffect(() => {
+    if (!item || !focusComments) return;
+
+    const timer = window.setTimeout(() => {
+      commentsRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
+      commentInputRef.current?.focus();
+    }, 140);
+
+    return () => window.clearTimeout(timer);
+  }, [focusComments, item]);
 
   useEffect(() => {
     return () => {
@@ -112,6 +153,34 @@ export default function SlopReader({ item, onClose, onCopy }: Props) {
 
     if (copyTimer.current) window.clearTimeout(copyTimer.current);
     copyTimer.current = window.setTimeout(() => setCopied(false), 1400);
+  }
+
+  function jumpToComments() {
+    commentsRef.current?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
+  }
+
+  function handleCommentSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const text = sanitizeText(commentText, MAX_COMMENT);
+
+    if (!text) return;
+
+    const author = sanitizeText(commentAuthor, MAX_AUTHOR) || undefined;
+    onAddComment(text, author);
+    setCommentText("");
+  }
+
+  function handleCommentKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+      event.preventDefault();
+      formRef.current?.requestSubmit();
+    }
   }
 
   if (!item) return null;
@@ -175,9 +244,100 @@ export default function SlopReader({ item, onClose, onCopy }: Props) {
           ) : (
             <p className="slop-reader-text">{item.text}</p>
           )}
+
+          <section
+            className="slop-reader-comments"
+            ref={commentsRef}
+            aria-label="comentários"
+          >
+            <div className="slop-reader-comments-head">
+              <span>comentários</span>
+              <span>{String(comments.length).padStart(2, "0")}</span>
+            </div>
+
+            {comments.length === 0 ? (
+              <p className="slop-reader-comments-empty">
+                nenhum comentário ainda. este caderno fica no teu navegador.
+              </p>
+            ) : (
+              <ol className="slop-reader-comment-list">
+                {comments.map((comment) => (
+                  <li className="slop-reader-comment" key={comment.id}>
+                    <div className="slop-reader-comment-meta">
+                      <span>~ {comment.author || "anônimo"}</span>
+                      <time dateTime={comment.createdAt}>
+                        {formatRelative(comment.createdAt)}
+                      </time>
+                      <button
+                        type="button"
+                        onClick={() => onDeleteComment(comment.id)}
+                        aria-label="apagar este comentário"
+                        title="apagar comentário"
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <p>{comment.text}</p>
+                  </li>
+                ))}
+              </ol>
+            )}
+
+            <form
+              ref={formRef}
+              className="slop-reader-comment-form"
+              onSubmit={handleCommentSubmit}
+            >
+              <label>
+                <span>nome // opcional</span>
+                <input
+                  type="text"
+                  value={commentAuthor}
+                  onChange={(event) => setCommentAuthor(event.target.value)}
+                  maxLength={MAX_AUTHOR}
+                  placeholder="anônimo"
+                />
+              </label>
+
+              <label className="slop-reader-comment-field">
+                <span>comentário</span>
+                <textarea
+                  ref={commentInputRef}
+                  value={commentText}
+                  onChange={(event) => setCommentText(event.target.value)}
+                  onKeyDown={handleCommentKeyDown}
+                  maxLength={MAX_COMMENT}
+                  rows={3}
+                  placeholder="deixa um comentário local…"
+                />
+              </label>
+
+              <div className="slop-reader-comment-actions">
+                <span>
+                  {commentText.length}/{MAX_COMMENT} · fica no navegador
+                  <span className="slop-reader-comment-shortcut">
+                    {" "}
+                    · ctrl+enter
+                  </span>
+                </span>
+                <button type="submit" disabled={!commentText.trim()}>
+                  comentar
+                </button>
+              </div>
+            </form>
+          </section>
         </div>
 
         <footer className="slop-reader-foot">
+          <button
+            type="button"
+            className="slop-reader-comments-jump"
+            onClick={jumpToComments}
+          >
+            {comments.length === 1 ? "comentário" : "comentários"}{" "}
+            {String(comments.length).padStart(2, "0")}
+          </button>
+
           <button
             type="button"
             className={copied ? "slop-reader-copy is-copied" : "slop-reader-copy"}

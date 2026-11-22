@@ -34,6 +34,9 @@ import SlopNoteNode, {
 } from "./SlopNoteNode";
 import { SlopNoteActionsContext } from "../lib/slop-actions";
 import {
+  MAX_AUTHOR,
+  MAX_COMMENT,
+  MAX_COMMENTS,
   MAX_NOTES,
   NOTE_HEX,
   NOTE_TOOLS,
@@ -47,6 +50,7 @@ import {
   saveBoard,
   toItems,
   type BoardPosition,
+  type SlopComment,
   type SlopItem,
   type SlopNote,
   type SlopPostInput,
@@ -180,11 +184,13 @@ function SlopBoardInner({ posts }: Props) {
   const deleteTimers = useRef<number[]>([]);
   const tickerTimer = useRef<number | null>(null);
   const [notes, setNotes] = useState<SlopNote[]>([]);
+  const [comments, setComments] = useState<Record<string, SlopComment[]>>({});
   const [positions, setPositions] = useState<Record<string, BoardPosition>>({});
   const [nodes, setNodes, onNodesChange] = useNodesState<SlopBoardNode>([]);
   const [filter, setFilter] = useState<Filter>("todos");
   const [composerOpen, setComposerOpen] = useState(false);
   const [reading, setReading] = useState<SlopItem | null>(null);
+  const [readerFocusComments, setReaderFocusComments] = useState(false);
   const [organizing, setOrganizing] = useState(false);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
   const [tickerEvent, setTickerEvent] = useState<TickerEvent | null>(null);
@@ -222,6 +228,7 @@ function SlopBoardInner({ posts }: Props) {
     const nextPositions = { ...auto, ...saved.positions };
 
     setNotes(saved.notes);
+    setComments(saved.comments);
     setPositions(nextPositions);
     setNodes(
       items.map((item, index) =>
@@ -257,11 +264,11 @@ function SlopBoardInner({ posts }: Props) {
     if (!ready) return;
 
     const timer = window.setTimeout(() => {
-      saveBoard({ version: 1, notes, positions });
+      saveBoard({ version: 1, notes, positions, comments });
     }, 240);
 
     return () => window.clearTimeout(timer);
-  }, [notes, positions, ready]);
+  }, [comments, notes, positions, ready]);
 
   useEffect(() => {
     setNodes((current) =>
@@ -331,11 +338,67 @@ function SlopBoardInner({ posts }: Props) {
   );
 
   const openReader = useCallback(
-    (item: SlopItem) => {
+    (item: SlopItem, focusComments = false) => {
       setReading(item);
-      signal(`lendo // ${item.text.slice(0, 34)}`, "info", 5200);
+      setReaderFocusComments(focusComments);
+      signal(
+        focusComments
+          ? `comentários // ${item.text.slice(0, 30)}`
+          : `lendo // ${item.text.slice(0, 34)}`,
+        "info",
+        5200,
+      );
     },
     [signal],
+  );
+
+  const addComment = useCallback(
+    (itemId: string, text: string, author?: string) => {
+      const clean = sanitizeText(text, MAX_COMMENT);
+
+      if (!clean) return;
+
+      const comment: SlopComment = {
+        id: createSlopId(),
+        text: clean,
+        author: author
+          ? sanitizeText(author, MAX_AUTHOR) || undefined
+          : undefined,
+        createdAt: new Date().toISOString(),
+      };
+
+      setComments((current) => {
+        const list = [...(current[itemId] ?? []), comment];
+        return { ...current, [itemId]: list.slice(-MAX_COMMENTS) };
+      });
+      showToast("comentário salvo no teu navegador");
+      signal("+ comentário // salvo localmente", "ok", 3400);
+    },
+    [showToast, signal],
+  );
+
+  const removeComment = useCallback(
+    (itemId: string, commentId: string) => {
+      setComments((current) => {
+        const next = { ...current };
+        const list = (next[itemId] ?? []).filter(
+          (comment) => comment.id !== commentId,
+        );
+
+        if (list.length > 0) next[itemId] = list;
+        else delete next[itemId];
+
+        return next;
+      });
+      showToast("comentário apagado");
+      signal("− comentário // apagado", "warn", 3000);
+    },
+    [showToast, signal],
+  );
+
+  const commentCountFor = useCallback(
+    (id: string) => comments[id]?.length ?? 0,
+    [comments],
   );
 
   const selectFilter = useCallback(
@@ -461,6 +524,11 @@ function SlopBoardInner({ posts }: Props) {
           delete next[id];
           return next;
         });
+        setComments((current) => {
+          const next = { ...current };
+          delete next[id];
+          return next;
+        });
         showToast("slop apagado");
         signal(
           `− slop apagado // ${Math.max(
@@ -513,7 +581,12 @@ function SlopBoardInner({ posts }: Props) {
         createdAt: note.createdAt,
       }));
 
-    if (notesForExport.length === 0) {
+    const commentCount = Object.values(comments).reduce(
+      (total, list) => total + list.length,
+      0,
+    );
+
+    if (notesForExport.length === 0 && commentCount === 0) {
       showToast("lousa vazia — nada pra exportar");
       signal("nada pra exportar // lousa vazia", "warn");
       return;
@@ -524,6 +597,7 @@ function SlopBoardInner({ posts }: Props) {
       exportedAt: new Date().toISOString(),
       notes: notesForExport,
       positions,
+      comments,
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], {
       type: "application/json",
@@ -537,9 +611,14 @@ function SlopBoardInner({ posts }: Props) {
     anchor.click();
     anchor.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1500);
-    showToast(`${notesForExport.length} slop(s) exportado(s)`);
-    signal(`exportado // ${notesForExport.length} notas`, "info");
-  }, [notes, positions, showToast, signal]);
+    showToast(
+      `${notesForExport.length} slop(s) + ${commentCount} comentário(s) exportado(s)`,
+    );
+    signal(
+      `exportado // ${notesForExport.length} notas · ${commentCount} comentários`,
+      "info",
+    );
+  }, [comments, notes, positions, showToast, signal]);
 
   const importBoard = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -572,6 +651,7 @@ function SlopBoardInner({ posts }: Props) {
       const nextPositions = { ...auto, ...parsed.positions };
 
       setNotes(parsed.notes);
+      setComments(parsed.comments);
       setPositions(nextPositions);
       setNodes(
         items.map((item, index) =>
@@ -607,14 +687,21 @@ function SlopBoardInner({ posts }: Props) {
       if (id.startsWith("post-")) nextPositions[id] = position;
     }
 
+    const localIds = new Set(notes.map((note) => note.id));
+
     setNotes([]);
+    setComments((current) =>
+      Object.fromEntries(
+        Object.entries(current).filter(([id]) => !localIds.has(id)),
+      ),
+    );
     setPositions(nextPositions);
     setNodes((current) =>
       current.filter((node) => node.data.item.kind === "post"),
     );
     showToast("lousa limpa");
     signal("sinal perdido // lousa limpa", "error", 7200);
-  }, [notes.length, positions, setNodes, showToast, signal]);
+  }, [notes, positions, setNodes, showToast, signal]);
 
   const handleDragStop: OnNodeDrag<SlopBoardNode> = useCallback(
     (_event, node) => {
@@ -637,7 +724,9 @@ function SlopBoardInner({ posts }: Props) {
   const customCount = notes.filter((note) => !note.deleting).length;
 
   return (
-    <SlopNoteActionsContext.Provider value={{ open: openReader, remove }}>
+    <SlopNoteActionsContext.Provider
+      value={{ open: openReader, remove, commentCountFor }}
+    >
       <div className="slop-shell">
         <SlopTicker
           notesCount={customCount}
@@ -771,7 +860,9 @@ function SlopBoardInner({ posts }: Props) {
                   key={item.id}
                   item={item}
                   index={index}
+                  commentCount={commentCountFor(item.id)}
                   onOpen={openReader}
+                  onComment={() => openReader(item, true)}
                   onDelete={remove}
                 />
               ))
@@ -845,8 +936,19 @@ function SlopBoardInner({ posts }: Props) {
 
       <SlopReader
         item={reading}
-        onClose={() => setReading(null)}
+        comments={reading ? comments[reading.id] ?? [] : []}
+        focusComments={readerFocusComments}
+        onClose={() => {
+          setReading(null);
+          setReaderFocusComments(false);
+        }}
         onCopy={copy}
+        onAddComment={(text, author) => {
+          if (reading) addComment(reading.id, text, author);
+        }}
+        onDeleteComment={(commentId) => {
+          if (reading) removeComment(reading.id, commentId);
+        }}
       />
 
       {toast && (
