@@ -1,6 +1,7 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
 import SystemSidebar from "../components/system/SystemSidebar.astro";
+import AboutMicroblog from "../components/AboutMicroblog.tsx";
 
 const facts = [
   { label: "name", value: "jos'e" },
@@ -17,7 +18,7 @@ const facts = [
   section="about"
   code="ID_07"
   pageTitle="some of me"
-  pageDescription="ficha de identificação de quem escreve este arquivo. sem currículo, sem roadmap — só o que sobrou depois do dither."
+  pageDescription="ficha de identificação de quem escreve este arquivo. sem currículo, sem roadmap — só o que sobrou depois do dither, e o que ainda não virou post."
   meta={[
     { label: "status", value: "online" },
     { label: "modo", value: "dark only" },
@@ -29,11 +30,13 @@ const facts = [
     items={[
       { label: "identidade", href: "#identidade" },
       { label: "retrato", href: "#retrato" },
+      { label: "diário", href: "#diario" },
       { label: "nota final", href: "#nota" },
     ]}
     meta={[
       { label: "status", value: "online" },
       { label: "modo", value: "dark only" },
+      { label: "diário", value: "local" },
       { label: "arquivo", value: "ID_07" },
     ]}
     note="tudo aqui é ficção, exceto o que não é."
@@ -83,6 +86,14 @@ const facts = [
       />
       <figcaption>retrato recuperado do arquivo local</figcaption>
     </figure>
+  </section>
+
+  <section class="sys-panel about-diary" id="diario" aria-labelledby="diario-title">
+    <div class="sys-panel-head">
+      <span id="diario-title">diário // íntimo</span>
+      <span aria-hidden="true">✎</span>
+    </div>
+    <AboutMicroblog client:load />
   </section>
 
   <p class="about-foot" id="nota">all rights reserved to all of us.</p>
