@@ -1520,7 +1520,7 @@ body.projects-page { --col: 92rem; }
 .slop-note {
   --paper: #cdb87f;
   --paper-ink: #241a15;
-  --paper-muted: rgb(36 26 21 / 0.62);
+  --paper-muted: rgb(36 26 21 / 0.72);
   --paper-line: rgb(36 26 21 / 0.18);
 
   position: relative;
