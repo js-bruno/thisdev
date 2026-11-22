@@ -573,28 +573,32 @@ function SlopBoardInner({ posts }: Props) {
     <SlopNoteActionsContext.Provider value={{ open: setReading, remove }}>
       <div className="slop-shell">
         <div className="slop-toolbar">
-          <p className="slop-count">
-            <strong key={customCount}>{customCount}</strong> teus <span>·</span>{" "}
-            {posts.length} do site
-          </p>
+          <div className="slop-toolbar-main">
+            <p className="slop-count">
+              <strong key={customCount}>{customCount}</strong> teus{" "}
+              <span>·</span> {posts.length} do site
+            </p>
 
-          <div className="slop-filters" role="group" aria-label="filtrar a lousa">
-            {FILTERS.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                className="slop-filter"
-                data-tool={option.value}
-                aria-pressed={filter === option.value}
-                onClick={() => setFilter(option.value)}
-              >
-                <i className="slop-filter-dot" aria-hidden="true" />
-                {option.label}
-              </button>
-            ))}
-          </div>
+            <div
+              className="slop-filters"
+              role="group"
+              aria-label="filtrar a lousa"
+            >
+              {FILTERS.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className="slop-filter"
+                  data-tool={option.value}
+                  aria-pressed={filter === option.value}
+                  onClick={() => setFilter(option.value)}
+                >
+                  <i className="slop-filter-dot" aria-hidden="true" />
+                  {option.label}
+                </button>
+              ))}
+            </div>
 
-          <div className="slop-tools">
             <button
               type="button"
               className="slop-btn slop-btn--primary"
@@ -605,42 +609,59 @@ function SlopBoardInner({ posts }: Props) {
               </span>
               pregar slop
             </button>
+          </div>
 
-            {!isMobile && (
+          <div className="slop-toolbar-actions">
+            <div
+              className="slop-btn-group"
+              role="group"
+              aria-label="ferramentas da lousa"
+            >
+              {!isMobile && (
+                <button
+                  type="button"
+                  className="slop-btn"
+                  onClick={organize}
+                  disabled={!ready}
+                >
+                  <span className="slop-btn-icon" aria-hidden="true">
+                    ▦
+                  </span>
+                  organizar
+                </button>
+              )}
+
               <button
                 type="button"
                 className="slop-btn"
-                onClick={organize}
+                onClick={exportBoard}
                 disabled={!ready}
               >
-                organizar
+                <span className="slop-btn-icon" aria-hidden="true">
+                  ↓
+                </span>
+                exportar
               </button>
-            )}
 
-            <button
-              type="button"
-              className="slop-btn"
-              onClick={exportBoard}
-              disabled={!ready}
-            >
-              exportar
-            </button>
-
-            <button
-              type="button"
-              className="slop-btn"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              importar
-            </button>
-            <input
-              ref={fileInputRef}
-              className="slop-file-input"
-              type="file"
-              accept="application/json,.json"
-              aria-label="importar lousa"
-              onChange={importBoard}
-            />
+              <button
+                type="button"
+                className="slop-btn"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <span className="slop-btn-icon" aria-hidden="true">
+                  ↑
+                </span>
+                importar
+              </button>
+              <input
+                ref={fileInputRef}
+                className="slop-file-input"
+                type="file"
+                accept="application/json,.json"
+                aria-label="importar lousa"
+                onChange={importBoard}
+              />
+            </div>
 
             <button
               type="button"
@@ -648,6 +669,9 @@ function SlopBoardInner({ posts }: Props) {
               onClick={clearBoard}
               disabled={customCount === 0}
             >
+              <span className="slop-btn-icon" aria-hidden="true">
+                ×
+              </span>
               limpar
             </button>
           </div>
