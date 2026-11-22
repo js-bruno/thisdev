@@ -1,5 +1,6 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+import SystemSidebar from "../components/system/SystemSidebar.astro";
 
 interface Item {
   name: string;
@@ -113,36 +114,51 @@ const slug = (s: string) =>
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s+/g, "-");
+
+const totalLinks = groups.reduce((total, group) => total + group.items.length, 0);
 ---
 
-<BlogLayout title="Resources">
-  <h1>resources</h1>
-  <p>
-    um diretório de coisas úteis e lugares bons da web. ideia de link por
-    <a href="https://art.teleportacia.org/observation/vernacular/links.html">olia lialina</a>
-    e <a href="https://melonking.net">melonking</a>.
-  </p>
-
-  <nav class="res-index" aria-label="categorias">
-    {
-      groups.map((g) => (
-        <a href={`#${slug(g.title)}`}>{g.title}</a>
-      ))
-    }
-  </nav>
+<BlogLayout
+  title="Resources"
+  section="resources"
+  code="DB_04"
+  pageTitle="resources"
+  pageDescription="um diretório de coisas úteis e lugares bons da web. ideia de link por olia lialina e melonking."
+  meta={[
+    { label: "categorias", value: String(groups.length) },
+    { label: "links", value: String(totalLinks) },
+  ]}
+>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="categorias"
+    items={groups.map((group) => ({
+      label: group.title,
+      href: `#${slug(group.title)}`,
+      count: group.items.length,
+    }))}
+    meta={[
+      { label: "categorias", value: String(groups.length) },
+      { label: "links", value: String(totalLinks) },
+      { label: "modo", value: "curadoria manual" },
+    ]}
+    note="links abrem fora do arquivo. nenhum passa por redirect deste site."
+  />
 
   {
-    groups.map((g) => (
-      <section class="res-cat">
-        <h2 id={slug(g.title)}>{g.title}</h2>
-        <ul class="res-list">
-          {g.items.map((it) => (
+    groups.map((group) => (
+      <section class="res-cat" id={slug(group.title)}>
+        <h2 data-count={`${group.items.length} links`}>{group.title}</h2>
+        <ol class="res-list">
+          {group.items.map((it) => (
             <li>
-              <a href={it.href}>{it.name}</a>
+              <a href={it.href} target="_blank" rel="noopener">
+                {it.name}
+              </a>
               <span class="res-desc">{it.desc}</span>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
     ))
   }

@@ -1,5 +1,12 @@
 ---
 import BlogLayout from "./BlogLayout.astro";
+import SystemPageHeader from "../components/system/SystemPageHeader.astro";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
@@ -8,9 +15,20 @@ interface Props {
   tags?: string | string[];
   mood?: string;
   image?: string;
+  headings?: Heading[];
+  readingTime?: number;
 }
 
-const { title, date, description, tags, mood, image } = Astro.props;
+const {
+  title,
+  date,
+  description,
+  tags,
+  mood,
+  image,
+  headings = [],
+  readingTime,
+} = Astro.props;
 
 const formattedDate = date
   ? new Date(date).toLocaleDateString("pt-BR", {
@@ -21,156 +39,134 @@ const formattedDate = date
     })
   : null;
 
-const htmlDate = date ? new Date(date).toISOString().split("T")[0] : null;
-
-const tagList = tags
-  ? Array.isArray(tags)
-    ? tags
-    : [tags]
-  : [];
+const tagList = tags ? (Array.isArray(tags) ? tags : [tags]) : [];
+const toc = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+const path = Astro.url.pathname.replace(/\/+$/, "");
 ---
 
-<BlogLayout title={title} description={description}>
-  <style>
-    pre[class*="language-"] {
-      padding: 1rem;
-      margin: 1.25rem 0;
-      overflow: auto;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-    code[class*="language-"],
-    pre[class*="language-"] {
-      font-family: var(--mono);
-      text-align: left;
-      white-space: pre;
-      word-spacing: normal;
-      word-break: normal;
-      line-height: 1.5;
-      tab-size: 2;
-      hyphens: none;
-    }
-    :not(pre) > code[class*="language-"] {
-      background: var(--surface);
-      padding: 0.1em;
-      border: 1px solid var(--border);
-      white-space: normal;
-    }
-    .token.comment,
-    .token.prolog,
-    .token.doctype,
-    .token.cdata { color: var(--muted); }
-    .token.punctuation { color: var(--ink); }
-    .token.property,
-    .token.tag,
-    .token.constant,
-    .token.symbol,
-    .token.deleted { color: #c9755f; }
-    .token.boolean,
-    .token.number { color: #c9a227; }
-    .token.selector,
-    .token.attr-name,
-    .token.string,
-    .token.char,
-    .token.builtin,
-    .token.inserted { color: #8f9a5c; }
-    .token.operator,
-    .token.entity,
-    .token.url,
-    .language-css .token.string,
-    .style .token.string,
-    .token.variable { color: var(--ink); }
-    .token.atrule,
-    .token.attr-value,
-    .token.function,
-    .token.class-name { color: #e8c87a; }
-    .token.keyword { color: #b4482a; }
-    .token.regex,
-    .token.important { color: #d19a66; }
-    .token.important,
-    .token.bold { font-weight: bold; }
-    .token.italic { font-style: italic; }
+<BlogLayout
+  title={title}
+  description={description}
+  section="ai-slops"
+  showHeader={false}
+  meta={[
+    ...(formattedDate ? [{ label: "data", value: formattedDate }] : []),
+    ...(readingTime ? [{ label: "leitura", value: `${readingTime} min` }] : []),
+  ]}
+>
+  <Fragment slot="sidebar">
+    <div class="sys-panel">
+      <div class="sys-panel-head">
+        <span>transmission info</span>
+        <span aria-hidden="true">⌁</span>
+      </div>
+      <dl class="sys-meta">
+        {formattedDate && (
+          <div><dt>data</dt><dd>{formattedDate}</dd></div>
+        )}
+        {mood && <div><dt>mood</dt><dd>~ {mood}</dd></div>}
+        <div><dt>leitura</dt><dd>{readingTime ?? 1} min</dd></div>
+        <div><dt>tags</dt><dd>{tagList.length}</dd></div>
+        <div><dt>modo</dt><dd>dark only</dd></div>
+      </dl>
+    </div>
 
-    .post-back { margin: 2.5rem 0 0; }
+    {toc.length > 0 && (
+      <div class="sys-panel">
+        <div class="sys-panel-head">
+          <span>índice</span>
+          <span aria-hidden="true">↧</span>
+        </div>
+        <ul class="post-toc">
+          {toc.map((heading) => (
+            <li class={`depth-${heading.depth}`}>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-    .back-bracket {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.15rem 0.2rem;
-      font-family: var(--display);
-      font-size: 0.7em;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--muted);
-      transition: color 0.18s ease;
-    }
+    <div class="sys-panel">
+      <div class="sys-panel-head">
+        <span>network</span>
+        <span aria-hidden="true">↗</span>
+      </div>
+      <ul class="sys-index sys-index--plain">
+        <li><a href="/ai-slops/">← lousa</a></li>
+        <li><a href="/tags/">tags</a></li>
+        <li><a href="/">home</a></li>
+      </ul>
+    </div>
+  </Fragment>
 
-    .back-bracket::before,
-    .back-bracket::after {
-      content: "";
-      width: 0.42rem;
-      height: 1.15em;
-      border: 1px solid var(--border-strong);
-      transition: border-color 0.18s ease, transform 0.18s ease;
-    }
-    .back-bracket::before { border-right: 0; }
-    .back-bracket::after { border-left: 0; }
-
-    .back-bracket:hover,
-    .back-bracket:focus-visible { color: var(--accent-2); }
-    .back-bracket:hover::before,
-    .back-bracket:focus-visible::before {
-      border-color: var(--accent-2);
-      transform: translateX(-2px);
-    }
-    .back-bracket:hover::after,
-    .back-bracket:focus-visible::after {
-      border-color: var(--accent-2);
-      transform: translateX(2px);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .back-bracket,
-      .back-bracket::before,
-      .back-bracket::after { transition: none; transform: none; }
-    }
-  </style>
+  <div class="post-progress" aria-hidden="true"></div>
 
   <article class="post">
-    <h1>{title}</h1>
+    <SystemPageHeader
+      title={title}
+      description={description}
+      path={`~/this_dev${path}`}
+      code="LOG"
+      meta={[
+        ...(formattedDate ? [{ label: "data", value: formattedDate }] : []),
+        ...(mood ? [{ label: "mood", value: `~ ${mood}` }] : []),
+        { label: "leitura", value: `${readingTime ?? 1} min` },
+      ]}
+    >
+      <ul class="post-meta-list">
+        {
+          tagList.map((tag) => (
+            <li>
+              <a
+                href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
+                class="post-tag"
+              >
+                #{tag}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </SystemPageHeader>
 
-    <ul class="post-meta-list">
-      {
-        formattedDate && htmlDate && (
-          <li>
-            <time datetime={htmlDate}>{formattedDate}</time>
-          </li>
-        )
-      }
-      {mood && <li class="post-mood">~ {mood}</li>}
-      {
-        tagList.map((tag) => (
-          <li>
-            <a
-              href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
-              class="post-tag"
-            >
-              #{tag}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    {image && (
+      <img class="post-hero" src={image} alt="" loading="lazy" />
+    )}
 
-    {image && <img class="post-hero" src={image} alt="" loading="lazy" />}
-
-    <slot />
+    <div class="post-body">
+      <slot />
+    </div>
   </article>
 
   <p class="post-back">
-    <a class="back-bracket" href="/ai-slops/">← voltar</a>
+    <a class="back-bracket" href="/ai-slops/">← return to board</a>
   </p>
 </BlogLayout>
+
+<script>
+  const progress = document.querySelector<HTMLElement>(".post-progress");
+
+  if (progress) {
+    let ticking = false;
+
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const value = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      progress.style.transform = `scaleX(${value})`;
+      ticking = false;
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+
+    update();
+  }
+</script>

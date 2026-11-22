@@ -53,7 +53,7 @@ const edgeColor = (kind: ProjectLink["kind"]) => {
 export default function ProjectMap({ projects, links }: Props) {
   const isMobile = useMediaQuery("(max-width: 900px)");
   const direction = isMobile ? "TB" : "LR";
-  const fitPadding = isMobile ? 0.06 : 0.22;
+  const fitPadding = isMobile ? 0.05 : 0.1;
 
   const baseNodes = useMemo<ProjectCardNode[]>(
     () =>

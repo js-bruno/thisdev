@@ -1,31 +1,64 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-const tagSet = new Set<string>();
+const tagMap = new Map<string, number>();
+
 posts.forEach((post) => {
   const tags = post.data.tags;
   if (!tags) return;
-  const arr = Array.isArray(tags) ? tags : [tags];
-  arr.forEach((t) => tagSet.add(t));
+  const list = Array.isArray(tags) ? tags : [tags];
+  list.forEach((tag) => {
+    tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1);
+  });
 });
 
-const tags = [...tagSet].sort((a, b) => a.localeCompare(b));
+const tags = [...tagMap.entries()]
+  .map(([tag, count]) => ({
+    tag,
+    count,
+    slug: tag.toLowerCase().replace(/\s+/g, "-"),
+  }))
+  .sort((a, b) => a.tag.localeCompare(b.tag));
 ---
 
-<BlogLayout title="Tags">
-  <h1>Tags</h1>
-  <ul>
+<BlogLayout
+  title="Tags"
+  section="tags"
+  code="IDX_06"
+  pageTitle="tags"
+  pageDescription="índice de assuntos do arquivo. cada tag abre um log de transmissões."
+  meta={[
+    { label: "tags", value: String(tags.length) },
+    { label: "posts", value: String(posts.length) },
+  ]}
+>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="todas as tags"
+    items={tags.map((item) => ({
+      label: `#${item.tag}`,
+      href: `/tags/${item.slug}/`,
+      count: item.count,
+    }))}
+    meta={[
+      { label: "tags", value: String(tags.length) },
+      { label: "posts", value: String(posts.length) },
+      { label: "modo", value: "dark only" },
+    ]}
+    note="tags são geradas automaticamente a partir do frontmatter dos posts."
+  />
+
+  <ul class="tag-grid" aria-label="todas as tags">
     {
-      tags.map((tag) => (
+      tags.map((item) => (
         <li>
-          <a
-            href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}/`}
-            class="post-tag"
-          >
-            {tag}
+          <a class="tag-tile" href={`/tags/${item.slug}/`}>
+            <span>{item.tag}</span>
+            <span class="tag-tile-count">{item.count}</span>
           </a>
         </li>
       ))

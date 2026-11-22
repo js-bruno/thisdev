@@ -26,7 +26,7 @@ function Preview({ project }: { project: ProjectCardData }) {
     <img
       src={src}
       alt={`preview de ${project.title}`}
-      loading="lazy"
+      loading="eager"
       decoding="async"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

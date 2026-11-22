@@ -1,5 +1,6 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import PhotoCard from "../../components/PhotoCard.astro";
 import PhotoLightbox from "../../components/PhotoLightbox.astro";
 import { getCollection } from "astro:content";
@@ -93,28 +94,41 @@ for (const roll of rolls) {
 }
 ---
 
-<BlogLayout title="Photos" bodyClass="photos-page">
-  <h1>photos</h1>
-  <p class="photos-intro">
-    fotos da Canon, organizadas por rolo. uma folha de contato por rolo — clica
-    num quadro pra abrir, e usa as setas do teclado pra navegar.
-  </p>
+<BlogLayout
+  title="Photos"
+  bodyClass="photos-page"
+  section="photos"
+  code="OPT_03"
+  pageTitle="photos"
+  pageDescription="fotos da Canon, organizadas por rolo. uma folha de contato por rolo — clica num quadro pra abrir, e usa as setas do teclado pra navegar."
+  meta={[
+    { label: "fotos", value: String(photos.length) },
+    { label: "rolos", value: String(rolls.length) },
+  ]}
+  wide={true}
+>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="rolos"
+    indexClass="sys-roll-index"
+    items={rolls.map(({ roll, slug, list }) => ({
+      label: roll,
+      href: `#${slug}`,
+      count: list.length,
+    }))}
+    meta={[
+      { label: "fotos", value: String(photos.length) },
+      { label: "rolos", value: String(rolls.length) },
+      { label: "modo", value: "contato" },
+    ]}
+    note="clica num quadro pra abrir o viewer. setas ← → navegam, Esc fecha."
+  />
 
   {
     rolls.length === 0 ? (
       <p class="empty">nenhuma foto por aqui ainda.</p>
     ) : (
       <>
-        <nav class="roll-index" aria-label="Índice de rolos">
-          <span class="roll-index-label">rolos</span>
-          {rolls.map(({ roll, slug, list }) => (
-            <a href={`#${slug}`}>
-              {roll}
-              <span class="roll-index-count">{list.length}</span>
-            </a>
-          ))}
-        </nav>
-
         {rolls.map(({ roll, slug, list, range, start }) => (
           <section class="roll" id={slug} aria-labelledby={`${slug}-title`}>
             <header class="roll-head">
@@ -149,7 +163,7 @@ for (const roll of rolls) {
   const sections = Array.from(document.querySelectorAll<HTMLElement>(".roll"));
   const links = new Map(
     Array.from(
-      document.querySelectorAll<HTMLAnchorElement>(".roll-index a"),
+      document.querySelectorAll<HTMLAnchorElement>(".sys-roll-index a"),
     ).map((link) => [link.hash.slice(1), link]),
   );
 

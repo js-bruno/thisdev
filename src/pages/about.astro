@@ -1,83 +1,89 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+import SystemSidebar from "../components/system/SystemSidebar.astro";
+
+const facts = [
+  { label: "name", value: "jos'e" },
+  { label: "age", value: "25" },
+  { label: "pronouns", value: "he/him" },
+  { label: "language", value: "pt-br, eng" },
+  { label: "tempo de dev", value: "5 anos" },
+  { label: "sistema", value: "2 anos de NixOS" },
+];
 ---
 
-<BlogLayout title="About">
-  <style>
-    @keyframes shimmer-run {
-      to { background-position: 200% 50%; }
-    }
-    .nix-shimmer {
-      display: inline-block;
-      background-image: linear-gradient(
-        100deg,
-        #5277c3 0%, #5277c3 35%, #a6e0ff 48%, #ffffff 50%,
-        #a6e0ff 52%, #5277c3 65%, #5277c3 100%
-      );
-      background-size: 250% 100%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer-run 2.8s linear infinite;
-    }
-    @keyframes fire-run-vertical {
-      to { background-position: 50% 400%; }
-    }
-    .fire-text {
-      display: inline-block;
-      background-image: linear-gradient(
-        180deg,
-        #8b1a00, #c7350c, #e85a0c, #ff8a1e, #ffb627, #ffd93d,
-        #fff3b0, #ffd93d, #ffb627, #ff8a1e, #e85a0c, #c7350c, #8b1a00
-      );
-      background-size: 100% 500%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: fire-run-vertical 9.2s linear infinite;
-    }
-    .some-me {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      align-items: flex-start;
-    }
-    .some-me ul { flex: 1 1 16rem; margin: 0; }
-    .some-me ul li span { color: var(--accent); }
-    .some-me figure { flex: 0 1 14rem; margin: 0; }
-    .some-me img {
-      display: block;
-      width: 100%;
-      border: 1px solid var(--border);
-    }
-    .some-me aside {
-      margin-top: 1rem;
-      padding-left: 0.8rem;
-      border-left: 2px dotted var(--border);
-      color: var(--muted);
-      font-style: italic;
-    }
-  </style>
+<BlogLayout
+  title="About"
+  section="about"
+  code="ID_07"
+  pageTitle="some of me"
+  pageDescription="ficha de identificação de quem escreve este arquivo. sem currículo, sem roadmap — só o que sobrou depois do dither."
+  meta={[
+    { label: "status", value: "online" },
+    { label: "modo", value: "dark only" },
+  ]}
+>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="neste arquivo"
+    items={[
+      { label: "identidade", href: "#identidade" },
+      { label: "retrato", href: "#retrato" },
+      { label: "nota final", href: "#nota" },
+    ]}
+    meta={[
+      { label: "status", value: "online" },
+      { label: "modo", value: "dark only" },
+      { label: "arquivo", value: "ID_07" },
+    ]}
+    note="tudo aqui é ficção, exceto o que não é."
+  />
 
-  <h1>some of me</h1>
+  <section class="about-grid" aria-label="ficha pessoal">
+    <div class="sys-panel about-file" id="identidade">
+      <div class="sys-panel-head">
+        <span>ident // registro</span>
+        <span aria-hidden="true">⌁</span>
+      </div>
 
-  <section class="card some-me">
-    <ul>
-      <li><span>name:</span> jos'e</li>
-      <li><span>age:</span> 25</li>
-      <li><span>pronouns:</span> he/him</li>
-      <li><span>language:</span> pt-br, eng</li>
-      <li>5 anos trampando como <span class="fire-text">dev</span></li>
-      <li>2 anos usando <span class="nix-shimmer">NixOS</span></li>
-      <aside>não sei exatamente o que estou fazendo, mas estou fazendo algo.</aside>
-    </ul>
+      <ul class="about-list">
+        {
+          facts.map((fact) => (
+            <li>
+              <span class="about-label">{fact.label}</span>
+              <span>
+                {fact.label === "tempo de dev" ? (
+                  <span class="about-dev">5 anos trampando como dev</span>
+                ) : fact.label === "sistema" ? (
+                  <span class="about-nix">2 anos usando NixOS</span>
+                ) : (
+                  fact.value
+                )}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
 
-    <figure>
-      <img src="/assets/images/me1.png" alt="eu" loading="lazy" decoding="async" />
+      <p class="about-quote">
+        não sei exatamente o que estou fazendo, mas estou fazendo algo.
+      </p>
+    </div>
+
+    <figure class="sys-panel about-portrait" id="retrato">
+      <div class="sys-panel-head">
+        <span>img_001 // self</span>
+        <span aria-hidden="true">◐</span>
+      </div>
+      <img
+        src="/assets/images/me1.png"
+        alt="eu"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>retrato recuperado do arquivo local</figcaption>
     </figure>
   </section>
 
-  <p class="empty">all rights reserved to all of us.</p>
+  <p class="about-foot" id="nota">all rights reserved to all of us.</p>
 </BlogLayout>

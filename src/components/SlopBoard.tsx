@@ -24,6 +24,10 @@ import "@xyflow/react/dist/style.css";
 import SlopCard from "./SlopCard";
 import SlopComposer, { type SlopDraft } from "./SlopComposer";
 import SlopReader from "./SlopReader";
+import SlopTicker, {
+  type TickerEvent,
+  type TickerTone,
+} from "./SlopTicker";
 import SlopNoteNode, {
   type SlopBoardNode,
   type SlopNoteData,
@@ -174,6 +178,7 @@ function SlopBoardInner({ posts }: Props) {
   const toastTimer = useRef<number | null>(null);
   const organizeTimer = useRef<number | null>(null);
   const deleteTimers = useRef<number[]>([]);
+  const tickerTimer = useRef<number | null>(null);
   const [notes, setNotes] = useState<SlopNote[]>([]);
   const [positions, setPositions] = useState<Record<string, BoardPosition>>({});
   const [nodes, setNodes, onNodesChange] = useNodesState<SlopBoardNode>([]);
@@ -182,6 +187,7 @@ function SlopBoardInner({ posts }: Props) {
   const [reading, setReading] = useState<SlopItem | null>(null);
   const [organizing, setOrganizing] = useState(false);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
+  const [tickerEvent, setTickerEvent] = useState<TickerEvent | null>(null);
   const [ready, setReady] = useState(false);
   const nodesInitialized = useNodesInitialized();
   const didFit = useRef(false);
@@ -194,6 +200,19 @@ function SlopBoardInner({ posts }: Props) {
     setToast({ id: Date.now(), text });
     toastTimer.current = window.setTimeout(() => setToast(null), 2600);
   }, []);
+
+  const signal = useCallback(
+    (text: string, tone: TickerTone = "info", duration = 4600) => {
+      if (tickerTimer.current) window.clearTimeout(tickerTimer.current);
+
+      setTickerEvent({ id: Date.now(), text, tone });
+      tickerTimer.current = window.setTimeout(
+        () => setTickerEvent(null),
+        duration,
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     const saved = loadBoard();
@@ -284,6 +303,7 @@ function SlopBoardInner({ posts }: Props) {
     return () => {
       if (toastTimer.current) window.clearTimeout(toastTimer.current);
       if (organizeTimer.current) window.clearTimeout(organizeTimer.current);
+      if (tickerTimer.current) window.clearTimeout(tickerTimer.current);
       deleteTimers.current.forEach((timer) => window.clearTimeout(timer));
     };
   }, []);
@@ -292,21 +312,49 @@ function SlopBoardInner({ posts }: Props) {
     (text: string) => {
       if (!navigator.clipboard?.writeText) {
         showToast("cópia indisponível neste navegador");
+        signal("sinal corrompido // clipboard indisponível", "error");
         return;
       }
 
       void navigator.clipboard.writeText(text).then(
-        () => showToast("slop copiado!"),
-        () => showToast("não deu pra copiar :("),
+        () => {
+          showToast("slop copiado!");
+          signal("copiado // texto completo", "ok", 2600);
+        },
+        () => {
+          showToast("não deu pra copiar :(");
+          signal("falha na cópia // tenta de novo", "error");
+        },
       );
     },
-    [showToast],
+    [showToast, signal],
+  );
+
+  const openReader = useCallback(
+    (item: SlopItem) => {
+      setReading(item);
+      signal(`lendo // ${item.text.slice(0, 34)}`, "info", 5200);
+    },
+    [signal],
+  );
+
+  const selectFilter = useCallback(
+    (next: Filter) => {
+      setFilter(next);
+      signal(
+        next === "todos" ? "filtro // todos os slops" : `filtro // ${next}`,
+        "info",
+        3400,
+      );
+    },
+    [signal],
   );
 
   const addNote = useCallback(
     (draft: SlopDraft) => {
       if (notes.length >= MAX_NOTES) {
         showToast(`limite de ${MAX_NOTES} slops na lousa`);
+        signal("buffer cheio // limite de slops", "warn");
         return;
       }
 
@@ -362,14 +410,19 @@ function SlopBoardInner({ posts }: Props) {
       setFilter("todos");
       setComposerOpen(false);
       showToast("slop pregado! fica no teu navegador");
+      signal(
+        `+ slop pregado // ${notes.filter((note) => !note.deleting).length + 1} notas locais`,
+        "ok",
+      );
     },
     [
       isMobile,
       nodes,
-      notes.length,
+      notes,
       screenToFlowPosition,
       setNodes,
       showToast,
+      signal,
     ],
   );
 
@@ -409,11 +462,19 @@ function SlopBoardInner({ posts }: Props) {
           return next;
         });
         showToast("slop apagado");
+        signal(
+          `− slop apagado // ${Math.max(
+            0,
+            notes.filter((candidate) => !candidate.deleting).length - 1,
+          )} notas locais`,
+          "error",
+          5600,
+        );
       }, 360);
 
       deleteTimers.current.push(timer);
     },
-    [notes, setNodes, showToast],
+    [notes, setNodes, showToast, signal],
   );
 
   const organize = useCallback(() => {
@@ -437,7 +498,8 @@ function SlopBoardInner({ posts }: Props) {
 
     organizeTimer.current = window.setTimeout(() => setOrganizing(false), 580);
     showToast("lousa organizada");
-  }, [notes, posts, setNodes, showToast]);
+    signal("lousa organizada // posições recalculadas", "info");
+  }, [notes, posts, setNodes, showToast, signal]);
 
   const exportBoard = useCallback(() => {
     const notesForExport = notes
@@ -453,6 +515,7 @@ function SlopBoardInner({ posts }: Props) {
 
     if (notesForExport.length === 0) {
       showToast("lousa vazia — nada pra exportar");
+      signal("nada pra exportar // lousa vazia", "warn");
       return;
     }
 
@@ -475,7 +538,8 @@ function SlopBoardInner({ posts }: Props) {
     anchor.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1500);
     showToast(`${notesForExport.length} slop(s) exportado(s)`);
-  }, [notes, positions, showToast]);
+    signal(`exportado // ${notesForExport.length} notas`, "info");
+  }, [notes, positions, showToast, signal]);
 
   const importBoard = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -489,6 +553,7 @@ function SlopBoardInner({ posts }: Props) {
 
       if (!parsed) {
         showToast("arquivo inválido ou de outra versão");
+        signal("sinal corrompido // arquivo inválido", "error", 6000);
         return;
       }
 
@@ -520,8 +585,9 @@ function SlopBoardInner({ posts }: Props) {
       );
       setFilter("todos");
       showToast(`lousa importada: ${parsed.notes.length} slop(s)`);
+      signal(`importado // ${parsed.notes.length} notas locais`, "info", 6000);
     },
-    [notes.length, posts, setNodes, showToast],
+    [notes.length, posts, setNodes, showToast, signal],
   );
 
   const clearBoard = useCallback(() => {
@@ -547,7 +613,8 @@ function SlopBoardInner({ posts }: Props) {
       current.filter((node) => node.data.item.kind === "post"),
     );
     showToast("lousa limpa");
-  }, [notes.length, positions, setNodes, showToast]);
+    signal("sinal perdido // lousa limpa", "error", 7200);
+  }, [notes.length, positions, setNodes, showToast, signal]);
 
   const handleDragStop: OnNodeDrag<SlopBoardNode> = useCallback(
     (_event, node) => {
@@ -570,8 +637,16 @@ function SlopBoardInner({ posts }: Props) {
   const customCount = notes.filter((note) => !note.deleting).length;
 
   return (
-    <SlopNoteActionsContext.Provider value={{ open: setReading, remove }}>
+    <SlopNoteActionsContext.Provider value={{ open: openReader, remove }}>
       <div className="slop-shell">
+        <SlopTicker
+          notesCount={customCount}
+          siteCount={posts.length}
+          latestTitle={posts[0]?.title}
+          ready={ready}
+          event={tickerEvent}
+        />
+
         <div className="slop-toolbar">
           <div className="slop-toolbar-main">
             <p className="slop-count">
@@ -591,7 +666,7 @@ function SlopBoardInner({ posts }: Props) {
                   className="slop-filter"
                   data-tool={option.value}
                   aria-pressed={filter === option.value}
-                  onClick={() => setFilter(option.value)}
+                  onClick={() => selectFilter(option.value)}
                 >
                   <i className="slop-filter-dot" aria-hidden="true" />
                   {option.label}
@@ -678,17 +753,6 @@ function SlopBoardInner({ posts }: Props) {
         </div>
 
         {isMobile ? (
-          <p className="slop-hint">
-            toca num post-it pra ler · tudo fica no teu navegador
-          </p>
-        ) : (
-          <p className="slop-hint">
-            <kbd>n</kbd> prega um post-it · clica pra ler · arrasta pelo
-            cabeçalho · tudo fica no teu navegador
-          </p>
-        )}
-
-        {isMobile ? (
           <div className="slop-wall">
             {visibleItems.length === 0 ? (
               <p className="slop-empty">
@@ -707,7 +771,7 @@ function SlopBoardInner({ posts }: Props) {
                   key={item.id}
                   item={item}
                   index={index}
-                  onOpen={setReading}
+                  onOpen={openReader}
                   onDelete={remove}
                 />
               ))
@@ -762,7 +826,7 @@ function SlopBoardInner({ posts }: Props) {
                   <button
                     type="button"
                     className="slop-btn"
-                    onClick={() => setFilter("todos")}
+                    onClick={() => selectFilter("todos")}
                   >
                     ver todos
                   </button>

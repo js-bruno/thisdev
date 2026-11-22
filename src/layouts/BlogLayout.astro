@@ -1,44 +1,131 @@
 ---
 import site from "../data/site.ts";
 import KonamiLang from "../components/KonamiLang.tsx";
+import SystemHeader from "../components/system/SystemHeader.astro";
+import SystemFooter from "../components/system/SystemFooter.astro";
+import SystemPageHeader from "../components/system/SystemPageHeader.astro";
+import SystemSidebar from "../components/system/SystemSidebar.astro";
+import {
+  sections,
+  sectionForPath,
+  type SectionId,
+} from "../data/nav";
 import "../styles/global.css";
+import "../styles/system.css";
+
+interface MetaItem {
+  label: string;
+  value: string;
+}
 
 interface Props {
   title?: string;
   description?: string;
   bodyClass?: string;
+  section?: SectionId;
+  code?: string;
+  pageTitle?: string;
+  pageDescription?: string;
+  wide?: boolean;
+  showHeader?: boolean;
+  meta?: MetaItem[];
 }
 
-const { title, description, bodyClass } = Astro.props;
-const pageTitle = title ? `${title} | ${site.name}` : site.name;
-const pageDesc = description || site.description;
+const {
+  title,
+  description,
+  bodyClass,
+  section,
+  code,
+  pageTitle,
+  pageDescription,
+  wide = false,
+  showHeader = true,
+  meta = [],
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const activeSection = section
+  ? sections.find((item) => item.id === section)
+  : sectionForPath(pathname);
+const signal = activeSection?.signal ?? "gold";
+const sectionId = section ?? activeSection?.id;
+const pageTitleText = pageTitle ?? title ?? site.name;
+const pageDescriptionText = pageDescription ?? description ?? site.description;
+const pageTitleBrowser = title ? `${title} | ${site.name}` : site.name;
+const pathLabel = `~/this_dev${pathname.replace(/\/+$/, "") || ""}`;
+
+const classes = ["sys-page", bodyClass].filter(Boolean).join(" ");
+
+const defaultIndex = sections.map((item) => ({
+  label: item.label,
+  href: item.href,
+  current: item.id === sectionId,
+}));
+
+const defaultMeta: MetaItem[] = [
+  { label: "path", value: pathname },
+  { label: "mode", value: "dark only" },
+  { label: "build", value: "2026" },
+  ...meta,
+];
 ---
 
 <!doctype html>
-<html lang="pt-br" data-theme="light">
+<html lang="pt-br" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDesc} />
+    <title>{pageTitleBrowser}</title>
+    <meta name="description" content={description || pageDescription || site.description} />
     <link rel="stylesheet" href="/assets/css/prism-diff.css" />
     <script is:inline>
       (function () {
-        var t = localStorage.getItem("theme") || "dark";
         var l = localStorage.getItem("lang") || "pt-br";
-        document.documentElement.setAttribute("data-theme", t);
         document.documentElement.lang = l;
+        document.documentElement.setAttribute("data-lang", l);
       })();
     </script>
   </head>
-  <body class={bodyClass}>
+
+  <body class={classes} data-signal={signal} id="top">
     <a href="#main" id="skip-link" class="visually-hidden">
-      <span>Skip to main content</span>
+      <span>Pular para o conteúdo</span>
     </a>
 
-    <main id="main">
-      <slot />
-    </main>
+    <SystemHeader section={sectionId} />
+
+    {
+      showHeader && (
+        <SystemPageHeader
+          title={pageTitleText}
+          description={pageDescriptionText}
+          path={pathLabel}
+          code={code}
+          meta={meta}
+        >
+          <slot name="intro" />
+        </SystemPageHeader>
+      )
+    }
+
+    <div class={wide ? "sys-layout sys-layout--wide" : "sys-layout"}>
+      <main id="main" class="sys-main">
+        <slot />
+      </main>
+
+      <aside class="sys-aside" aria-label="índice e informações da página">
+        <slot name="sidebar">
+          <SystemSidebar
+            indexTitle="seções"
+            items={defaultIndex}
+            meta={defaultMeta.slice(0, 3)}
+          />
+        </slot>
+      </aside>
+    </div>
+
+    <SystemFooter />
 
     <KonamiLang client:load />
   </body>

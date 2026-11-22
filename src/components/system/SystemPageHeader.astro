@@ -1,0 +1,45 @@
+---
+interface MetaItem {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  path: string;
+  code?: string;
+  meta?: MetaItem[];
+}
+
+const { title, description, path, code, meta = [] } = Astro.props;
+---
+
+<header class="sys-pagehead">
+  <img
+    class="sys-watermark"
+    src="/assets/images/color.png"
+    alt=""
+    aria-hidden="true"
+    decoding="async"
+  />
+
+  <div class="sys-pagehead-inner">
+    <p class="sys-path">{path}</p>
+    <h1>{title}</h1>
+
+    {description && <p class="sys-pagehead-desc">{description}</p>}
+
+    <slot />
+
+    <div class="sys-pagehead-meta">
+      {code && <span class="sys-pagehead-code">{code}</span>}
+      {meta.map((item) => (
+        <span class="sys-pagehead-meta-item">
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </span>
+      ))}
+    </div>
+  </div>
+</header>

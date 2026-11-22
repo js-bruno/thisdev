@@ -1,5 +1,6 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -20,44 +21,81 @@ export async function getStaticPaths() {
 
   return [...tagMap.entries()].map(([slug, tagPosts]) => ({
     params: { tag: slug },
-    props: { tag: slug, tagPosts },
+    props: { tag: slug, tagPosts, allPosts: posts },
   }));
 }
 
-const { tag, tagPosts } = Astro.props;
+const { tag, tagPosts, allPosts } = Astro.props;
 
-const sorted = tagPosts.sort((a, b) => {
+const sorted = [...tagPosts].sort((a, b) => {
   const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
   const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
   return dateB - dateA;
 });
+
+const counts = new Map<string, number>();
+
+allPosts.forEach((post) => {
+  const tags = post.data.tags;
+  if (!tags) return;
+  const list = Array.isArray(tags) ? tags : [tags];
+  list.forEach((item) => {
+    const slug = item.toLowerCase().replace(/\s+/g, "-");
+    counts.set(slug, (counts.get(slug) ?? 0) + 1);
+  });
+});
+
+const allTags = [...counts.entries()]
+  .map(([slug, count]) => ({ slug, count }))
+  .sort((a, b) => a.slug.localeCompare(b.slug));
 ---
 
-<BlogLayout title={`Tagged '${tag}'`}>
-  <h1>Tagged "{tag}"</h1>
+<BlogLayout
+  title={`Tag: ${tag}`}
+  section="tags"
+  code={`TAG_${tag.toUpperCase()}`}
+  pageTitle={`tag // ${tag}`}
+  pageDescription={`transmissões marcadas com #${tag}. ${sorted.length} registro${sorted.length === 1 ? "" : "s"} encontrado${sorted.length === 1 ? "" : "s"}.`}
+  meta={[
+    { label: "registros", value: String(sorted.length) },
+  ]}
+>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="todas as tags"
+    items={allTags.map((item) => ({
+      label: `#${item.slug}`,
+      href: `/tags/${item.slug}/`,
+      count: item.count,
+      current: item.slug === tag,
+    }))}
+    meta={[
+      { label: "tag", value: `#${tag}` },
+      { label: "registros", value: String(sorted.length) },
+      { label: "modo", value: "dark only" },
+    ]}
+    note={`voltar para o índice de tags: /tags/`}
+  />
 
-  <ol
-    reversed
-    class="postlist"
-    style={`--postlist-index: ${sorted.length + 1}`}
-  >
+  <ol reversed class="tag-log">
     {
       sorted.map((post) => {
         const date = post.data.date ? new Date(post.data.date) : null;
         const htmlDate = date ? date.toISOString().split("T")[0] : null;
         const readableDate = date
-          ? date.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })
+          ? date.toLocaleDateString("pt-BR", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              timeZone: "UTC",
+            })
           : null;
 
         return (
-          <li class="postlist-item">
-            <a href={`/ai-slops/${post.slug}/`} class="postlist-link">
-              {post.data.title}
-            </a>
-            {htmlDate && (
-              <time class="postlist-date" datetime={htmlDate}>
-                {readableDate}
-              </time>
+          <li>
+            <a href={`/ai-slops/${post.slug}/`}>{post.data.title}</a>
+            {htmlDate && readableDate && (
+              <time datetime={htmlDate}>{readableDate}</time>
             )}
           </li>
         );
@@ -65,5 +103,7 @@ const sorted = tagPosts.sort((a, b) => {
     }
   </ol>
 
-  <p><span>See <a href="/tags/">all tags</a>.</span></p>
+  <p class="res-rail-note">
+    <a href="/tags/">← todos os assuntos</a>
+  </p>
 </BlogLayout>

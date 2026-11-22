@@ -1,8 +1,22 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+import SystemSidebar from "../components/system/SystemSidebar.astro";
 ---
 
-<BlogLayout title="Color Wheel" description="círculo cromático pra brincar com matizes, harmonia e paletas de cor." bodyClass="wheel-page">
+<BlogLayout
+  title="Color Wheel"
+  description="círculo cromático pra brincar com matizes, harmonia e paletas de cor."
+  bodyClass="wheel-page"
+  section="color-wheel"
+  code="LAB_08"
+  pageTitle="color wheel"
+  pageDescription="escolhe um matiz no círculo, ajusta a saturação na distância do centro e a luminosidade no anel externo. o laboratório fica aberto."
+  meta={[
+    { label: "modo", value: "harmonia" },
+    { label: "paleta", value: "local" },
+  ]}
+  wide={true}
+>
   <style>
     :global(body.wheel-page) {
       --col: 76rem;
@@ -887,14 +901,24 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     }
   </style>
 
-  <h1>círculo cromático</h1>
-  <p class="wheel-intro">
-    escolha um matiz no círculo, ajuste a saturação na distância do centro e a
-    luminosidade no anel externo. arraste qualquer círculo pra girar a harmonia
-    inteira, ou clique no <strong>+</strong> pra guardar uma cor na paleta.
-  </p>
+  <SystemSidebar
+    slot="sidebar"
+    indexTitle="no laboratório"
+    items={[
+      { label: "círculo", href: "#roda" },
+      { label: "códigos", href: "#codigos" },
+      { label: "séries", href: "#series" },
+      { label: "minha paleta", href: "#paleta" },
+    ]}
+    meta={[
+      { label: "modo", value: "harmonia" },
+      { label: "paleta", value: "local" },
+      { label: "tema", value: "dark only" },
+    ]}
+    note="a roda e a paleta continuam funcionando como antes; só o frame mudou."
+  />
 
-  <section class="wheel-grid">
+  <section class="wheel-grid" id="roda">
     <div class="card wheel-panel">
       <div
         class="wheel-wrap"
@@ -980,7 +1004,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     </div>
   </section>
 
-  <section class="card codes-card">
+  <section class="card codes-card" id="codigos">
     <div class="panel-head">
       <h2>códigos</h2>
       <div class="panel-actions">
@@ -1001,7 +1025,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     <p class="copy-status" id="codesStatus" aria-live="polite"></p>
   </section>
 
-  <section class="card series-card">
+  <section class="card series-card" id="series">
     <div class="panel-head">
       <h2>shades · tints · tones</h2>
       <span class="hint">derivadas da cor base, em passos de 10%</span>
@@ -1010,7 +1034,7 @@ import BlogLayout from "../layouts/BlogLayout.astro";
     <p class="copy-status" id="seriesStatus" aria-live="polite"></p>
   </section>
 
-  <section class="wheel-bottom">
+  <section class="wheel-bottom" id="paleta">
     <div class="card">
       <div class="panel-head">
         <h2>minha paleta</h2>
