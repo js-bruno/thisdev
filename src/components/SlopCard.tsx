@@ -1,15 +1,11 @@
 import {
-  useEffect,
-  useRef,
-  useState,
   type CSSProperties,
+  type KeyboardEvent,
   type MouseEvent,
 } from "react";
 import {
-  copyTextFor,
   formatRelative,
   formatTool,
-  MAX_TEXT,
   noteRotationFor,
   type SlopItem,
 } from "../lib/slops";
@@ -17,7 +13,7 @@ import {
 type Props = {
   item: SlopItem;
   index: number;
-  onCopy: (text: string) => void;
+  onOpen: (item: SlopItem) => void;
   onDelete: (id: string) => void;
 };
 
@@ -26,19 +22,8 @@ type NoteStyle = CSSProperties & {
   "--enter-delay": string;
 };
 
-export default function SlopCard({ item, index, onCopy, onDelete }: Props) {
-  const [expanded, setExpanded] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const copyTimer = useRef<number | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (copyTimer.current) window.clearTimeout(copyTimer.current);
-    };
-  }, []);
-
+export default function SlopCard({ item, index, onOpen, onDelete }: Props) {
   const isPost = item.kind === "post";
-  const isLong = item.text.length + (item.description?.length ?? 0) > 170;
   const style: NoteStyle = {
     "--note-rot": `${noteRotationFor(item.id)}deg`,
     "--enter-delay": `${Math.min(index * 55, 420)}ms`,
@@ -48,21 +33,30 @@ export default function SlopCard({ item, index, onCopy, onDelete }: Props) {
     "slop-note",
     `slop-note--c${item.color}`,
     isPost ? "slop-note--post" : "slop-note--note",
-    expanded ? "is-expanded" : "",
     item.fresh ? "slop-note--fresh" : "",
     item.deleting ? "slop-note--deleting" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
-  function handleCopy(event: MouseEvent<HTMLButtonElement>) {
+  function open() {
+    onOpen(item);
+  }
+
+  function handleClick(event: MouseEvent<HTMLDivElement>) {
+    const selection = window.getSelection();
+
+    if (selection && selection.toString().trim()) return;
+
     event.stopPropagation();
-    onCopy(copyTextFor(item));
-    setCopied(true);
+    open();
+  }
 
-    if (copyTimer.current) window.clearTimeout(copyTimer.current);
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "Enter" && event.key !== " ") return;
 
-    copyTimer.current = window.setTimeout(() => setCopied(false), 1400);
+    event.preventDefault();
+    open();
   }
 
   function handleDelete(event: MouseEvent<HTMLButtonElement>) {
@@ -71,28 +65,28 @@ export default function SlopCard({ item, index, onCopy, onDelete }: Props) {
   }
 
   return (
-    <article
-      className={className}
-      style={style}
-      data-kind={item.kind}
-      onDoubleClick={(event) => {
-        if ((event.target as HTMLElement).closest("button, a")) return;
-        setExpanded((value) => !value);
-      }}
-    >
+    <article className={className} style={style} data-kind={item.kind}>
       <span className="slop-note-tape" aria-hidden="true" />
 
       {item.fresh && <span className="slop-note-ping" aria-hidden="true" />}
       {isPost && <span className="slop-note-badge">do site</span>}
 
-      <header className="slop-note-head" title="arrasta pela fita">
+      <header className="slop-note-head" title="arrasta pelo cabeçalho">
         <span className="slop-note-tool">{formatTool(item.tool)}</span>
         <time dateTime={item.createdAt}>
           {formatRelative(item.createdAt)}
         </time>
       </header>
 
-      <div className="slop-note-body nodrag">
+      <div
+        className="slop-note-body nodrag"
+        role="button"
+        tabIndex={0}
+        title="clica pra ler"
+        aria-haspopup="dialog"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
         {isPost ? (
           <h3 className="slop-note-title">{item.text}</h3>
         ) : (
@@ -102,38 +96,12 @@ export default function SlopCard({ item, index, onCopy, onDelete }: Props) {
         {item.description && (
           <p className="slop-note-desc">{item.description}</p>
         )}
-
-        {isLong && (
-          <button
-            type="button"
-            className="slop-note-more"
-            onClick={() => setExpanded((value) => !value)}
-            aria-expanded={expanded}
-          >
-            {expanded ? "recolher" : "ver mais"}
-          </button>
-        )}
       </div>
 
       {item.author && <span className="slop-note-author">~ {item.author}</span>}
 
-      <footer className="slop-note-actions nodrag">
-        {item.href && (
-          <a href={item.href} className="slop-note-link">
-            ler completo →
-          </a>
-        )}
-
-        <button
-          type="button"
-          className={copied ? "is-copied" : ""}
-          onClick={handleCopy}
-          aria-label="copiar este slop"
-        >
-          {copied ? "copiado ✓" : "copiar"}
-        </button>
-
-        {!isPost && (
+      {!isPost && (
+        <footer className="slop-note-actions nodrag">
           <button
             type="button"
             className="is-danger"
@@ -142,12 +110,8 @@ export default function SlopCard({ item, index, onCopy, onDelete }: Props) {
           >
             apagar
           </button>
-        )}
-
-        <span className="slop-note-count" aria-hidden="true">
-          {item.text.length}/{MAX_TEXT}
-        </span>
-      </footer>
+        </footer>
+      )}
     </article>
   );
 }

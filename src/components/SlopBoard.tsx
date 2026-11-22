@@ -23,6 +23,7 @@ import "@xyflow/react/dist/style.css";
 
 import SlopCard from "./SlopCard";
 import SlopComposer, { type SlopDraft } from "./SlopComposer";
+import SlopReader from "./SlopReader";
 import SlopNoteNode, {
   type SlopBoardNode,
   type SlopNoteData,
@@ -71,6 +72,7 @@ function toBoardNode(
     id: item.id,
     type: "slop",
     position,
+    dragHandle: ".slop-note-head",
     data: { item, index },
   };
 }
@@ -177,6 +179,7 @@ function SlopBoardInner({ posts }: Props) {
   const [nodes, setNodes, onNodesChange] = useNodesState<SlopBoardNode>([]);
   const [filter, setFilter] = useState<Filter>("todos");
   const [composerOpen, setComposerOpen] = useState(false);
+  const [reading, setReading] = useState<SlopItem | null>(null);
   const [organizing, setOrganizing] = useState(false);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
   const [ready, setReady] = useState(false);
@@ -252,7 +255,7 @@ function SlopBoardInner({ posts }: Props) {
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (composerOpen || event.defaultPrevented) return;
+      if (composerOpen || reading || event.defaultPrevented) return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
 
       const target = event.target as HTMLElement | null;
@@ -275,7 +278,7 @@ function SlopBoardInner({ posts }: Props) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [composerOpen]);
+  }, [composerOpen, reading]);
 
   useEffect(() => {
     return () => {
@@ -567,12 +570,12 @@ function SlopBoardInner({ posts }: Props) {
   const customCount = notes.filter((note) => !note.deleting).length;
 
   return (
-    <SlopNoteActionsContext.Provider value={{ copy, remove }}>
+    <SlopNoteActionsContext.Provider value={{ open: setReading, remove }}>
       <div className="slop-shell">
         <div className="slop-toolbar">
           <p className="slop-count">
-            <strong>{customCount}</strong> teus <span>·</span> {posts.length} do
-            site
+            <strong key={customCount}>{customCount}</strong> teus <span>·</span>{" "}
+            {posts.length} do site
           </p>
 
           <div className="slop-filters" role="group" aria-label="filtrar a lousa">
@@ -650,10 +653,16 @@ function SlopBoardInner({ posts }: Props) {
           </div>
         </div>
 
-        <p className="slop-hint">
-          <kbd>n</kbd> abre um post-it · arrasta pela fita · duplo clique expande
-          · tudo fica no teu navegador
-        </p>
+        {isMobile ? (
+          <p className="slop-hint">
+            toca num post-it pra ler · tudo fica no teu navegador
+          </p>
+        ) : (
+          <p className="slop-hint">
+            <kbd>n</kbd> prega um post-it · clica pra ler · arrasta pelo
+            cabeçalho · tudo fica no teu navegador
+          </p>
+        )}
 
         {isMobile ? (
           <div className="slop-wall">
@@ -674,7 +683,7 @@ function SlopBoardInner({ posts }: Props) {
                   key={item.id}
                   item={item}
                   index={index}
-                  onCopy={copy}
+                  onOpen={setReading}
                   onDelete={remove}
                 />
               ))
@@ -715,7 +724,7 @@ function SlopBoardInner({ posts }: Props) {
                   style={{ bottom: 30 }}
                 />
                 <Panel position="top-left" className="slop-panel">
-                  <span>lousa local · arrasta pela fita</span>
+                  <span>lousa local · clica pra ler</span>
                 </Panel>
               </ReactFlow>
             ) : (
@@ -744,6 +753,12 @@ function SlopBoardInner({ posts }: Props) {
         open={composerOpen}
         onClose={() => setComposerOpen(false)}
         onSubmit={addNote}
+      />
+
+      <SlopReader
+        item={reading}
+        onClose={() => setReading(null)}
+        onCopy={copy}
       />
 
       {toast && (

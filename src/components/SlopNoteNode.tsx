@@ -20,7 +20,7 @@ export default function SlopNoteNode({ data }: NodeProps<SlopBoardNode>) {
     <SlopCard
       item={data.item}
       index={data.index}
-      onCopy={actions?.copy ?? noop}
+      onOpen={actions?.open ?? noop}
       onDelete={actions?.remove ?? noop}
     />
   );

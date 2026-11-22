@@ -1,7 +1,8 @@
 import { createContext } from "react";
+import type { SlopItem } from "./slops";
 
 export type SlopNoteActions = {
-  copy: (text: string) => void;
+  open: (item: SlopItem) => void;
   remove: (id: string) => void;
 };
 

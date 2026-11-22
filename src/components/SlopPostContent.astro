@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<template data-slop-content={post.slug}>
+  <div class="slop-prose"><Content /></div>
+</template>
