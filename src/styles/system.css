@@ -2310,3 +2310,178 @@ body::after {
     margin-left: auto;
   }
 }
+
+/* ── leitor: papel do post-it + painel de comentários ─────────── */
+.slop-reader {
+  --reader-paper: #e9ddc0;
+  --reader-comment-bg: #3a3a3a;
+  --reader-comment-ink: #f4ead2;
+  --reader-comment-muted: rgb(244 234 210 / 0.68);
+  --reader-comment-line: rgb(244 234 210 / 0.22);
+  --reader-comment-accent: var(--sys-gold);
+  --reader-tape: var(--reader-comment-bg);
+}
+
+.slop-reader--c0 {
+  --reader-paper: #cdb87f;
+  --reader-comment-bg: #354164;
+  --reader-tape: #354164;
+}
+
+.slop-reader--c1 {
+  --reader-paper: #cfa092;
+  --reader-comment-bg: #385861;
+  --reader-tape: #385861;
+}
+
+.slop-reader--c2 {
+  --reader-paper: #aebd8c;
+  --reader-comment-bg: #453a5f;
+  --reader-tape: #453a5f;
+}
+
+.slop-reader--c3 {
+  --reader-paper: #9fbac6;
+  --reader-comment-bg: #5f453a;
+  --reader-tape: #5f453a;
+}
+
+.slop-reader--c4 {
+  --reader-paper: #b8a7cb;
+  --reader-comment-bg: #4e5f3a;
+  --reader-tape: #4e5f3a;
+}
+
+.slop-reader--c5 {
+  --reader-paper: #d3a983;
+  --reader-comment-bg: #324d67;
+  --reader-tape: #324d67;
+}
+
+.slop-reader-tape {
+  border-right-color: rgb(255 255 255 / 0.18);
+  border-left-color: rgb(255 255 255 / 0.18);
+  opacity: 0.9;
+}
+
+.slop-reader-comments {
+  margin: 1.8rem 0 0;
+  padding: 1rem;
+  border: 1px solid var(--reader-comment-line);
+  background: var(--reader-comment-bg);
+  color: var(--reader-comment-ink);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+
+.slop-reader-comments-head {
+  border-bottom-color: var(--reader-comment-line);
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comments-head > :last-child {
+  color: var(--reader-comment-accent);
+}
+
+.slop-reader-comments-empty {
+  margin: 0.5rem 0 0.9rem;
+  padding: 0.65rem 0;
+  border-top: 1px dotted var(--reader-comment-line);
+  border-bottom: 1px dotted var(--reader-comment-line);
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comment {
+  border-left-color: var(--reader-comment-line);
+}
+
+.slop-reader-comment-meta {
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comment-meta time {
+  color: var(--reader-comment-muted);
+  opacity: 0.78;
+}
+
+.slop-reader-comment-meta button {
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comment-meta button:hover,
+.slop-reader-comment-meta button:focus-visible {
+  color: var(--reader-comment-accent);
+}
+
+.slop-reader-comment p {
+  color: var(--reader-comment-ink);
+}
+
+.slop-reader-comment-form {
+  border-top-color: var(--reader-comment-line);
+}
+
+.slop-reader-comment-form label {
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comment-form input,
+.slop-reader-comment-form textarea {
+  border-color: var(--reader-comment-line);
+  background: rgb(0 0 0 / 0.27);
+  color: var(--reader-comment-ink);
+}
+
+.slop-reader-comment-form input::placeholder,
+.slop-reader-comment-form textarea::placeholder {
+  color: var(--reader-comment-muted);
+  opacity: 0.7;
+}
+
+.slop-reader-comment-form input:focus,
+.slop-reader-comment-form textarea:focus {
+  border-color: var(--reader-comment-accent);
+  box-shadow: 0 0 0 1px rgb(232 200 122 / 0.22);
+}
+
+.slop-reader-comment-actions {
+  color: var(--reader-comment-muted);
+}
+
+.slop-reader-comment-actions button {
+  border-color: var(--reader-comment-accent);
+  background: var(--reader-comment-accent);
+  color: #180f09;
+}
+
+.slop-reader-comment-actions button:hover:not(:disabled),
+.slop-reader-comment-actions button:focus-visible {
+  border-color: #fff0c8;
+  background: #fff0c8;
+  color: #180f09;
+}
+
+.slop-reader-comment-actions button:disabled {
+  opacity: 0.38;
+}
+
+.slop-reader-comments-jump {
+  margin-right: auto;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid var(--reader-ink);
+  background: transparent;
+  color: var(--reader-ink);
+  font-family: var(--font);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.slop-reader-comments-jump:hover,
+.slop-reader-comments-jump:focus-visible {
+  border-color: #8f2f1e;
+  background: #8f2f1e;
+  color: #fff3da;
+  outline: none;
+}
