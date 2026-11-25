@@ -1,18 +1,13 @@
 ---
-import site from "../../data/site.ts";
-import { sections, type SectionId } from "../../data/nav";
+import { tickerItems, type TickerItem } from "../../data/ticker";
 
 interface Props {
-  section?: SectionId;
+  items?: TickerItem[];
 }
 
-const { section } = Astro.props;
-const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const active =
-  section ??
-  sections.find(
-    (item) => path === item.href.replace(/\/+$/, "") || path.startsWith(item.href),
-  )?.id;
+const { items = tickerItems } = Astro.props;
+const track = Array.from({ length: 5 }, () => items).flat();
+const spoken = items.map((item) => item.label).join(". ");
 ---
 
 <header class="sys-header">
@@ -21,58 +16,20 @@ const active =
       <i class="sys-led" aria-hidden="true"></i>
       sys.online
     </span>
-    <span class="sys-topline-mid">local archive // no trackers</span>
-    <span class="sys-topline-right">pt-br · v.2026</span>
-  </div>
 
-  <div class="sys-header-main">
-    <a class="sys-logo" href="/" aria-label={`${site.name} — início`}>
-      <span class="sys-logo-mark" aria-hidden="true">◐</span>
-      <span>~/this_dev</span>
-    </a>
-
-    <nav class="sys-nav" aria-label="navegação principal">
-      {
-        sections.map((item) => (
-          <a
-            href={item.href}
-            aria-current={active === item.id ? "page" : undefined}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
-
-    <details class="sys-menu">
-      <summary>menu</summary>
-      <nav aria-label="navegação principal (mobile)">
+    <div class="sys-ticker">
+      <div class="sys-ticker-track" aria-hidden="true">
         {
-          sections.map((item) => (
-            <a
-              href={item.href}
-              aria-current={active === item.id ? "page" : undefined}
-            >
-              <span>{item.label}</span>
-              <span class="sys-menu-code">{item.code}</span>
-            </a>
+          track.map((item) => (
+            <span class={`sys-ticker-item is-${item.tone ?? "muted"}`}>
+              {item.label}
+            </span>
           ))
         }
-        <a href="/color-wheel/">
-          <span>color wheel</span>
-          <span class="sys-menu-code">LAB_08</span>
-        </a>
-      </nav>
-    </details>
+      </div>
+      <span class="visually-hidden">informações do sistema: {spoken}</span>
+    </div>
+
+    <span class="sys-topline-right">pt-br · v.2026</span>
   </div>
 </header>
-
-<script is:inline>
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-
-    document
-      .querySelectorAll(".sys-menu[open]")
-      .forEach((menu) => menu.removeAttribute("open"));
-  });
-</script>

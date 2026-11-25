@@ -93,12 +93,12 @@ export const NOTE_COLOR_LABELS = [
 
 /** espelha as cores de papel do global.css pro minimap do react flow */
 export const NOTE_HEX = [
-  "#cdb87f",
-  "#cfa092",
-  "#aebd8c",
-  "#9fbac6",
-  "#b8a7cb",
-  "#d3a983",
+  "#ffdf9b",
+  "#ffb3ac",
+  "#b9e6ad",
+  "#a8c8ff",
+  "#cdbaff",
+  "#ffc59b",
 ];
 
 export function hashString(input: string): number {

@@ -10,6 +10,7 @@ import {
   sectionForPath,
   type SectionId,
 } from "../data/nav";
+import type { TickerItem } from "../data/ticker";
 import "../styles/global.css";
 import "../styles/system.css";
 
@@ -29,6 +30,7 @@ interface Props {
   wide?: boolean;
   showHeader?: boolean;
   meta?: MetaItem[];
+  ticker?: TickerItem[];
 }
 
 const {
@@ -42,6 +44,7 @@ const {
   wide = false,
   showHeader = true,
   meta = [],
+  ticker,
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
@@ -79,6 +82,19 @@ const defaultMeta: MetaItem[] = [
     <title>{pageTitleBrowser}</title>
     <meta name="description" content={description || pageDescription || site.description} />
     <link rel="stylesheet" href="/assets/css/prism-diff.css" />
+    <link
+      rel="preload"
+      href="/assets/fonts/Jacquard12-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/images/slop-hero.webp"
+      as="image"
+      fetchpriority="high"
+    />
     <script is:inline>
       (function () {
         var l = localStorage.getItem("lang") || "pt-br";
@@ -93,7 +109,7 @@ const defaultMeta: MetaItem[] = [
       <span>Pular para o conteúdo</span>
     </a>
 
-    <SystemHeader section={sectionId} />
+    <SystemHeader items={ticker} />
 
     {
       showHeader && (

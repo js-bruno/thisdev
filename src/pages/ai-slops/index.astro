@@ -33,6 +33,12 @@ const latest = posts[0];
     { label: "textos", value: String(posts.length) },
     { label: "modo", value: "local only" },
   ]}
+  ticker={[
+    { label: "lousa local // nada sai do navegador", tone: "green" },
+    { label: `${posts.length} textos no arquivo`, tone: "gold" },
+    { label: "sem trackers", tone: "muted" },
+    { label: "build 2026.11", tone: "blue" },
+  ]}
   wide={true}
 >
   <Fragment slot="intro">
@@ -91,13 +97,13 @@ const latest = posts[0];
   .rainbow-word {
     background-image: linear-gradient(
       90deg,
-      #ff6b3d,
-      #e8c87a,
-      #9ed36a,
-      #55d6c2,
-      #8f9cff,
-      #d98fd1,
-      #ff6b3d
+      #ff8f7a,
+      #ffe19a,
+      #7dff9e,
+      #79e6e0,
+      #6aa8ff,
+      #b39dff,
+      #ff8f7a
     );
     background-size: 200% auto;
     background-clip: text;
