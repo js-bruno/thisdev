@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-import SystemSidebar from "../components/system/SystemSidebar.astro";
 import AboutMicroblog from "../components/AboutMicroblog.tsx";
 
 const facts = [
@@ -24,23 +23,6 @@ const facts = [
     { label: "modo", value: "dark only" },
   ]}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="neste arquivo"
-    items={[
-      { label: "identidade", href: "#identidade" },
-      { label: "retrato", href: "#retrato" },
-      { label: "diário", href: "#diario" },
-      { label: "nota final", href: "#nota" },
-    ]}
-    meta={[
-      { label: "status", value: "online" },
-      { label: "modo", value: "dark only" },
-      { label: "diário", value: "local" },
-      { label: "arquivo", value: "ID_07" },
-    ]}
-    note="tudo aqui é ficção, exceto o que não é."
-  />
 
   <section class="about-grid" aria-label="ficha pessoal">
     <div class="sys-panel about-file" id="identidade">

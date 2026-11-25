@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
-import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -36,21 +35,6 @@ const tags = [...tagMap.entries()]
     { label: "posts", value: String(posts.length) },
   ]}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="todas as tags"
-    items={tags.map((item) => ({
-      label: `#${item.tag}`,
-      href: `/tags/${item.slug}/`,
-      count: item.count,
-    }))}
-    meta={[
-      { label: "tags", value: String(tags.length) },
-      { label: "posts", value: String(posts.length) },
-      { label: "modo", value: "dark only" },
-    ]}
-    note="tags são geradas automaticamente a partir do frontmatter dos posts."
-  />
 
   <ul class="tag-grid" aria-label="todas as tags">
     {

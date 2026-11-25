@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content } = await post.render();
 
 const words = (post.body ?? "")
   .replace(/```[\s\S]*?```/g, " ")
@@ -29,7 +29,6 @@ const readingTime = Math.max(1, Math.round(words / 220));
   tags={post.data.tags}
   mood={post.data.mood}
   image={post.data.image}
-  headings={headings}
   readingTime={readingTime}
 >
   <Content />

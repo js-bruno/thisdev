@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
-import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import PhotoCard from "../../components/PhotoCard.astro";
 import PhotoLightbox from "../../components/PhotoLightbox.astro";
 import { getCollection } from "astro:content";
@@ -107,22 +106,6 @@ for (const roll of rolls) {
   ]}
   wide={true}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="rolos"
-    indexClass="sys-roll-index"
-    items={rolls.map(({ roll, slug, list }) => ({
-      label: roll,
-      href: `#${slug}`,
-      count: list.length,
-    }))}
-    meta={[
-      { label: "fotos", value: String(photos.length) },
-      { label: "rolos", value: String(rolls.length) },
-      { label: "modo", value: "contato" },
-    ]}
-    note="clica num quadro pra abrir o viewer. setas ← → navegam, Esc fecha."
-  />
 
   {
     rolls.length === 0 ? (

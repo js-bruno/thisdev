@@ -899,7 +899,7 @@ function SlopBoardInner({ posts }: Props) {
                     NOTE_HEX[(node.data as SlopNoteData).item.color] ??
                     NOTE_HEX[0]
                   }
-                  maskColor="rgb(10 7 8 / 0.72)"
+                  maskColor="rgb(3 5 12 / 0.72)"
                   style={{ bottom: 30 }}
                 />
                 <Panel position="top-left" className="slop-panel">

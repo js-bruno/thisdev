@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-import SystemSidebar from "../components/system/SystemSidebar.astro";
 
 interface Item {
   name: string;
@@ -129,21 +128,6 @@ const totalLinks = groups.reduce((total, group) => total + group.items.length, 0
     { label: "links", value: String(totalLinks) },
   ]}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="categorias"
-    items={groups.map((group) => ({
-      label: group.title,
-      href: `#${slug(group.title)}`,
-      count: group.items.length,
-    }))}
-    meta={[
-      { label: "categorias", value: String(groups.length) },
-      { label: "links", value: String(totalLinks) },
-      { label: "modo", value: "curadoria manual" },
-    ]}
-    note="links abrem fora do arquivo. nenhum passa por redirect deste site."
-  />
 
   {
     groups.map((group) => (

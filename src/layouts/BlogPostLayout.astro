@@ -2,12 +2,6 @@
 import BlogLayout from "./BlogLayout.astro";
 import SystemPageHeader from "../components/system/SystemPageHeader.astro";
 
-interface Heading {
-  depth: number;
-  slug: string;
-  text: string;
-}
-
 interface Props {
   title: string;
   date?: Date;
@@ -15,7 +9,6 @@ interface Props {
   tags?: string | string[];
   mood?: string;
   image?: string;
-  headings?: Heading[];
   readingTime?: number;
 }
 
@@ -26,7 +19,6 @@ const {
   tags,
   mood,
   image,
-  headings = [],
   readingTime,
 } = Astro.props;
 
@@ -40,7 +32,6 @@ const formattedDate = date
   : null;
 
 const tagList = tags ? (Array.isArray(tags) ? tags : [tags]) : [];
-const toc = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const path = Astro.url.pathname.replace(/\/+$/, "");
 ---
 
@@ -54,51 +45,6 @@ const path = Astro.url.pathname.replace(/\/+$/, "");
     ...(readingTime ? [{ label: "leitura", value: `${readingTime} min` }] : []),
   ]}
 >
-  <Fragment slot="sidebar">
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>transmission info</span>
-        <span aria-hidden="true">⌁</span>
-      </div>
-      <dl class="sys-meta">
-        {formattedDate && (
-          <div><dt>data</dt><dd>{formattedDate}</dd></div>
-        )}
-        {mood && <div><dt>mood</dt><dd>~ {mood}</dd></div>}
-        <div><dt>leitura</dt><dd>{readingTime ?? 1} min</dd></div>
-        <div><dt>tags</dt><dd>{tagList.length}</dd></div>
-        <div><dt>modo</dt><dd>dark only</dd></div>
-      </dl>
-    </div>
-
-    {toc.length > 0 && (
-      <div class="sys-panel">
-        <div class="sys-panel-head">
-          <span>índice</span>
-          <span aria-hidden="true">↧</span>
-        </div>
-        <ul class="post-toc">
-          {toc.map((heading) => (
-            <li class={`depth-${heading.depth}`}>
-              <a href={`#${heading.slug}`}>{heading.text}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>network</span>
-        <span aria-hidden="true">↗</span>
-      </div>
-      <ul class="sys-index sys-index--plain">
-        <li><a href="/ai-slops/">← lousa</a></li>
-        <li><a href="/tags/">tags</a></li>
-        <li><a href="/">home</a></li>
-      </ul>
-    </div>
-  </Fragment>
 
   <div class="post-progress" aria-hidden="true"></div>
 

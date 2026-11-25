@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-import SystemSidebar from "../components/system/SystemSidebar.astro";
 ---
 
 <BlogLayout
@@ -900,23 +899,6 @@ import SystemSidebar from "../components/system/SystemSidebar.astro";
       }
     }
   </style>
-
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="no laboratório"
-    items={[
-      { label: "círculo", href: "#roda" },
-      { label: "códigos", href: "#codigos" },
-      { label: "séries", href: "#series" },
-      { label: "minha paleta", href: "#paleta" },
-    ]}
-    meta={[
-      { label: "modo", value: "harmonia" },
-      { label: "paleta", value: "local" },
-      { label: "tema", value: "dark only" },
-    ]}
-    note="a roda e a paleta continuam funcionando como antes; só o frame mudou."
-  />
 
   <section class="wheel-grid" id="roda">
     <div class="card wheel-panel">

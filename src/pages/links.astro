@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-import SystemSidebar from "../components/system/SystemSidebar.astro";
 
 const bottoms = [
   { src: "/assets/images/bottoms/coils.webp", alt: "coils.net", href: "https://coils.net" },
@@ -23,20 +22,6 @@ const bottoms = [
     { label: "protocolo", value: "88×31" },
   ]}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="neste nó"
-    items={[
-      { label: "vizinhos", href: "#vizinhos", count: bottoms.length },
-      { label: "link me", href: "#link-me" },
-    ]}
-    meta={[
-      { label: "protocolo", value: "88×31" },
-      { label: "nós", value: String(bottoms.length) },
-      { label: "modo", value: "dark only" },
-    ]}
-    note="se um botão sumir, o link provavelmente também sumiu."
-  />
 
   <section class="sys-panel" id="vizinhos">
     <div class="sys-panel-head">

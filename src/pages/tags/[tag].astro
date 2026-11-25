@@ -1,6 +1,5 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
-import SystemSidebar from "../../components/system/SystemSidebar.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -21,11 +20,11 @@ export async function getStaticPaths() {
 
   return [...tagMap.entries()].map(([slug, tagPosts]) => ({
     params: { tag: slug },
-    props: { tag: slug, tagPosts, allPosts: posts },
+    props: { tag: slug, tagPosts },
   }));
 }
 
-const { tag, tagPosts, allPosts } = Astro.props;
+const { tag, tagPosts } = Astro.props;
 
 const sorted = [...tagPosts].sort((a, b) => {
   const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
@@ -33,21 +32,6 @@ const sorted = [...tagPosts].sort((a, b) => {
   return dateB - dateA;
 });
 
-const counts = new Map<string, number>();
-
-allPosts.forEach((post) => {
-  const tags = post.data.tags;
-  if (!tags) return;
-  const list = Array.isArray(tags) ? tags : [tags];
-  list.forEach((item) => {
-    const slug = item.toLowerCase().replace(/\s+/g, "-");
-    counts.set(slug, (counts.get(slug) ?? 0) + 1);
-  });
-});
-
-const allTags = [...counts.entries()]
-  .map(([slug, count]) => ({ slug, count }))
-  .sort((a, b) => a.slug.localeCompare(b.slug));
 ---
 
 <BlogLayout
@@ -60,22 +44,6 @@ const allTags = [...counts.entries()]
     { label: "registros", value: String(sorted.length) },
   ]}
 >
-  <SystemSidebar
-    slot="sidebar"
-    indexTitle="todas as tags"
-    items={allTags.map((item) => ({
-      label: `#${item.slug}`,
-      href: `/tags/${item.slug}/`,
-      count: item.count,
-      current: item.slug === tag,
-    }))}
-    meta={[
-      { label: "tag", value: `#${tag}` },
-      { label: "registros", value: String(sorted.length) },
-      { label: "modo", value: "dark only" },
-    ]}
-    note={`voltar para o índice de tags: /tags/`}
-  />
 
   <ol reversed class="tag-log">
     {

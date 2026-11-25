@@ -4,7 +4,6 @@ import KonamiLang from "../components/KonamiLang.tsx";
 import SystemHeader from "../components/system/SystemHeader.astro";
 import SystemFooter from "../components/system/SystemFooter.astro";
 import SystemPageHeader from "../components/system/SystemPageHeader.astro";
-import SystemSidebar from "../components/system/SystemSidebar.astro";
 import {
   sections,
   sectionForPath,
@@ -52,7 +51,6 @@ const activeSection = section
   ? sections.find((item) => item.id === section)
   : sectionForPath(pathname);
 const signal = activeSection?.signal ?? "gold";
-const sectionId = section ?? activeSection?.id;
 const pageTitleText = pageTitle ?? title ?? site.name;
 const pageDescriptionText = pageDescription ?? description ?? site.description;
 const pageTitleBrowser = title ? `${title} | ${site.name}` : site.name;
@@ -60,18 +58,6 @@ const pathLabel = `~/this_dev${pathname.replace(/\/+$/, "") || ""}`;
 
 const classes = ["sys-page", bodyClass].filter(Boolean).join(" ");
 
-const defaultIndex = sections.map((item) => ({
-  label: item.label,
-  href: item.href,
-  current: item.id === sectionId,
-}));
-
-const defaultMeta: MetaItem[] = [
-  { label: "path", value: pathname },
-  { label: "mode", value: "dark only" },
-  { label: "build", value: "2026" },
-  ...meta,
-];
 ---
 
 <!doctype html>
@@ -82,13 +68,6 @@ const defaultMeta: MetaItem[] = [
     <title>{pageTitleBrowser}</title>
     <meta name="description" content={description || pageDescription || site.description} />
     <link rel="stylesheet" href="/assets/css/prism-diff.css" />
-    <link
-      rel="preload"
-      href="/assets/fonts/Jacquard12-Regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
     <link
       rel="preload"
       href="/assets/images/slop-hero.webp"
@@ -130,15 +109,6 @@ const defaultMeta: MetaItem[] = [
         <slot />
       </main>
 
-      <aside class="sys-aside" aria-label="índice e informações da página">
-        <slot name="sidebar">
-          <SystemSidebar
-            indexTitle="seções"
-            items={defaultIndex}
-            meta={defaultMeta.slice(0, 3)}
-          />
-        </slot>
-      </aside>
     </div>
 
     <SystemFooter />

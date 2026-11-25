@@ -17,62 +17,6 @@ import { projects, links } from "../../data/projects";
   ]}
   wide={true}
 >
-  <Fragment slot="sidebar">
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>signal key</span>
-        <span aria-hidden="true">⌁</span>
-      </div>
-      <ul class="sys-index sys-index--plain project-key">
-        <li><span><i class="legend-line legend-uses"></i> usa / roda</span></li>
-        <li><span><i class="legend-line legend-inspired"></i> inspirou</span></li>
-        <li><span><i class="legend-line legend-related"></i> relacionado</span></li>
-      </ul>
-    </div>
-
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>registry // {projects.length}</span>
-        <span aria-hidden="true">↗</span>
-      </div>
-      <ul class="sys-index">
-        {
-          projects.map((project) => (
-            <li>
-              <a href={project.href} target="_blank" rel="noopener">
-                <span>{project.title}</span>
-                <span class="sys-index-count">{project.language}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>sistema</span>
-        <span aria-hidden="true">⌁</span>
-      </div>
-      <dl class="sys-meta">
-        <div><dt>nós</dt><dd>{projects.length}</dd></div>
-        <div><dt>links</dt><dd>{links.length}</dd></div>
-        <div><dt>modo</dt><dd>dark only</dd></div>
-      </dl>
-    </div>
-
-    <div class="sys-panel">
-      <div class="sys-panel-head">
-        <span>network</span>
-        <span aria-hidden="true">↗</span>
-      </div>
-      <ul class="sys-index sys-index--plain">
-        <li><a href="/">← home</a></li>
-        <li><a href="/ai-slops/">ai slops</a></li>
-        <li><a href="/tags/">tags</a></li>
-      </ul>
-    </div>
-  </Fragment>
 
   <ProjectMap client:only="react" projects={projects} links={links} />
 
