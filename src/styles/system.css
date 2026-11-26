@@ -21,8 +21,8 @@
   --sys-signal: var(--sys-gold);
   --sys-header-h: 36px;
   --sys-pad: clamp(1rem, 3vw, 2.5rem);
-  --sys-max: 76rem;
-  --sys-wide: 104rem;
+  --sys-max: 68rem;
+  --sys-wide: 94rem;
 
   --sys-pixel: "Silkscreen", ui-monospace, monospace;
   --sys-data: "Departure Mono", ui-monospace, monospace;
@@ -54,7 +54,7 @@ body[data-signal="green"] { --sys-signal: var(--sys-green); }
 body[data-signal="ember"] { --sys-signal: var(--sys-ember); }
 
 html {
-  font-size: 18px;
+  font-size: 20px;
   background-color: var(--sys-bg);
   background-image:
     radial-gradient(circle at 78% 0%, rgb(176 161 227 / 0.09), transparent 42%),
@@ -80,7 +80,7 @@ body {
 body.sys-page {
   margin: 0;
   padding: 0;
-  font-size: 19px;
+  font-size: 22px;
 }
 
 body::before {
@@ -1324,6 +1324,7 @@ body::after {
 }
 
 .project-card {
+  height: 360px;
   border: 1px solid var(--sys-line-strong);
   background: #140d1b;
   box-shadow: 4px 4px 0 rgb(0 0 0 / 0.55);

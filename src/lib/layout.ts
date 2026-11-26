@@ -2,7 +2,7 @@ import dagre from "@dagrejs/dagre";
 import type { Edge, Node } from "@xyflow/react";
 
 const NODE_WIDTH = 280;
-const NODE_HEIGHT = 330;
+const NODE_HEIGHT = 360;
 
 export function layoutGraph<T extends Node>(
   nodes: T[],
