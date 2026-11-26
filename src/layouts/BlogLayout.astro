@@ -68,12 +68,6 @@ const classes = ["sys-page", bodyClass].filter(Boolean).join(" ");
     <title>{pageTitleBrowser}</title>
     <meta name="description" content={description || pageDescription || site.description} />
     <link rel="stylesheet" href="/assets/css/prism-diff.css" />
-    <link
-      rel="preload"
-      href="/assets/images/slop-hero.webp"
-      as="image"
-      fetchpriority="high"
-    />
     <script is:inline>
       (function () {
         var l = localStorage.getItem("lang") || "pt-br";
