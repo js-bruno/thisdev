@@ -9,11 +9,11 @@ const RAW_DIR = join(ROOT, "assets/raw");
 const OUT_DIR = join(ROOT, "public/assets/dither");
 const PATTERN_DIR = join(ROOT, "public/assets/patterns");
 
-// paleta "grimório": obsidiana, vinho, umber e osso
-const PALETTE = ["#070607", "#2a1a1c", "#6b4b32", "#ded0b4"];
+// paleta "noturno": ameixa, vinho, rosa e pêssego
+const PALETTE = ["#0b0711", "#3a1f3d", "#a9435f", "#f6c89f"];
 
 // largura de saída por arquivo (sem extensão); o resto mantém a original
-const RAW_WIDTH = { bg: 960 };
+const RAW_WIDTH = { bg: 960, moon: 960 };
 
 const BAYER8 = [
   [0, 32, 8, 40, 2, 34, 10, 42],

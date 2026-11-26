@@ -179,7 +179,7 @@ export default function ProjectMap({ projects, links }: Props) {
             nodeColor={(node) =>
               (node.data as ProjectCardData).languageColor
             }
-            maskColor="rgb(3 5 12 / 0.72)"
+            maskColor="rgb(7 4 12 / 0.72)"
             style={{ bottom: 32 }}
           />
         )}
