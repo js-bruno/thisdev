@@ -54,7 +54,7 @@ body[data-signal="green"] { --sys-signal: var(--sys-green); }
 body[data-signal="ember"] { --sys-signal: var(--sys-ember); }
 
 html {
-  font-size: 17px;
+  font-size: 18px;
   background-color: var(--sys-bg);
   background-image:
     radial-gradient(circle at 78% 0%, rgb(176 161 227 / 0.09), transparent 42%),
@@ -80,7 +80,7 @@ body {
 body.sys-page {
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 19px;
 }
 
 body::before {
